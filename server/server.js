@@ -25,7 +25,7 @@ app.post('/api/world', (req, res) => {
       test = rows;
       console.log(rows);
       res.send(
-        `${test[0].username}I received your POST request. This is what you sent me: ${req.body.post}`,
+        `${rows[0].first_name} I received your POST request. This is what you sent me: ${req.body.post}`,
       );
     });
 
