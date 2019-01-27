@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import './App.css';
+import './App.scss';
 
 class App extends Component {
 
@@ -36,7 +36,7 @@ class App extends Component {
   //     },
   //     body: JSON.stringify({ post: this.state.post }),
   //   });
-    
+
   //   const body = await response.text();
 
   //   this.setState({ responseToPost: body });
