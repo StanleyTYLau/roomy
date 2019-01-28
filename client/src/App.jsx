@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.scss';
+import axios from 'axios';
 // import { Container, Row, Col } from 'reactstrap';
 // import { Button } from 'reactstrap';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
@@ -7,14 +8,20 @@ import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 class App extends Component {
 
   state = {
-    members: []
-  };
+    members: [],
+    email: '',
+    password: '',
+    name: ''
+  }
 
   componentDidMount() {
-    fetch('/users')
-      .then(res => res.json())
-      .then(members => this.setState({ members: members }));
-  }
+    axios.get('/users')
+      .then(res =>  {
+        const members = res.data;
+        this.setState({ members });
+        console.log(members);
+  })
+}
   // componentDidMount() {
   //   this.callApi()
   //     .then(res => this.setState({ response: res.express }))
@@ -53,17 +60,17 @@ class App extends Component {
         </div>
         <div className="slogan">We help people to find roommates and places to live.</div>
 
-        <Form className="middle_form">
+        <Form className="middle_form" onSubmit = {this._handleSubmit}>
         <FormGroup>
           <Label for="Login" className="bold_font">Please, log in first:</Label>
         </FormGroup>
         <FormGroup>
             <Label for="Email">Email</Label>
-            <Input type="email" name="email" id="userEmail" placeholder="Enter your email" />
+            <Input type="email" name="email" id="userEmail" placeholder="Enter your email" onChange = {this._handleEmailChange} />
           </FormGroup>
           <FormGroup>
             <Label for="Password">Password</Label>
-            <Input type="password" name="password" id="userPassword" placeholder="Enter your password" />
+            <Input type="password" name="password" id="userPassword" placeholder="Enter your password" onChange = {this._handlePassChange} />
           </FormGroup>
           <Row form>
             <Col md={6}>
@@ -77,6 +84,32 @@ class App extends Component {
       </div>
     );
   }
+
+  _handleEmailChange = event => {
+    this.setState({ email: event.target.value });
+  }
+
+  _handlePassChange = event => {
+    this.setState({ password: event.target.value });
+  }
+
+  _handleSubmit = event => {
+    event.preventDefault();
+
+    const login = {
+      email: this.state.email,
+      password: this.state.password
+    };
+
+    axios.post('/users/login', { login })
+      .then( res => {
+        const name = res.data[0].first_name;
+        this.setState({ name });
+        alert('Hello ' + name);
+      })
+
+  }
+
 }
 
         //<div className="Users">
