@@ -8,15 +8,42 @@ import { BrowserRouter as Router,
   Link 
 } from "react-router-dom";
 
-const Home = () => (
-  <div>
-    <h2>Home</h2>
-  </div>
+const Login = () => (
+  <div className="middle_all">
+        <div className="middle_logo">
+          <img src="/images/logo_white.png" alt="Logo" className="logo"></img>
+        </div>
+        <div className="slogan">We help people to find roommates and places to live.</div>
+
+        <Form className="middle_form">
+        <FormGroup>
+          <Label for="Login" className="bold_font">Please, log in first:</Label>
+        </FormGroup>
+        <FormGroup>
+            <Label for="Email">Email</Label>
+            <Input type="email" name="email" id="userEmail" placeholder="Enter your email" />
+          </FormGroup>
+          <FormGroup>
+            <Label for="Password">Password</Label>
+            <Input type="password" name="password" id="userPassword" placeholder="Enter your password" />
+          </FormGroup>
+          <Row form>
+            <Col md={6}>
+              <Button className="button_char">
+                <Link to='/main'>LOGIN</Link>
+              </Button>
+            </Col>
+            <Col md={6}>
+              <a href="" className="register">or REGISTER</a>
+            </Col>
+          </Row>
+        </Form>
+      </div>
 )
 
-const About = () => (
+const Main = () => (
   <div>
-    <h2>About</h2>
+    <h2>You are at the main page!</h2>
   </div>
 )
 
@@ -63,48 +90,14 @@ class App extends Component {
 
   render() {
     return (
-      <div className="middle_all">
-        <div className="middle_logo">
-          <img src="/images/logo_white.png" alt="Logo" className="logo"></img>
+      <Router>
+        <div>
+
+          React Router Testing
+          <Route exact path='/' component={Login} />
+          <Route path='/main' component={Main} />
         </div>
-        <div className="slogan">We help people to find roommates and places to live.</div>
-
-        <Form className="middle_form">
-        <FormGroup>
-          <Label for="Login" className="bold_font">Please, log in first:</Label>
-        </FormGroup>
-        <FormGroup>
-            <Label for="Email">Email</Label>
-            <Input type="email" name="email" id="userEmail" placeholder="Enter your email" />
-          </FormGroup>
-          <FormGroup>
-            <Label for="Password">Password</Label>
-            <Input type="password" name="password" id="userPassword" placeholder="Enter your password" />
-          </FormGroup>
-          <Row form>
-            <Col md={6}>
-              <Button className="button_char">LOGIN</Button>
-            </Col>
-            <Col md={6}>
-              <a href="" className="register">or REGISTER</a>
-            </Col>
-          </Row>
-        </Form>
-
-        <Router>
-          <div>
-          <ul>
-            <li><Link to='/'>Home</Link></li>
-            <li><Link to='/about'>About</Link></li>
-            <li><Link to='/topics'>Topics</Link></li>
-          </ul>
-
-            React Router Testing
-            <Route exact path='/' component={Home} />
-            <Route path='/about' component={About} />
-          </div>
-        </Router>
-      </div>
+      </Router>     
     );
   }
 }
