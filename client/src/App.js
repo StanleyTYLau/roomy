@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import Header from "./Header"
+import RegisterContainer from "./RegisterContainer"
+import Footer from "./Footer"
 // import './App.css';
 
 class App extends Component {
@@ -36,11 +39,12 @@ class App extends Component {
   //     },
   //     body: JSON.stringify({ post: this.state.post }),
   //   });
-    
+
   //   const body = await response.text();
 
   //   this.setState({ responseToPost: body });
   // };
+
 
   render() {
     return (
@@ -49,7 +53,15 @@ class App extends Component {
          {this.state.members.map(member =>
            <div key={member.id}>{member.first_name} {member.last_name} - {member.email}</div>
          )}
-       </div>
+
+        <Header />
+        <RegisterContainer />
+        <Footer />
+
+      </div>
+
+
+
     );
   }
 }
