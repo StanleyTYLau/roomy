@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.scss';
+import Register from './Register.jsx';
 // import { Container, Row, Col } from 'reactstrap';
 // import { Button } from 'reactstrap';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
@@ -65,15 +66,12 @@ class App extends Component {
             <Label for="Password">Password</Label>
             <Input type="password" name="password" id="userPassword" placeholder="Enter your password" />
           </FormGroup>
-          <Row form>
-            <Col md={6}>
-              <Button className="button_char">LOGIN</Button>
-            </Col>
-            <Col md={6}>
-              <a href="" className="register">or REGISTER</a>
-            </Col>
-          </Row>
+            <Button className="button_char">LOGIN</Button>
         </Form>
+        <div className="registerBut">
+          <Register></Register>
+        </div>
+
       </div>
     );
   }

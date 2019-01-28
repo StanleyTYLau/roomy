@@ -7,8 +7,23 @@ body {
     font-family: 'Muli', sans-serif;
     background-color: $light-grey-color;
 
+    .registerBut {
+      width: 40%;
+      margin: auto;
+      background-color: $purple-color;
+      padding: 1.5em;
+      color: white;
+    }
+
+    .reg_or_log {
+      background-color: $purple-color;
+      padding: 20px 0 0 0;
+      border: none;
+      outline: none;
+    }
+
     img.logo {
-      margin-top: 85px;
+      margin-top: 30px;
       margin-bottom: 10px;
       width: 200px;
       height: 200px;
@@ -68,14 +83,36 @@ body {
     }
 
     .register {
-      float: right;
-      color: $purple-color;
+      color: white;
+      background-color: $form-background-color;
+      border: none;
+      outline: none;
+      box-shadow: none;
       font-weight: 900;
       font-size: 1.5em;
       transition: all 0.5s ease;
     }
 
     .register:hover {
+      background-color: $red-color;
+    }
+
+    .register:active {
+      border: none;
+      outline: none;
+    }
+
+    .register_help {
+      width: 100%;
+      background-color: $light-grey-color;
+      color: $purple-color;
+      margin-bottom: 20px;
+      font-weight: 900;
+      transition: all 0.5s ease;
+    }
+
+    .register_help:hover {
+      background-color: $red-color;
       color: white;
     }
 }
