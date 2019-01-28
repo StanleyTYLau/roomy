@@ -1,0 +1,81 @@
+$form-background-color: #6ed3cf;
+$purple-color: #9068be;
+$light-grey-color: #e1e8f0;
+$red-color: #e62739;
+
+body {
+    font-family: 'Muli', sans-serif;
+    background-color: $light-grey-color;
+
+    img.logo {
+      margin-top: 85px;
+      margin-bottom: 10px;
+      width: 200px;
+      height: 200px;
+    }
+
+    .middle_all {
+      font-family: 'Muli', sans-serif;
+      width: 100%;
+      margin: auto;
+    }
+
+    .middle_logo {
+      width: 200px;
+      margin: auto;
+    }
+
+    .middle_form {
+      width: 40%;
+      margin: auto;
+      background-color: $form-background-color;
+      padding: 1.5em;
+      color: white;
+
+      input:focus, textarea {
+        border-color: $purple-color;
+        outline: none;
+      }
+    }
+
+    .bold_font {
+      font-weight: 900;
+      text-align: center;
+      display: block;
+      font-size: 1.5em;
+    }
+
+    .button_char {
+      background-color: $purple-color;
+      font-weight: 900;
+      outline: none;
+      font-size: 1.5em;
+      transition: all 0.5s ease;
+      border: none;
+    }
+
+    .button_char:hover {
+      background-color: $red-color;
+    }
+
+    .slogan {
+      font-family: 'Dancing Script', cursive;
+      color: $purple-color;
+      font-size: 1.8em;
+      width: 200px;
+      margin: 0 auto 10px auto;
+      text-align: center;
+    }
+
+    .register {
+      float: right;
+      color: $purple-color;
+      font-weight: 900;
+      font-size: 1.5em;
+      transition: all 0.5s ease;
+    }
+
+    .register:hover {
+      color: white;
+    }
+}
