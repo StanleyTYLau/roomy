@@ -3,6 +3,22 @@ import './App.scss';
 // import { Container, Row, Col } from 'reactstrap';
 // import { Button } from 'reactstrap';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { BrowserRouter as Router, 
+  Route, 
+  Link 
+} from "react-router-dom";
+
+const Home = () => (
+  <div>
+    <h2>Home</h2>
+  </div>
+)
+
+const About = () => (
+  <div>
+    <h2>About</h2>
+  </div>
+)
 
 class App extends Component {
 
@@ -74,6 +90,20 @@ class App extends Component {
             </Col>
           </Row>
         </Form>
+
+        <Router>
+          <div>
+          <ul>
+            <li><Link to='/'>Home</Link></li>
+            <li><Link to='/about'>About</Link></li>
+            <li><Link to='/topics'>Topics</Link></li>
+          </ul>
+
+            React Router Testing
+            <Route exact path='/' component={Home} />
+            <Route path='/about' component={About} />
+          </div>
+        </Router>
       </div>
     );
   }
