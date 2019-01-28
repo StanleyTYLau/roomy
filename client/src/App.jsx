@@ -92,8 +92,6 @@ class App extends Component {
     return (
       <Router>
         <div>
-
-          React Router Testing
           <Route exact path='/' component={Login} />
           <Route path='/main' component={Main} />
         </div>

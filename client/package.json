@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://localhost:5000/",
   "dependencies": {
+    "axios": "^0.18.0",
     "bootstrap": "^4.2.1",
     "jquery": "^1.9.1",
     "node-sass": "^4.11.0",
