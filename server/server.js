@@ -17,6 +17,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //Mount all resource routes
 app.use("/users", usersRoutes(knex));
-app.use("/places", usersRoutes(knex));
+app.use("/places", placesRoutes(knex));
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
