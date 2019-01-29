@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.scss';
+import axios from 'axios';
 // import { Container, Row, Col } from 'reactstrap';
 // import { Button } from 'reactstrap';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
@@ -8,29 +9,31 @@ import { BrowserRouter as Router,
   Link 
 } from "react-router-dom";
 
-const Login = () => (
-  <div className="middle_all">
+class Login extends Component{
+  render(){
+    return(
+      <div className="middle_all">
         <div className="middle_logo">
           <img src="/images/logo_white.png" alt="Logo" className="logo"></img>
         </div>
         <div className="slogan">We help people to find roommates and places to live.</div>
 
-        <Form className="middle_form">
+        <Form className="middle_form" onSubmit = {this.props._handleSubmit}>
         <FormGroup>
           <Label for="Login" className="bold_font">Please, log in first:</Label>
         </FormGroup>
         <FormGroup>
             <Label for="Email">Email</Label>
-            <Input type="email" name="email" id="userEmail" placeholder="Enter your email" />
+            <Input type="email" name="email" id="userEmail" placeholder="Enter your email" onChange = {this.props._handleEmailChange}/>
           </FormGroup>
           <FormGroup>
             <Label for="Password">Password</Label>
-            <Input type="password" name="password" id="userPassword" placeholder="Enter your password" />
+            <Input type="password" name="password" id="userPassword" placeholder="Enter your password" onChange = {this.props._handlePassChange}/>
           </FormGroup>
           <Row form>
             <Col md={6}>
               <Button className="button_char">
-                <Link to='/main'>LOGIN</Link>
+                LOGIN
               </Button>
             </Col>
             <Col md={6}>
@@ -39,7 +42,10 @@ const Login = () => (
           </Row>
         </Form>
       </div>
-)
+    )
+  }
+}
+
 
 class Main extends Component {
   render(){
@@ -55,14 +61,20 @@ class Main extends Component {
 class App extends Component {
 
   state = {
-    members: []
-  };
+    members: [],
+    email: '',
+    password: '',
+    name: ''
+  }
 
   componentDidMount() {
-    fetch('/users')
-      .then(res => res.json())
-      .then(members => this.setState({ members: members }));
-  };
+    axios.get('/users')
+      .then(res =>  {
+        const members = res.data;
+        this.setState({ members });
+        console.log(members);
+      })
+  }
   // componentDidMount() {
   //   this.callApi()
   //     .then(res => this.setState({ response: res.express }))
@@ -98,12 +110,48 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route exact path='/' component={Login} />
-          <Route path='/main' render={(props) => <Main {...props} x={1}/>} />
+        <Route 
+            path='/' 
+            render={(props) => <Login 
+              {...props} 
+              _handleSubmit={this._handleSubmit}
+              _handleEmailChange={this._handleEmailChange}
+              _handlePassChange={this._handlePassChange}
+            />} />
+          <Route 
+            path='/main' 
+            render={(props) => <Main 
+              {...props} 
+              x={"this x passed as prop"}
+            />} />
         </div>
       </Router>     
     );
   }
+
+  _handleEmailChange = event => {
+    this.setState({ email: event.target.value });
+  }
+
+  _handlePassChange = event => {
+    this.setState({ password: event.target.value });
+  }
+
+  _handleSubmit = event => {
+    event.preventDefault();
+    const login = {
+      email: this.state.email,
+      password: this.state.password
+    };
+
+    axios.post('/users/login', { login })
+      .then( res => {
+        const name = res.data[0].first_name;
+        this.setState({ name });
+        alert('Hello ' + name);
+      })
+  }
+
 }
 
         //<div className="Users">
