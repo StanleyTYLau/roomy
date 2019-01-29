@@ -11,5 +11,12 @@ module.exports = (knex) => {
       });
   });
 
+  router.get('/:id', (req, res) =>{
+    //get the place w/ params.id
+    //get the corresponding place owner profile
+    //get currebt user profile
+    //compare mathcing %
+  });
+
   return router;
 }
