@@ -6,7 +6,8 @@ import axios from 'axios';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { BrowserRouter as Router, 
   Route, 
-  Link 
+  Link,
+  Redirect 
 } from "react-router-dom";
 
 class Login extends Component{
@@ -33,7 +34,7 @@ class Login extends Component{
           <Row form>
             <Col md={6}>
               <Button className="button_char">
-                LOGIN
+                <Link to="/main">LOGIN</Link>
               </Button>
             </Col>
             <Col md={6}>
@@ -57,6 +58,39 @@ class Main extends Component {
     )
   }
 }
+
+const auth = {
+  isAuthenticated: false,
+
+  authenticate(email, password) {
+    const login = {
+      email: email,
+      password: password
+    };  
+
+    axios.post('/users/login', { login })
+      .then( res => {
+        const name = res.data[0].first_name;
+        if (name){
+          console.log("user authenticated!");
+          this.isAuthenticated = true;
+        }
+      })
+  },
+
+  signout(cb) {
+    this.isAuthenticated = false;
+    setTimeout(cb, 100);
+  }
+};
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={(props) => (
+    auth.isAuthenticated === true
+      ? <Component {...props} />
+      : <Redirect to='/' />
+  )} />
+)
 
 class App extends Component {
 
@@ -110,20 +144,23 @@ class App extends Component {
     return (
       <Router>
         <div>
-        <Route 
+          <Route 
             path='/' 
             render={(props) => <Login 
               {...props} 
               _handleSubmit={this._handleSubmit}
               _handleEmailChange={this._handleEmailChange}
               _handlePassChange={this._handlePassChange}
-            />} />
-          <Route 
+            />} 
+          />
+          {/* <Route  
             path='/main' 
             render={(props) => <Main 
               {...props} 
               x={"this x passed as prop"}
-            />} />
+            />} 
+          /> */}
+          <PrivateRoute path="/main" component={Main} />
         </div>
       </Router>     
     );
@@ -139,17 +176,9 @@ class App extends Component {
 
   _handleSubmit = event => {
     event.preventDefault();
-    const login = {
-      email: this.state.email,
-      password: this.state.password
-    };
-
-    axios.post('/users/login', { login })
-      .then( res => {
-        const name = res.data[0].first_name;
-        this.setState({ name });
-        alert('Hello ' + name);
-      })
+    
+    auth.authenticate(this.state.email, this.state.password);
+   
   }
 
 }
