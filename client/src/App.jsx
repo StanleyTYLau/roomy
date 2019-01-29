@@ -41,11 +41,16 @@ const Login = () => (
       </div>
 )
 
-const Main = () => (
-  <div>
-    <h2>You are at the main page!</h2>
-  </div>
-)
+class Main extends Component {
+  render(){
+    return (
+      <div>
+        <h2>You are at the main page!</h2>
+        {this.props.x}
+      </div>
+    )
+  }
+}
 
 class App extends Component {
 
@@ -57,7 +62,7 @@ class App extends Component {
     fetch('/users')
       .then(res => res.json())
       .then(members => this.setState({ members: members }));
-  }
+  };
   // componentDidMount() {
   //   this.callApi()
   //     .then(res => this.setState({ response: res.express }))
@@ -87,13 +92,14 @@ class App extends Component {
 
   //   this.setState({ responseToPost: body });
   // };
+  
 
   render() {
     return (
       <Router>
         <div>
           <Route exact path='/' component={Login} />
-          <Route path='/main' component={Main} />
+          <Route path='/main' render={(props) => <Main {...props} x={1}/>} />
         </div>
       </Router>     
     );
