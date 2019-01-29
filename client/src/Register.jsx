@@ -43,7 +43,6 @@ class Register extends React.Component {
       type: 2
     });
     }
-    console.log(this.state.type);
   }
 
 

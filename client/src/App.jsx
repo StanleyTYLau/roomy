@@ -19,17 +19,17 @@ class Login extends Component{
         </div>
         <div className="slogan">We help people to find roommates and places to live.</div>
 
-        <Form className="middle_form" onSubmit = {this._handleSubmit}>
+        <Form className="middle_form" onSubmit = {this.props._handleSubmit}>
         <FormGroup>
           <Label for="Login" className="bold_font">Please, log in first:</Label>
         </FormGroup>
         <FormGroup>
             <Label for="Email">Email</Label>
-            <Input type="email" name="email" id="userEmail" placeholder="Enter your email" onChange = {this._handleEmailChange} />
+            <Input type="email" name="email" id="userEmail" placeholder="Enter your email" onChange = {this.props._handleEmailChange} />
           </FormGroup>
           <FormGroup>
             <Label for="Password">Password</Label>
-            <Input type="password" name="password" id="userPassword" placeholder="Enter your password" onChange = {this._handlePassChange} />
+            <Input type="password" name="password" id="userPassword" placeholder="Enter your password" onChange = {this.props._handlePassChange} />
           </FormGroup>
             <Button type="submit" className="button_char">LOGIN</Button>
         </Form>
@@ -63,44 +63,15 @@ class App extends Component {
     name: ''
   }
 
-  componentDidMount() {
-    axios.get('/users')
-      .then(res =>  {
-        const members = res.data;
-        this.setState({ members });
-        console.log(members);
-      })
-  }
   // componentDidMount() {
-  //   this.callApi()
-  //     .then(res => this.setState({ response: res.express }))
-  //     .catch(err => console.log(err));
+  //   axios.get('/users')
+  //     .then(res =>  {
+  //       const members = res.data;
+  //       this.setState({ members });
+  //       console.log(members);
+  //     })
   // }
 
-  // callApi = async () => {
-  //   const response = await fetch('/api/hello');
-  //   const body = await response.json();
-
-  //   if (response.status !== 200) throw Error(body.message);
-
-  //   return body;
-  // };
-
-  // handleSubmit = async e => {
-  //   e.preventDefault();
-  //   const response = await fetch('/api/world', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ post: this.state.post }),
-  //   });
-
-  //   const body = await response.text();
-
-  //   this.setState({ responseToPost: body });
-  // };
-  
 
   render() {
     return (
@@ -152,11 +123,5 @@ class App extends Component {
 
 }
 
-        //<div className="Users">
-         //<h1>Users</h1>
-         //{this.state.members.map(member =>
-          // <div key={member.id}>{member.first_name} {member.last_name} - {member.email}</div>
-         //)}
-       //</div>
-
+  
 export default App;
