@@ -33,7 +33,7 @@ class Login extends Component{
           <Row form>
             <Col md={6}>
               <Button className="button_char">
-                LOGIN
+                <Link to="/main">LOGIN</Link>
               </Button>
             </Col>
             <Col md={6}>
@@ -111,7 +111,7 @@ class App extends Component {
       <Router>
         <div>
         <Route 
-            path='/' 
+            exact path='/' 
             render={(props) => <Login 
               {...props} 
               _handleSubmit={this._handleSubmit}
