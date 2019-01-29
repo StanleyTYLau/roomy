@@ -66,7 +66,7 @@ class App extends Component {
             <Label for="Password">Password</Label>
             <Input type="password" name="password" id="userPassword" placeholder="Enter your password" />
           </FormGroup>
-            <Button className="button_char">LOGIN</Button>
+            <Button type="submit" className="button_char">LOGIN</Button>
         </Form>
         <div className="registerBut">
           <Register></Register>
