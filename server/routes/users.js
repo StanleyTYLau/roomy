@@ -13,23 +13,38 @@ module.exports = (knex) => {
 
 
   router.post('/login', (req, res) => {
-    console.log(req.body);
 
     let email = req.body.login.email;
     let password = req.body.login.password;
     
-    console.log(email);
-		knex.select('first_name')
+		knex.select('*')
 			.from('users')
 			.where({
-        email: email,
-        password: password
+        email: email
       })
 			.then( (results) => {
-        console.log(results);
-        res.send(results);
+        if (results.length != 0) {
+          let result = results[0];
+          if (checkPassword(result, password)) {
+            res.sendStatus(200);
+          } else {
+            res.sendStatus(403);
+          }
+        } else {
+          res.sendStatus(401)
+        }
       })
     });
 
   return router;
 }
+
+
+function checkPassword (obj, str) {
+  if (obj.password === str) {
+    return true;
+  } else {
+    return false;
+  }
+}
+

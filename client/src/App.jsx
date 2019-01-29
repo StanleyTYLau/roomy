@@ -101,9 +101,10 @@ class App extends Component {
 
     axios.post('/users/login', { login })
       .then( res => {
-        const name = res.data[0].first_name;
-        this.setState({ name });
-        alert('Hello ' + name);
+        // const name = res.data[0].first_name;
+        // this.setState({ name });
+        // console.log(name);
+        console.log(res.data)
       })
 
   }
