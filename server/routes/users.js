@@ -36,6 +36,17 @@ module.exports = (knex) => {
       })
     });
 
+    router.post('/register', (req, res) => {
+      
+    let user = req.body;
+
+    console.log(user);
+
+    })
+
+
+
+
   return router;
 }
 
