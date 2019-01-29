@@ -4,9 +4,9 @@ const router = express.Router();
 module.exports = (knex) => {
   router.get('/', (req, res) => {
     knex.select('*')
-      .from('users')
+      .from('places')
       .then( (results) => {
-        console.log("get user tset:", results);
+        console.log(results);
         res.send(results);
       });
   });
