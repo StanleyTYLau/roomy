@@ -6,17 +6,31 @@ module.exports = (knex) => {
     knex.select('*')
       .from('users')
       .then( (results) => {
-        console.log("get user tset:", results);
+        console.log("get user test:", results);
         res.send(results);
       });
   });
 
-  router.post('/', function(req, res, next) {
-    res.locals.connection.query("INSERT INTO users(firstName,lastName) values(''+req.body.firstName+'',''+req.body.lastName+''"), function (error, results, fields) {
-        if(error) throw error;
+
+  router.post('/login', (req, res) => {
+    console.log(req.body);
+
+    let email = req.body.login.email;
+    let password = req.body.login.password;
+    
+    console.log(email);
+		knex.select('first_name')
+			.from('users')
+			.where({
+        email: email,
+        password: password
+      })
+			.then( (results) => {
+        console.log(results);
         res.send(results);
-    };
-});
+				
+          });
+        })
 
   return router;
 }

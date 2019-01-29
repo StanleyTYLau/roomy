@@ -80,7 +80,7 @@ class RegisterContainer extends Component {
 
                 <br /><br />
 
-                <Row form>
+                <FormGroup row>
                     <Col md={6}>
                         <FormGroup row>
                             <Label>Name:</Label>
@@ -99,7 +99,84 @@ class RegisterContainer extends Component {
                                 placeholder="Last Name"/>
                         </FormGroup>
                     </Col>
-                 </Row>
+                 </FormGroup>
+
+                 <br /><br />
+
+
+
+                <Row form>
+                  <Col md={4}>
+                    <FormGroup>
+                      <Label for="exampleZip">Postal code</Label>
+                      <Input type="text" name="postal_code" id="exampleZip"/>
+                    </FormGroup>
+                  </Col>
+
+                  <Col md={4}>
+                    <FormGroup>
+                      <Label for="exampleZip">Street Number</Label>
+                      <Input type="integer" name="street_number" id="exampleZip"/>
+                    </FormGroup>
+                  </Col>
+
+                  <Col md={4}>
+                    <FormGroup>
+                      <Label for="exampleZip">Unit Number</Label>
+                      <Input type="integer" name="unit_number" id="exampleZip"/>
+                    </FormGroup>
+                  </Col>
+
+                 <FormGroup>
+                   <Label for="exampleAddress">Address</Label>
+                   <Input type="text" name="street_name" id="exampleAddress" placeholder="1234 Main St"/>
+                 </FormGroup>
+
+                 <FormGroup>
+                  <Label for="exampleAddress2">Address 2</Label>
+                  <Input type="text" name="address2" id="exampleAddress2" placeholder="Apartment, studio, or floor"/>
+                 </FormGroup>
+
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label for="exampleCity">City</Label>
+                      <Input type="text" name="city" id="exampleCity"/>
+                    </FormGroup>
+                  </Col>
+
+                  <Col md={4}>
+                    <FormGroup>
+                      <Label for="exampleState">Province</Label>
+                      <Input type="text" name="province" id="exampleState"/>
+                    </FormGroup>
+                  </Col>
+
+                  <Col md={3}>
+                    <FormGroup>
+                      <Label for="exampleZip">Price</Label>
+                      <Input type="integer" name="price" id="exampleZip"/>
+                    </FormGroup>
+                  </Col>
+
+                  <Col md={3}>
+                    <FormGroup>
+                      <Label for="exampleZip">Type</Label>
+                      <Input type="select" name="type" id="exampleZip"/>
+                       <option value="">-- Please select --</option>
+                       <option name="appartment_building">Appartment building</option>
+                       <option name="condo">Condo</option>
+                       <option name="private_house">Private House</option>
+                    </FormGroup>
+                  </Col>
+
+                  <Col md={4}>
+                    <FormGroup>
+                      <Label for="exampleZip">Unit Number</Label>
+                      <Input type="integer" name="unit_number" id="exampleZip"/>
+                    </FormGroup>
+                  </Col>
+
+                </Row>
 
                 <br /><br />
 
@@ -217,7 +294,7 @@ class RegisterContainer extends Component {
                 <Button>Submit</Button>
 
             </Form>
-            </Form>
+            </Form><br /><br />
          </Jumbotron>
          </div>
       )
