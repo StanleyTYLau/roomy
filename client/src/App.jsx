@@ -60,17 +60,8 @@ class App extends Component {
     members: [],
     email: '',
     password: '',
-    name: '',
-    newUser: {
-      first_name: '',
-      last_name:'',
-      email: '',
-      password: '',
-      gender: '',
-      cleanliness: '',
-      smoker: '',
-      pets: ''
-    }
+    name: ''
+    
   }
 
   // componentDidMount() {

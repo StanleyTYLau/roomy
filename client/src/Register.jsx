@@ -25,7 +25,16 @@ class Register extends React.Component {
     super(props);
     this.state = {
       modal: false,
-      type: 0,
+      type: '',
+      firstName: '',
+      lastName:'',
+      email: '',
+      password: '',
+      gender: 'Male',
+      cleanliness: 'Low',
+      smoker: false,
+      pets: false
+      
 
     };
 
@@ -38,11 +47,11 @@ class Register extends React.Component {
     });
     if (e.target.id === "place") {
       this.setState({
-      type: 1
+      type: "roomy"
     });
     } else if (e.target.id === "roomy") {
       this.setState({
-      type: 2
+      type: "owner"
     });
     }
   }
@@ -75,25 +84,25 @@ class Register extends React.Component {
                   <FormGroup row>
                     <Label for="FirstName" sm={3}>First Name</Label>
                     <Col sm={9}>
-                      <Input type="text" name="FirstName" id="formFirstName" placeholder="Your First Name" onChange={this._handleFirstName} />
+                      <Input type="text" name="FirstName" id="formFirstName" placeholder="Your First Name" onChange={this._handleFirstName} required />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Label for="LastName" sm={3}>Last Name</Label>
                     <Col sm={9}>
-                      <Input type="text" name="LastName" id="formLastName" placeholder="Your Last Name" onChange={this._handleLastName} />
+                      <Input type="text" name="LastName" id="formLastName" placeholder="Your Last Name" onChange={this._handleLastName} required />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Label for="Email" sm={3}>Email</Label>
                     <Col sm={9}>
-                      <Input type="email" name="email" id="formEmail" placeholder="Your Email" onChange={this._handleEmail} />
+                      <Input type="email" name="email" id="formEmail" placeholder="Your Email" onChange={this._handleEmail} required />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Label for="Password" sm={3}>Password</Label>
                     <Col sm={9}>
-                      <Input type="password" name="password" id="formPassword" placeholder="Create a Password" onChange={this._handlePassword} />
+                      <Input type="password" name="password" id="formPassword" placeholder="Create a Password" onChange={this._handlePassword} required />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
@@ -108,9 +117,10 @@ class Register extends React.Component {
                   <FormGroup row>
                     <Label for="genderSelect" sm={3}>Gender</Label>
                     <Col sm={9}>
-                      <Input type="select" name="genderSelect" id="genderleSelect" onChange={this._handleGender} >
+                      <Input type="select"  name="genderSelect" id="genderleSelect" onChange={this._handleGender} value="Male" >
                         <option>Male</option>
                         <option>Female</option>
+                        <option>Other</option>
                       </Input>
                     </Col>
                   </FormGroup>
@@ -127,13 +137,13 @@ class Register extends React.Component {
                   <FormGroup row>
                     <Label for="smokerCheckbox" sm={3}>Smoker</Label>
                     <Col sm={9}>
-                      <CustomInput type="switch" id="smokerSwitch" name="smokerSwitch" label="Turn on if you are" />
+                      <CustomInput type="switch" id="smokerSwitch" name="smokerSwitch" label="Turn on if you are" onClick = {this._handleSmoker} />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Label for="petsCheckbox" sm={3}>Pets</Label>
                     <Col sm={9}>
-                      <CustomInput type="switch" id="petsSwitch" name="petsSwitch" label="Turn on if you have one" />
+                      <CustomInput type="switch" id="petsSwitch" name="petsSwitch" label="Turn on if you have one" onClick = {this._handlePets} />
                     </Col>
                   </FormGroup>
 
@@ -150,53 +160,58 @@ class Register extends React.Component {
   }
   _handleFirstName = e => {
     let value = e.target.value;
-    this.setState({...this.state.newUser, first_name: value });
+    this.setState({ firstName: value });
   }
 
   _handleLastName = e => {
     let value = e.target.value;
-    this.setState({...this.state.newUser, last_name: value });
+    this.setState({ lastName: value });
   }
 
   _handleEmail = e => {
     let value = e.target.value;
-    this.setState({...this.state.newUser, email: value });
+    this.setState({ email: value });
   }
 
   _handlePassword = e => {
     let value = e.target.value;
-    this.setState({...this.state.newUser, password: value });
+    this.setState({ password: value });
   }
 
   _handleGender = e => {
     let value = e.target.value;
-    this.setState({...this.state.newUser, gender: value });
+    this.setState({ gender: value });
   }
 
   _hanldeClean = e => {
     let value = e.target.value;
-    this.setState({...this.state.newUser, cleanliness: value });
+    this.setState({ cleanliness: value });
   }
 
-  // _handleSmoker = e => {
-    
-  // }
+  _handleSmoker = e => {
+    this.setState({ smoker: true });
+  } 
 
-  // _handlePets = e => {
-
-  // }
+  _handlePets = e => {
+    this.setState({ pets: true });
+  }
 
   _handleSubmit = e => {
     e.preventDefault();
+
     const user = {
-      first_name: this.state.first_name,
-      last_name: this.state.last_name,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
       email: this.state.email,
       password: this.state.password,
       gender: this.state.gender,
-      cleanliness: this.state.cleanliness
-      
+      cleanliness: this.state.cleanliness,
+      smoker: this.state.smoker,
+      pets: this.state.pets,
+      type: this.state.type
     };
+
+    console.log(user);
 
     axios.post('/users/register', { user })
       .then( res => {
@@ -206,11 +221,11 @@ class Register extends React.Component {
         console.log(res.data)
       })
   }
+    
 
 
 
-
-
+  
 }
 
 
