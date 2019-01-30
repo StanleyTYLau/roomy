@@ -64,75 +64,78 @@ module.exports = (knex) => {
       diet: 5,
       personality: 10
     }
-
-    let score = [0]
-
-    if (user1.gender === user2.gender){
-      score.push(1 * weight.gender)
-    }
-    if (user1.smoker === user2.smoker){
-      score.push(1 * weight.smoker)
-    }
-    if (user1.pets === user2.pets){
-      score.push(1 * weight.pet_owner)
-    }
-    if (user1.work_sched === user2.work_sched){
-      score.push(1 * weight.work_sched)
-    }
-    switch (_convertToNum(user1.cleanliness) - _convertToNum(user2.cleanliness)){
-      case 0:
-        score.push(1 * weight.cleanliness)
-        break;
-      case 1:
-        score.push(0.5 * weight.cleanliness)
-        break;
-      case 2:
-        score.push(0 * weight.cleanliness)
-        break;
-      default:
-        return Error("Err on weighted score calc")
-    }
-    switch (_convertToNum(user1.go_out_freq) - _convertToNum(user2.go_out_freq)){
-      case 0:
-        score.push(1 * weight.go_out_freq)
-        break;
-      case 1:
-        score.push(0.5 * weight.go_out_freq)
-        break;
-      case 2:
-        score.push(0 * weight.go_out_freq)
-        break;
-      default:
-        return Error("Err on weighted score calc")
-    }
-    switch (_convertToNum(user1.guests_freq) - _convertToNum(user2.guests_freq)){
-      case 0:
-        score.push(1 * weight.guests_freq)
-        break;
-      case 1:
-        score.push(0.5 * weight.guests_freq)
-        break;
-      case 2:
-        score.push(0 * weight.guests_freq)
-        break;
-      default:
-        return Error("Err on weighted score calc")
-    }
-    if (user1.diet === user2.diet){
-      score.push(1 * weight.diet)
-    }
-    if (user1.personality === user2.personality){
-      score.push(1 * weight.personality)
-    }
-    score.push(_scoreHobbies(user1.hobbies, user2.hobbies) * weight.hobbies);
-
+    let scores = [0]
+    let finalScore = 0;
 
     //go thru profile attributes
       //compare each attribute
       //provide % match for the attribute
       //get weighted score for the attribute
-    //total all weighted scores for all attributes
+    if (user1.gender === user2.gender){
+      scores.push(1 * weight.gender)
+    }
+    if (user1.smoker === user2.smoker){
+      scores.push(1 * weight.smoker)
+    }
+    if (user1.pets === user2.pets){
+      scores.push(1 * weight.pet_owner)
+    }
+    if (user1.work_sched === user2.work_sched){
+      scores.push(1 * weight.work_sched)
+    }
+    switch (_convertToNum(user1.cleanliness) - _convertToNum(user2.cleanliness)){
+      case 0:
+        scores.push(1 * weight.cleanliness)
+        break;
+      case 1:
+        scores.push(0.5 * weight.cleanliness)
+        break;
+      case 2:
+        scores.push(0 * weight.cleanliness)
+        break;
+      default:
+        return Error("Err on weighted scores calc")
+    }
+    switch (_convertToNum(user1.go_out_freq) - _convertToNum(user2.go_out_freq)){
+      case 0:
+        scores.push(1 * weight.go_out_freq)
+        break;
+      case 1:
+        scores.push(0.5 * weight.go_out_freq)
+        break;
+      case 2:
+        scores.push(0 * weight.go_out_freq)
+        break;
+      default:
+        return Error("Err on weighted scores calc")
+    }
+    switch (_convertToNum(user1.guests_freq) - _convertToNum(user2.guests_freq)){
+      case 0:
+        scores.push(1 * weight.guests_freq)
+        break;
+      case 1:
+        scores.push(0.5 * weight.guests_freq)
+        break;
+      case 2:
+        scores.push(0 * weight.guests_freq)
+        break;
+      default:
+        return Error("Err on weighted scores calc")
+    }
+    if (user1.diet === user2.diet){
+      scores.push(1 * weight.diet)
+    }
+    if (user1.personality === user2.personality){
+      scores.push(1 * weight.personality)
+    }
+    scores.push(_scoreHobbies(user1.hobbies, user2.hobbies) * weight.hobbies);
 
+    //total all weighted scores for all attributes
+    scores.forEach((score) => {
+      finalScore += score;
+    })
+
+    return finalScore;
   }
 
   //take array of hobbies from 2 users and calc % matching
