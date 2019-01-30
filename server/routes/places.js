@@ -64,25 +64,41 @@ module.exports = (knex) => {
       diet: 5,
       personality: 10
     }
-    let scores = [0]
+    let scores = [];
     let finalScore = 0;
+
+    //Calculate weighted score for attributes that should match 1:1
+    function _score1To1(attr1, attr2, attrWeight){
+      if(attr1 === attr2){
+        scores.push(1 * attrWeight);
+      }
+      else {
+        scores.push(0);
+      }
+    }
+
+    //Calculate weighted score for attributes that have 3 options low, medium, high
+    function _score3(attr1, attr2, attrWeight){
+      if(attr1 === attr2){
+        scores.push(1 * attrWeight);
+      }
+      else {
+        scores.push(0);
+      }
+    }
 
     //go thru profile attributes
       //compare each attribute
       //provide % match for the attribute
       //get weighted score for the attribute
-    if (user1.gender === user2.gender){
-      scores.push(1 * weight.gender)
-    }
-    if (user1.smoker === user2.smoker){
-      scores.push(1 * weight.smoker)
-    }
-    if (user1.pets === user2.pets){
-      scores.push(1 * weight.pet_owner)
-    }
-    if (user1.work_sched === user2.work_sched){
-      scores.push(1 * weight.work_sched)
-    }
+    _score1To1(user1.gender, user2.gender, weight.gender);
+    _score1To1(user1.smoker, user2.smoker, weight.smoker);
+    _score1To1(user1.pets, user2.pets, weight.pet_owner);
+    _score1To1(user1.work_sched, user2.work_sched, weight.work_sched);
+   
+  
+   
+  
     switch (_convertToNum(user1.cleanliness) - _convertToNum(user2.cleanliness)){
       case 0:
         scores.push(1 * weight.cleanliness)
