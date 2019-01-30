@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.scss';
 import Register from './Register.jsx';
+import Place_id from './Place_id.jsx';
 import axios from 'axios';
 // import { Container, Row, Col } from 'reactstrap';
 // import { Button } from 'reactstrap';
@@ -87,7 +88,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-        <Route 
+          <Route 
             exact path='/' 
             render={(props) => <Login 
               {...props} 
@@ -101,6 +102,7 @@ class App extends Component {
               {...props} 
               x={"this x passed as prop"}
             />} />
+          <Route path='/places/:id' component={Place_id} />
         </div>
       </Router>     
 
