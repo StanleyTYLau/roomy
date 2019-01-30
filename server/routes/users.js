@@ -38,11 +38,34 @@ module.exports = (knex) => {
 
     router.post('/register', (req, res) => {
       
-    let user = req.body;
+    let newUser = {
+      firstName: req.body.user.firstName,
+      lastName: req.body.user.lastName,
+      email: req.body.user.email,
+      password: req.body.user.password,
+      gender: req.body.user.gender,
+      cleanliness: req.body.user.cleanliness,
+      smoker: req.body.user.smoker,
+      pets: req.body.user.pets,
+      type: req.body.user.type
+    }
 
-    console.log(user);
-
-    })
+    console.log(newUser);    
+    
+    knex('users')
+    .insert({first_name: newUser.firstName,
+             last_name: newUser.lastName,
+             email: newUser.email,
+             password: newUser.password,
+             gender: newUser.gender,
+             cleanliness: newUser.cleanliness,
+             smoker: newUser.smoker,
+             pets: newUser.pets,
+             type: newUser.type})
+    .then( () => {
+      console.log("Successfully inserted to Users");
+    });
+    });
 
 
 
