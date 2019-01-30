@@ -32,6 +32,11 @@ class Register extends React.Component {
       password: '',
       gender: 'Male',
       cleanliness: 'Low',
+      workingSched: 'Days',
+      goOutFreq: 'Sometimes',
+      guestsFreq: 'Sometimes',
+      diet: 'None',
+      personality: 'Introvert',
       smoker: false,
       pets: false
       
@@ -84,25 +89,25 @@ class Register extends React.Component {
                   <FormGroup row>
                     <Label for="FirstName" sm={3}>First Name</Label>
                     <Col sm={9}>
-                      <Input type="text" name="FirstName" id="formFirstName" placeholder="Your First Name" onChange={this._handleFirstName} required />
+                      <Input type="text" name="FirstName" id="formFirstName" placeholder="Your First Name" onChange={this._handleFirstName} />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Label for="LastName" sm={3}>Last Name</Label>
                     <Col sm={9}>
-                      <Input type="text" name="LastName" id="formLastName" placeholder="Your Last Name" onChange={this._handleLastName} required />
+                      <Input type="text" name="LastName" id="formLastName" placeholder="Your Last Name" onChange={this._handleLastName} />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Label for="Email" sm={3}>Email</Label>
                     <Col sm={9}>
-                      <Input type="email" name="email" id="formEmail" placeholder="Your Email" onChange={this._handleEmail} required />
+                      <Input type="email" name="email" id="formEmail" placeholder="Your Email" onChange={this._handleEmail} />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Label for="Password" sm={3}>Password</Label>
                     <Col sm={9}>
-                      <Input type="password" name="password" id="formPassword" placeholder="Create a Password" onChange={this._handlePassword} required />
+                      <Input type="password" name="password" id="formPassword" placeholder="Create a Password" onChange={this._handlePassword} />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
@@ -131,6 +136,57 @@ class Register extends React.Component {
                         <option>Low</option>
                         <option>Moderate</option>
                         <option>High</option>
+                      </Input>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Label for="scheduleSelect" sm={3}>Working Schedule</Label>
+                    <Col sm={9}>
+                      <Input type="select"  name="scheduleSelect" id="scheduleSelect" onChange={this._handleGender} value="Male" >
+                        <option>Days</option>
+                        <option>Nights</option>
+                        <option>Various</option>
+                      </Input>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Label for="goOutSelect" sm={3}>How often do you go out?</Label>
+                    <Col sm={9}>
+                      <Input type="select"  name="goOutSelect" id="goOutSelect" onChange={this._handleGender} value="Male" >
+                        <option>Regularly</option>
+                        <option>Often</option>
+                        <option>Sometimes</option>
+                      </Input>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Label for="guestsSelect" sm={3}>How often do you have guests to come over?</Label>
+                    <Col sm={9}>
+                      <Input type="select"  name="guestsSelect" id="guestsSelect" onChange={this._handleGender} >
+                        <option>Regularly</option>
+                        <option>Often</option>
+                        <option>Sometimes</option>
+                      </Input>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Label for="dietSelect" sm={3}>What is your diet preferences?</Label>
+                    <Col sm={9}>
+                      <Input type="select"  name="dietSelect" id="dietSelect" onChange={this._handleGender} >
+                        <option>Vegan</option>
+                        <option>Vegeterian</option>
+                        <option>Lactose free</option>
+                        <option>Gluten free free</option>
+                        <option>None</option>
+                      </Input>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Label for="personalitySelect" sm={3}>What is your personality</Label>
+                    <Col sm={9}>
+                      <Input type="select"  name="personalitySelect" id="personalitySelect" onChange={this._handleGender} >
+                        <option>Introvert</option>
+                        <option>Extravert</option>
                       </Input>
                     </Col>
                   </FormGroup>

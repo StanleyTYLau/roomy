@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.scss';
 import Register from './Register.jsx';
+import Register_place from './Register_place.jsx';
 import axios from 'axios';
 // import { Container, Row, Col } from 'reactstrap';
 // import { Button } from 'reactstrap';
@@ -78,20 +79,24 @@ class App extends Component {
     return (
       <Router>
         <div>
-        <Route 
+          <Route 
             exact path='/' 
             render={(props) => <Login 
               {...props} 
               _handleSubmit={this._handleSubmit}
               _handleEmailChange={this._handleEmailChange}
               _handlePassChange={this._handlePassChange}
-            />} />
+          />} />
           <Route 
             path='/main' 
             render={(props) => <Main 
               {...props} 
               x={"this x passed as prop"}
-            />} />
+          />} />
+          <Route
+            path='/places/new'
+            component = {Register_place}
+          />
         </div>
       </Router>     
 
