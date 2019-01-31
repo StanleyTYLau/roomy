@@ -13,23 +13,83 @@ module.exports = (knex) => {
 
 
   router.post('/login', (req, res) => {
-    console.log(req.body);
 
     let email = req.body.login.email;
     let password = req.body.login.password;
     
-    console.log(email);
-		knex.select('first_name')
+		knex.select('*')
 			.from('users')
 			.where({
-        email: email,
-        password: password
+        email: email
       })
 			.then( (results) => {
-        console.log(results);
-        res.send(results);
+        if (results.length != 0) {
+          let result = results[0];
+          if (checkPassword(result, password)) {
+            res.sendStatus(200);
+          } else {
+            res.sendStatus(403);
+          }
+        } else {
+          res.sendStatus(401)
+        }
       })
     });
 
+    router.post('/register', (req, res) => {
+      
+    let newUser = {
+      firstName: req.body.newUser.firstName,
+      lastName: req.body.newUser.lastName,
+      email: req.body.newUser.email,
+      password: req.body.newUser.password,
+      gender: req.body.newUser.gender,
+      cleanliness: req.body.newUser.cleanliness,
+      smoker: req.body.newUser.smoker,
+      pets: req.body.newUser.pets,
+      type: req.body.newUser.type,
+      workSched: req.body.newUser.workSched,
+      goOutFreq: req.body.newUser.goOutFreq,
+      guestsFreq: req.body.newUser.guestsFreq,
+      diet: req.body.newUser.diet,
+      personality: req.body.newUser.personality
+    }
+
+    console.log(newUser);    
+    
+    knex('users')
+    .insert({first_name: newUser.firstName,
+             last_name: newUser.lastName,
+             email: newUser.email,
+             password: newUser.password,
+             gender: newUser.gender,
+             cleanliness: newUser.cleanliness,
+             smoker: newUser.smoker,
+             pets: newUser.pets,
+             type: newUser.type,
+             work_sched: newUser.workSched,
+             go_out_freq: newUser.goOutFreq,
+             guest_freq: newUser.guestsFreq,
+             diet: newUser.diet,
+             personality: newUser.personality
+            })
+    .then( () => {
+      console.log("Successfully inserted to Users");
+    });
+    });
+
+
+
+
   return router;
 }
+
+
+function checkPassword (obj, str) {
+  if (obj.password === str) {
+    return true;
+  } else {
+    return false;
+  }
+}
+

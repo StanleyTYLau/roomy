@@ -1,78 +1,49 @@
 import React, { Component } from 'react';
 import './App.scss';
 import Register from './Register.jsx';
+
 import MapDisplay from './MapDisplay.jsx';
+import Geocode from "react-geocode";
+import Register_place from './Register_place.jsx';
+import Place_id from './Place_id.jsx';
 import axios from 'axios';
 // import { Container, Row, Col } from 'reactstrap';
 // import { Button } from 'reactstrap';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom";
 
-class App extends Component {
+class Login extends Component{
+  constructor() {
+    super();
+    this.state = {
 
-  state = {
-    members: [],
-    email: '',
-    password: '',
-    name: ''
+    };
+
   }
 
-  componentDidMount() {
-    axios.get('/users')
-      .then(res =>  {
-        const members = res.data;
-        this.setState({ members });
-        console.log(members);
-  })
-}
-  // componentDidMount() {
-  //   this.callApi()
-  //     .then(res => this.setState({ response: res.express }))
-  //     .catch(err => console.log(err));
-  // }
-
-  // callApi = async () => {
-  //   const response = await fetch('/api/hello');
-  //   const body = await response.json();
-
-  //   if (response.status !== 200) throw Error(body.message);
-
-  //   return body;
-  // };
-
-  // handleSubmit = async e => {
-  //   e.preventDefault();
-  //   const response = await fetch('/api/world', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ post: this.state.post }),
-  //   });
-
-  //   const body = await response.text();
-
-  //   this.setState({ responseToPost: body });
-  // };
-
-  render() {
-    return (
+  render(){
+    return(
       <div className="middle_all">
         {/*<div className="middle_logo">
           <img src="/images/logo_white.png" alt="Logo" className="logo"></img>
         </div>
         <div className="slogan">We help people to find roommates and places to live.</div>
 
-        <Form className="middle_form" onSubmit = {this._handleSubmit}>
+        <Form className="middle_form" onSubmit = {this.props._handleSubmit}>
         <FormGroup>
           <Label for="Login" className="bold_font">Please, log in first:</Label>
         </FormGroup>
         <FormGroup>
             <Label for="Email">Email</Label>
-            <Input type="email" name="email" id="userEmail" placeholder="Enter your email" onChange = {this._handleEmailChange} />
+            <Input type="email" name="email" id="userEmail" placeholder="Enter your email" onChange = {this.props._handleEmailChange} />
           </FormGroup>
           <FormGroup>
             <Label for="Password">Password</Label>
-            <Input type="password" name="password" id="userPassword" placeholder="Enter your password" onChange = {this._handlePassChange} />
+            <Input type="password" name="password" id="userPassword" placeholder="Enter your password" onChange = {this.props._handlePassChange} />
           </FormGroup>
             <Button type="submit" className="button_char">LOGIN</Button>
         </Form>
@@ -81,6 +52,81 @@ class App extends Component {
         </div>*/}
         <MapDisplay></MapDisplay>
       </div>
+    )
+  }
+}
+
+
+class Main extends Component {
+  render(){
+    return (
+      <div>
+        <h2>You are at the main page!</h2>
+        {this.props.x}
+      </div>
+    )
+  }
+}
+
+class App extends Component {
+
+  state = {
+    members: [],
+    email: '',
+    password: '',
+    name: '',
+    loggedIn: false
+
+  }
+
+  // componentDidMount() {
+  //   axios.get('/users')
+  //     .then(res =>  {
+  //       const members = res.data;
+  //       this.setState({ members });
+  //       console.log(members);
+  //     })
+  // }
+
+
+  render() {
+    return (
+      <Router>
+        <div>
+          <Route
+            exact path='/'
+            render={(props) => (
+              <div>
+              <Login
+                {...props}
+                _handleSubmit={this._handleSubmit}
+                _handleEmailChange={this._handleEmailChange}
+                _handlePassChange={this._handlePassChange}
+              />
+              {this.state.loggedIn ? (
+                <Redirect to="/main"/>
+              ) : (
+                <span></span>
+              )}
+              </div>
+            )}
+          />
+
+          <Route
+            path='/main'
+            render={(props) => <Main
+              {...props}
+              x={"this x passed as prop"}
+            />}
+          />
+          <Route
+            path='/places/new'
+            component = {Register_place}
+          />
+          <Route path='/places/:id' component={Place_id} />
+        </div>
+      </Router>
+
     );
   }
 
@@ -94,7 +140,6 @@ class App extends Component {
 
   _handleSubmit = event => {
     event.preventDefault();
-
     const login = {
       email: this.state.email,
       password: this.state.password
@@ -102,20 +147,14 @@ class App extends Component {
 
     axios.post('/users/login', { login })
       .then( res => {
-        const name = res.data[0].first_name;
-        this.setState({ name });
-        alert('Hello ' + name);
+        if (res.data === "OK"){
+          this.setState({loggedIn: true});
+        }
+        console.log(res.data);
       })
-
   }
 
 }
 
-        //<div className="Users">
-         //<h1>Users</h1>
-         //{this.state.members.map(member =>
-          // <div key={member.id}>{member.first_name} {member.last_name} - {member.email}</div>
-         //)}
-       //</div>
 
 export default App;
