@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.scss';
 import Register from './Register.jsx';
+
+import MapDisplay from './MapDisplay.jsx';
 import Geocode from "react-geocode";
 import Register_place from './Register_place.jsx';
 import Place_id from './Place_id.jsx';
@@ -8,17 +10,17 @@ import axios from 'axios';
 // import { Container, Row, Col } from 'reactstrap';
 // import { Button } from 'reactstrap';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import { BrowserRouter as Router, 
-  Route, 
+import { BrowserRouter as Router,
+  Route,
   Link,
-  Redirect 
+  Redirect
 } from "react-router-dom";
 
 class Login extends Component{
   constructor() {
     super();
     this.state = {
-      
+
     };
 
   }
@@ -26,7 +28,7 @@ class Login extends Component{
   render(){
     return(
       <div className="middle_all">
-        <div className="middle_logo">
+        {/*<div className="middle_logo">
           <img src="/images/logo_white.png" alt="Logo" className="logo"></img>
         </div>
         <div className="slogan">We help people to find roommates and places to live.</div>
@@ -47,8 +49,8 @@ class Login extends Component{
         </Form>
         <div className="registerBut">
           <Register></Register>
-        </div>
-
+        </div>*/}
+        <MapDisplay></MapDisplay>
       </div>
     )
   }
@@ -74,7 +76,7 @@ class App extends Component {
     password: '',
     name: '',
     loggedIn: false
-    
+
   }
 
   // componentDidMount() {
@@ -91,12 +93,12 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route 
+          <Route
             exact path='/'
             render={(props) => (
               <div>
-              <Login 
-                {...props} 
+              <Login
+                {...props}
                 _handleSubmit={this._handleSubmit}
                 _handleEmailChange={this._handleEmailChange}
                 _handlePassChange={this._handlePassChange}
@@ -110,12 +112,12 @@ class App extends Component {
             )}
           />
 
-          <Route 
-            path='/main' 
-            render={(props) => <Main 
-              {...props} 
+          <Route
+            path='/main'
+            render={(props) => <Main
+              {...props}
               x={"this x passed as prop"}
-            />} 
+            />}
           />
           <Route
             path='/places/new'
@@ -123,7 +125,7 @@ class App extends Component {
           />
           <Route path='/places/:id' component={Place_id} />
         </div>
-      </Router>     
+      </Router>
 
     );
   }
@@ -147,12 +149,12 @@ class App extends Component {
       .then( res => {
         if (res.data === "OK"){
           this.setState({loggedIn: true});
-        }        
+        }
         console.log(res.data);
       })
   }
 
 }
 
-  
+
 export default App;

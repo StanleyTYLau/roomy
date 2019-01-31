@@ -5,7 +5,7 @@ import { UncontrolledCollapse, Button, CardBody } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { CustomInput, Col, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 // import ScrollableAnchor, { configureAnchors } from 'react-scrollable-anchor';
-Geocode.setApiKey("AIzaSyABwXxJyM59e_GmCcHsfUhLhZJKoPjvCdI");
+
 // function Display(props) {
 //   if (props.type === 1) {
 //     return (
