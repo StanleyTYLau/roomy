@@ -32,7 +32,7 @@ class Register extends React.Component {
       password: '',
       gender: 'Male',
       cleanliness: 'Low',
-      workingSched: 'Days',
+      workSched: 'Days',
       goOutFreq: 'Sometimes',
       guestsFreq: 'Sometimes',
       diet: 'None',
@@ -142,7 +142,7 @@ class Register extends React.Component {
                   <FormGroup row>
                     <Label for="scheduleSelect" sm={3}>Working Schedule</Label>
                     <Col sm={9}>
-                      <Input type="select"  name="scheduleSelect" id="scheduleSelect" onChange={this._handleGender} value="Male" >
+                      <Input type="select"  name="scheduleSelect" id="scheduleSelect" onChange={this._handleWorkSched} value="Male" >
                         <option>Days</option>
                         <option>Nights</option>
                         <option>Various</option>
@@ -152,39 +152,39 @@ class Register extends React.Component {
                   <FormGroup row>
                     <Label for="goOutSelect" sm={3}>How often do you go out?</Label>
                     <Col sm={9}>
-                      <Input type="select"  name="goOutSelect" id="goOutSelect" onChange={this._handleGender} value="Male" >
-                        <option>Regularly</option>
-                        <option>Often</option>
+                      <Input type="select"  name="goOutSelect" id="goOutSelect" onChange={this._handleGoOutFreq} value="Male" >
                         <option>Sometimes</option>
+                        <option>Often</option>
+                        <option>Regularly</option>
                       </Input>
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Label for="guestsSelect" sm={3}>How often do you have guests to come over?</Label>
                     <Col sm={9}>
-                      <Input type="select"  name="guestsSelect" id="guestsSelect" onChange={this._handleGender} >
-                        <option>Regularly</option>
-                        <option>Often</option>
+                      <Input type="select"  name="guestsSelect" id="guestsSelect" onChange={this._handleGuestsFreq} >
                         <option>Sometimes</option>
+                        <option>Often</option>
+                        <option>Regularly</option>
                       </Input>
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Label for="dietSelect" sm={3}>What is your diet preferences?</Label>
                     <Col sm={9}>
-                      <Input type="select"  name="dietSelect" id="dietSelect" onChange={this._handleGender} >
+                      <Input type="select"  name="dietSelect" id="dietSelect" onChange={this._handleDiet} >
+                        <option>None</option>                       
                         <option>Vegan</option>
                         <option>Vegeterian</option>
                         <option>Lactose free</option>
-                        <option>Gluten free free</option>
-                        <option>None</option>
+                        <option>Gluten free</option>
                       </Input>
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Label for="personalitySelect" sm={3}>What is your personality</Label>
                     <Col sm={9}>
-                      <Input type="select"  name="personalitySelect" id="personalitySelect" onChange={this._handleGender} >
+                      <Input type="select"  name="personalitySelect" id="personalitySelect" onChange={this._handlePersonality} >
                         <option>Introvert</option>
                         <option>Extravert</option>
                       </Input>
@@ -244,6 +244,31 @@ class Register extends React.Component {
     this.setState({ cleanliness: value });
   }
 
+  _handleWorkSched = e => {
+    let value = e.target.value;
+    this.setState({ workSched: value });
+  }
+
+  _handleGoOutFreq = e => {
+    let value = e.target.value;
+    this.setState({ goOutFreq: value });
+  }
+
+  _handleGuestsFreq = e => {
+    let value = e.target.value;
+    this.setState({ guestsFreq: value });
+  }
+
+  _handleDiet = e => {
+    let value = e.target.value;
+    this.setState({ diet: value });
+  }
+
+  _handlePersonality = e => {
+    let value = e.target.value;
+    this.setState({ personality: value });
+  }
+
   _handleSmoker = e => {
     this.setState({ smoker: true });
   } 
@@ -255,7 +280,7 @@ class Register extends React.Component {
   _handleSubmit = e => {
     e.preventDefault();
 
-    const user = {
+    const newUser = {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       email: this.state.email,
@@ -264,12 +289,18 @@ class Register extends React.Component {
       cleanliness: this.state.cleanliness,
       smoker: this.state.smoker,
       pets: this.state.pets,
-      type: this.state.type
+      type: this.state.type,
+      workSched: this.state.workSched,
+      goOutFreq: this.state.goOutFreq,
+      guestsFreq: this.state.guestsFreq,
+      diet: this.state.diet,
+      personality: this.state.personality
+
     };
 
-    console.log(user);
+    console.log(newUser);
 
-    axios.post('/users/register', { user })
+    axios.post('/users/register', { newUser })
       .then( res => {
         // const name = res.data[0].first_name;
         // this.setState({ name });

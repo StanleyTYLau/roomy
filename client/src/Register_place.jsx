@@ -26,15 +26,20 @@ class Register extends React.Component {
     this.state = {
       modal1: true,
       modal2: false,
-      type: '',
-      firstName: '',
-      lastName:'',
-      email: '',
-      password: '',
-      gender: 'Male',
-      cleanliness: 'Low',
-      smoker: false,
-      pets: false
+      postalCode: '',
+      streetNumber: '',
+      streetName: '',
+      unitNumber: '',
+      neighbourhood: '',
+      buildingType: '',
+      price: '',
+      description: '',
+      bathrooms: '',
+      laundry: 'false',
+      furnished: 'false',
+      ac: 'false',
+      parking: 'false'
+
       
 
     };
@@ -59,31 +64,31 @@ class Register extends React.Component {
                   <FormGroup row>
                     <Label for="PostalCode" sm={3}>Postal Code</Label>
                     <Col sm={9}>
-                      <Input type="text" name="PostalCode" id="formPostalCode" placeholder="PostalCode" onChange={this._handleFirstName} required />
+                      <Input type="text" name="PostalCode" id="formPostalCode" placeholder="PostalCode" onChange={this._handlePostalCode} />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Label for="StreetNumber" sm={3}>Street Number</Label>
                     <Col sm={9}>
-                      <Input type="number" min="0" name="StreetNumber" id="formStreetnumber" placeholder="Street Number" onChange={this._handleLastName} required />
+                      <Input type="number" min="0" name="StreetNumber" id="formStreetnumber" placeholder="Street Number" onChange={this._handleStreetNumber} />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Label for="StreetName" sm={3}>Street Name</Label>
                     <Col sm={9}>
-                      <Input type="text" name="StreetName" id="formStreetName" placeholder="Street Name" onChange={this._handleEmail} required />
+                      <Input type="text" name="StreetName" id="formStreetName" placeholder="Street Name" onChange={this._handleStreetName} />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Label for="UnitNumber" sm={3}>Unit Number</Label>
                     <Col sm={9}>
-                      <Input type="text" name="UnitNumber" id="formUnitNumber" placeholder="Unit Number" onChange={this._handlePassword} required />
+                      <Input type="text" name="UnitNumber" id="formUnitNumber" placeholder="Unit Number" onChange={this._handleUnitNumber} />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Label for="areaSelect" sm={3}>Neighbourhood</Label>
                     <Col sm={9}>
-                      <Input type="select"  name="areaSelect" id="areaSelect" onChange={this._handleGender} value="Male" >
+                      <Input type="select"  name="areaSelect" id="areaSelect" onChange={this._handleNeighbourhood} >
                         <option>Downtown</option>
                         <option>East End</option>
                         <option>East York</option>
@@ -100,7 +105,7 @@ class Register extends React.Component {
                   <FormGroup row>
                     <Label for="typeSelect" sm={3}>Type of Building</Label>
                     <Col sm={9}>
-                      <Input type="select" name="typeSelect" id="typeSelect" onChange={this._hanldeClean} >
+                      <Input type="select" name="typeSelect" id="typeSelect" onChange={this._hanldeType} >
                         <option>Appartment Building</option>
                         <option>Condo</option>
                         <option>Private House</option>
@@ -127,20 +132,20 @@ class Register extends React.Component {
                 <FormGroup row>
                     <Label for="price" sm={3}>Price</Label>
                     <Col sm={9}>
-                      <Input type="text" name="price" id="formPrice" placeholder="Please indicate the price" onChange={this._handleLastName} required />
+                      <Input type="text" name="price" id="formPrice" placeholder="Please indicate the price" onChange={this._handlePrice} required />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Label for="description" sm={3}>Description</Label>
                     <Col sm={9}>
-                      <Input type="textarea" />
+                      <Input type="textarea" onChange = {this._handleDescription} />
                       {/* <Input type="text" name="description" id="formDescription" placeholder="Short description of the room" onChange={this._handleFirstName} required /> */}
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Label for="bathrooms" sm={3}>Bathrooms</Label>
                     <Col sm={9}>
-                      <Input type="number" min="0" name="bathrooms" id="formBathrooms" placeholder="Number of bathrooms" onChange={this._handlePassword} required />
+                      <Input type="number" min="0" name="bathrooms" id="formBathrooms" placeholder="Number of bathrooms" onChange={this._handleBathrooms} required />
                     </Col>
                   </FormGroup>
 
@@ -148,25 +153,25 @@ class Register extends React.Component {
                   <FormGroup row>
                     <Label for="laundry" sm={3}>Laundry on site</Label>
                     <Col sm={9}>
-                      <CustomInput type="switch" id="laundrySwitch" name="laundrySwitch" label="Turn on if you have a laundry on site" onClick = {this._handleSmoker} />
+                      <CustomInput type="switch" id="laundrySwitch" name="laundrySwitch" label="Turn on if you have a laundry on site" onClick = {this._handleLaundry} />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Label for="furnishedCheckbox" sm={3}>Furnished</Label>
                     <Col sm={9}>
-                      <CustomInput type="switch" id="furnishedSwitch" name="furnishedSwitch" label="Turn on if the room is furnished" onClick = {this._handlePets} />
+                      <CustomInput type="switch" id="furnishedSwitch" name="furnishedSwitch" label="Turn on if the room is furnished" onClick = {this._handleFurnished} />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Label for="ac" sm={3}>Air Conditioning</Label>
                     <Col sm={9}>
-                      <CustomInput type="switch" id="acSwitch" name="acSwitch" label="Turn on if you have an air conditioning" onClick = {this._handleSmoker} />
+                      <CustomInput type="switch" id="acSwitch" name="acSwitch" label="Turn on if you have an air conditioning" onClick = {this._handleAC} />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Label for="parking" sm={3}>Parking Available</Label>
                     <Col sm={9}>
-                      <CustomInput type="switch" id="parkingSwitch" name="parkingSwitch" label="Turn on if you have available parking spot" onClick = {this._handleSmoker} />
+                      <CustomInput type="switch" id="parkingSwitch" name="parkingSwitch" label="Turn on if you have available parking spot" onClick = {this._handleParking} />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
@@ -186,7 +191,7 @@ class Register extends React.Component {
 
 
               <ModalFooter>
-                <Button type="submit" className="button_char" onClick={this.toggle}>SUBMIT</Button>{' '}
+                <Button type="submit" className="button_char">SUBMIT</Button>{' '}
                 <Button className="cancel" onClick={this.toggle}>CANCEL</Button>
               </ModalFooter>
             </Form>
@@ -207,62 +212,90 @@ class Register extends React.Component {
       modal2: true
     });
   }
-  _handleFirstName = e => {
+  _handlePostalCode = e => {
     let value = e.target.value;
-    this.setState({ firstName: value });
+    this.setState({ postalCode: value });
   }
 
-  _handleLastName = e => {
+  _handleStreetNumber = e => {
     let value = e.target.value;
-    this.setState({ lastName: value });
+    this.setState({ streetNumber: value });
   }
 
-  _handleEmail = e => {
+  _handleStreetName = e => {
     let value = e.target.value;
-    this.setState({ email: value });
+    this.setState({ streetName: value });
   }
 
-  _handlePassword = e => {
+  _handleUnitNumber = e => {
     let value = e.target.value;
-    this.setState({ password: value });
+    this.setState({ unitNumber: value });
   }
 
-  _handleGender = e => {
+  _handleNeighbourhood = e => {
     let value = e.target.value;
-    this.setState({ gender: value });
+    this.setState({ neighbourhood: value });
   }
 
-  _hanldeClean = e => {
+  _hanldeType = e => {
     let value = e.target.value;
-    this.setState({ cleanliness: value });
+    this.setState({ buildingType: value });
   }
 
-  _handleSmoker = e => {
-    this.setState({ smoker: true });
-  } 
-
-  _handlePets = e => {
-    this.setState({ pets: true });
+  _handlePrice = e => {
+    let value = e.target.value;
+    this.setState({ price: value });
   }
+
+  _handleDescription = e => {
+    let value = e.target.value;
+    this.setState({ description: value });
+  }
+
+  _handleBathrooms = e => {
+    let value = e.target.value;
+    this.setState({ bathrooms: value});
+  }
+
+  _handleLaundry = e => {
+    this.setState({ laundry: true });
+  }
+
+  _handleFurnished = e => {
+    this.setState({ furnished: true });
+  }
+
+  _handleAC = e => {
+    this.setState({ ac: true });
+  }
+
+  _handleParking = e => {
+    this.setState({ parking: true });
+  }
+
 
   _handleSubmit = e => {
     e.preventDefault();
 
-    const user = {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      email: this.state.email,
-      password: this.state.password,
-      gender: this.state.gender,
-      cleanliness: this.state.cleanliness,
-      smoker: this.state.smoker,
-      pets: this.state.pets,
-      type: this.state.type
+    const newPlace = {
+      postalCode: this.state.postalCode,
+      streetNumber: this.state.streetNumber,
+      streetName: this.state.streetName,
+      unitNumber: this.state.unitNumber,
+      neighbourhood: this.state.neighbourhood,
+      buildingType: this.state.buildingType,
+      price: this.state.price,
+      description: this.state.description,
+      bathrooms: this.state.bathrooms,
+      laundry: this.state.laundry,
+      furnished: this.state.furnished,
+      ac: this.state.furnished,
+      parking: this.state.parking
     };
 
-    console.log(user);
+    console.log(newPlace);
 
-    axios.post('/users/register', { user })
+    axios.post('/places/new', { newPlace })
       .then( res => {
         // const name = res.data[0].first_name;
         // this.setState({ name });

@@ -39,15 +39,20 @@ module.exports = (knex) => {
     router.post('/register', (req, res) => {
       
     let newUser = {
-      firstName: req.body.user.firstName,
-      lastName: req.body.user.lastName,
-      email: req.body.user.email,
-      password: req.body.user.password,
-      gender: req.body.user.gender,
-      cleanliness: req.body.user.cleanliness,
-      smoker: req.body.user.smoker,
-      pets: req.body.user.pets,
-      type: req.body.user.type
+      firstName: req.body.newUser.firstName,
+      lastName: req.body.newUser.lastName,
+      email: req.body.newUser.email,
+      password: req.body.newUser.password,
+      gender: req.body.newUser.gender,
+      cleanliness: req.body.newUser.cleanliness,
+      smoker: req.body.newUser.smoker,
+      pets: req.body.newUser.pets,
+      type: req.body.newUser.type,
+      workSched: req.body.newUser.workSched,
+      goOutFreq: req.body.newUser.goOutFreq,
+      guestsFreq: req.body.newUser.guestsFreq,
+      diet: req.body.newUser.diet,
+      personality: req.body.newUser.personality
     }
 
     console.log(newUser);    
@@ -61,7 +66,13 @@ module.exports = (knex) => {
              cleanliness: newUser.cleanliness,
              smoker: newUser.smoker,
              pets: newUser.pets,
-             type: newUser.type})
+             type: newUser.type,
+             work_sched: newUser.workSched,
+             go_out_freq: newUser.goOutFreq,
+             guest_freq: newUser.guestsFreq,
+             diet: newUser.diet,
+             personality: newUser.personality
+            })
     .then( () => {
       console.log("Successfully inserted to Users");
     });
