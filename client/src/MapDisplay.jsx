@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import { Collapse, Button, CardBody, Card } from 'reactstrap';
-import Places from './Places.jsx';
 import Geocode from "react-geocode";
+import key from "./google.jsx";
 
-Geocode.setApiKey("AIzaSyABwXxJyM59e_GmCcHsfUhLhZJKoPjvCdI");
+// Geocode.setApiKey(process.env.API_KEY);
 
 
 const LatitudeLongitude = ({ hover, hover_id, text, onMouseEnter, onMouseLeave }) =>
@@ -166,7 +166,7 @@ constructor(props) {
       <div className="middle_all">
         <div className="google_map">
           <GoogleMapReact
-          bootstrapURLKeys={{ key: "AIzaSyABwXxJyM59e_GmCcHsfUhLhZJKoPjvCdI"}}
+          bootstrapURLKeys={{ key: key }}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
           >
@@ -195,7 +195,19 @@ constructor(props) {
             <Collapse isOpen={this.state.collapse}>
               <Card>
                 <CardBody>
-                  Our criterias
+                  <p>Neighborhood</p>
+                  {/*<p>Type of building</p>
+                  <p>Number of rooms</p>
+                  <p>Number of bathrooms</p>
+                  <p>Monthly price (per room)</p>
+                  <p>Parking</p>
+                  <p>Short (4 months) or long term<p>
+                  <p>Air conditioning</p>
+                  <p>Utilities</p>
+                  <p>Furnished</p>
+                  <p>Pets allowed</p>
+                  <p>Facilities (gym, locker, pool, ...)</p>
+                  <p>Services (security, cleaning, ...)</p>*/}
                 </CardBody>
               </Card>
             </Collapse>
