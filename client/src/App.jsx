@@ -103,7 +103,7 @@ class App extends Component {
               {this.state.loggedIn ? (
                 <Redirect to="/main"/>
               ) : (
-                <Redirect to="/"/>
+                <span></span>
               )}
               </div>
             )}
