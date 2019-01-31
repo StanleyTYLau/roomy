@@ -9,10 +9,19 @@ import axios from 'axios';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { BrowserRouter as Router, 
   Route, 
-  Link 
+  Link,
+  Redirect 
 } from "react-router-dom";
 
 class Login extends Component{
+  constructor() {
+    super();
+    this.state = {
+      
+    };
+
+  }
+
   render(){
     return(
       <div className="middle_all">
@@ -62,7 +71,8 @@ class App extends Component {
     members: [],
     email: '',
     password: '',
-    name: ''
+    name: '',
+    loggedIn: false
     
   }
 
@@ -81,24 +91,35 @@ class App extends Component {
       <Router>
         <div>
           <Route 
-            exact path='/' 
-            render={(props) => <Login 
-              {...props} 
-              _handleSubmit={this._handleSubmit}
-              _handleEmailChange={this._handleEmailChange}
-              _handlePassChange={this._handlePassChange}
-          />} />
+            exact path='/'
+            render={(props) => (
+              <div>
+              <Login 
+                {...props} 
+                _handleSubmit={this._handleSubmit}
+                _handleEmailChange={this._handleEmailChange}
+                _handlePassChange={this._handlePassChange}
+              />
+              {this.state.loggedIn ? (
+                <Redirect to="/main"/>
+              ) : (
+                <Redirect to="/"/>
+              )}
+              </div>
+            )}
+          />
+
           <Route 
             path='/main' 
             render={(props) => <Main 
               {...props} 
               x={"this x passed as prop"}
-          />} />
+            />} 
+          />
           <Route
             path='/places/new'
             component = {Register_place}
           />
-            />} />
           <Route path='/places/:id' component={Place_id} />
         </div>
       </Router>     
@@ -123,10 +144,10 @@ class App extends Component {
 
     axios.post('/users/login', { login })
       .then( res => {
-        // const name = res.data[0].first_name;
-        // this.setState({ name });
-        // console.log(name);
-        console.log(res.data)
+        if (res.data === "OK"){
+          this.setState({loggedIn: true});
+        }        
+        console.log(res.data);
       })
   }
 
