@@ -125,6 +125,7 @@ class App extends Component {
       .then( res => {
         if (res.data === "OK"){
           this.setState({loggedIn: true});
+          //set a cookie
         }
         console.log(res.data);
       })
