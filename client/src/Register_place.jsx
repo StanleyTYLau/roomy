@@ -6,6 +6,8 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { CustomInput, Col, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 // import ScrollableAnchor, { configureAnchors } from 'react-scrollable-anchor';
 
+import key from "./google.jsx";
+Geocode.setApiKey(key);
 // function Display(props) {
 //   if (props.type === 1) {
 //     return (
