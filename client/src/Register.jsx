@@ -39,7 +39,7 @@ class Register extends React.Component {
       personality: 'Introvert',
       smoker: false,
       pets: false
-      
+
 
     };
 
@@ -61,7 +61,7 @@ class Register extends React.Component {
     }
   }
 
-  
+
 
 
   render() {
@@ -173,7 +173,7 @@ class Register extends React.Component {
                     <Label for="dietSelect" sm={3}>What is your diet preferences?</Label>
                     <Col sm={9}>
                       <Input type="select"  name="dietSelect" id="dietSelect" onChange={this._handleDiet} >
-                        <option>None</option>                       
+                        <option>None</option>
                         <option>Vegan</option>
                         <option>Vegeterian</option>
                         <option>Lactose free</option>
@@ -271,7 +271,7 @@ class Register extends React.Component {
 
   _handleSmoker = e => {
     this.setState({ smoker: true });
-  } 
+  }
 
   _handlePets = e => {
     this.setState({ pets: true });
@@ -308,11 +308,11 @@ class Register extends React.Component {
         console.log(res.data)
       })
   }
-    
 
 
 
-  
+
+
 }
 
 
