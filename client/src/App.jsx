@@ -54,18 +54,6 @@ class Login extends Component{
   }
 }
 
-
-class Main extends Component {
-  render(){
-    return (
-      <div>
-        <h2>You are at the main page!</h2>
-        {this.props.x}
-      </div>
-    )
-  }
-}
-
 class App extends Component {
 
   state = {
