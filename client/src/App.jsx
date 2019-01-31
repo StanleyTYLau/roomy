@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.scss';
 import Register from './Register.jsx';
-
 import MapDisplay from './MapDisplay.jsx';
 import Geocode from "react-geocode";
 import Register_place from './Register_place.jsx';
@@ -28,7 +27,7 @@ class Login extends Component{
   render(){
     return(
       <div className="middle_all">
-        {/*<div className="middle_logo">
+        <div className="middle_logo">
           <img src="/images/logo_white.png" alt="Logo" className="logo"></img>
         </div>
         <div className="slogan">We help people to find roommates and places to live.</div>
@@ -49,8 +48,7 @@ class Login extends Component{
         </Form>
         <div className="registerBut">
           <Register></Register>
-        </div>*/}
-        <MapDisplay></MapDisplay>
+        </div>
       </div>
     )
   }
@@ -79,16 +77,6 @@ class App extends Component {
 
   }
 
-  // componentDidMount() {
-  //   axios.get('/users')
-  //     .then(res =>  {
-  //       const members = res.data;
-  //       this.setState({ members });
-  //       console.log(members);
-  //     })
-  // }
-
-
   render() {
     return (
       <Router>
@@ -114,7 +102,7 @@ class App extends Component {
 
           <Route
             path='/main'
-            render={(props) => <Main
+            render={(props) => <MapDisplay
               {...props}
               x={"this x passed as prop"}
             />}
