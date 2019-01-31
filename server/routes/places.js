@@ -57,7 +57,7 @@ module.exports = (knex) => {
           getUserInfo(dummyId)
           .then((currentUser) => {
             user2 = currentUser
-
+            //compare mathcing %
             console.log("Matching %:", compareUsers(profile1, profile2));
             place['matchPercent'] = compareUsers(profile1, profile2);
             res.send(place);
@@ -72,7 +72,7 @@ module.exports = (knex) => {
         
       })
     
-    //compare mathcing %
+    
   });
 
   async function getUserInfo(id) {
