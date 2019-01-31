@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import './App.scss';
 import axios from 'axios';
 // import { Container, Row, Col } from 'reactstrap';
