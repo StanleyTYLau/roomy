@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.scss';
 import Register from './Register.jsx';
 import Register_place from './Register_place.jsx';
+import Place_id from './Place_id.jsx';
 import axios from 'axios';
 // import { Container, Row, Col } from 'reactstrap';
 // import { Button } from 'reactstrap';
@@ -97,6 +98,8 @@ class App extends Component {
             path='/places/new'
             component = {Register_place}
           />
+            />} />
+          <Route path='/places/:id' component={Place_id} />
         </div>
       </Router>     
 
