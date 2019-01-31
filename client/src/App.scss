@@ -41,6 +41,12 @@ body {
       height: 200px;
     }
 
+    img.img_place {
+      width: 120px;
+      height: 120px;
+      margin-right: 20px;
+    }
+
     .middle_all {
       font-family: 'Muli', sans-serif;
       width: 100%;
@@ -225,6 +231,90 @@ body {
    .close:focus {
     outline: none;
     border: none;
+   }
+
+   .topsearch {
+    background-color: $form-background-color;
+    padding: 10px;
+    width: 100%;
+   }
+
+   button.topsearch {
+    outline: none;
+    border: none;
+   }
+
+   button.topsearch:focus {
+    outline: none;
+    border: none;
+   }
+
+   button.topsearch:active {
+    outline: none;
+    border: none;
+   }
+
+   .places {
+    width: 100%;
+    padding: 20px;
+   }
+
+   .places:hover {
+    background-color: $light-grey-color;
+   }
+
+   .hover_place {
+      background-color: $light-grey-color;
+   }
+
+   .hover_but {
+    background-color: $purple-color;
+   }
+
+   .map_places {
+    width: 100%;
+    display: flex;
+   }
+
+   .price {
+    font-size: 2em;
+    font-weight: 900;
+    color: $purple-color;
+   }
+
+   .google_map {
+      height: 100vh;
+      width: 50%;
+      float: left;
+   }
+
+   .right {
+      float: right;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+   }
+
+   .scrollable {
+    overflow-y: auto;
+    flex: 1;
+   }
+
+   .wrapper img {
+      width: 60px;
+      height: 60px;
+   }
+
+   .wrapper {
+    display: flex;
+    justify-content: space-between;
+   }
+
+   .place_number {
+    font-weight: 900;
+    color: $form-background-color;
+    font-size: 1.5em;
    }
 
 }

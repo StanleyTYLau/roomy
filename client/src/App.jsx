@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.scss';
 import Register from './Register.jsx';
+import MapDisplay from './MapDisplay.jsx';
 import axios from 'axios';
 // import { Container, Row, Col } from 'reactstrap';
 // import { Button } from 'reactstrap';
@@ -56,7 +57,7 @@ class App extends Component {
   render() {
     return (
       <div className="middle_all">
-        <div className="middle_logo">
+        {/*<div className="middle_logo">
           <img src="/images/logo_white.png" alt="Logo" className="logo"></img>
         </div>
         <div className="slogan">We help people to find roommates and places to live.</div>
@@ -77,8 +78,8 @@ class App extends Component {
         </Form>
         <div className="registerBut">
           <Register></Register>
-        </div>
-
+        </div>*/}
+        <MapDisplay></MapDisplay>
       </div>
     );
   }
