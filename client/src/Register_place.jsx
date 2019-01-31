@@ -1,10 +1,11 @@
 import React from 'react';
 import axios from 'axios';
+import Geocode from "react-geocode";
 import { UncontrolledCollapse, Button, CardBody } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { CustomInput, Col, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 // import ScrollableAnchor, { configureAnchors } from 'react-scrollable-anchor';
-
+Geocode.setApiKey("AIzaSyABwXxJyM59e_GmCcHsfUhLhZJKoPjvCdI");
 // function Display(props) {
 //   if (props.type === 1) {
 //     return (
@@ -277,31 +278,49 @@ class Register extends React.Component {
   _handleSubmit = e => {
     e.preventDefault();
 
-    const newPlace = {
-      postalCode: this.state.postalCode,
-      streetNumber: this.state.streetNumber,
-      streetName: this.state.streetName,
-      unitNumber: this.state.unitNumber,
-      neighbourhood: this.state.neighbourhood,
-      buildingType: this.state.buildingType,
-      price: this.state.price,
-      description: this.state.description,
-      bathrooms: this.state.bathrooms,
-      laundry: this.state.laundry,
-      furnished: this.state.furnished,
-      ac: this.state.furnished,
-      parking: this.state.parking
-    };
+    
+    let address = `${this.state.postalCode} ${this.state.streetNumber} ${this.state.streetName} Toronto ON`
 
-    console.log(newPlace);
+    console.log(address);
 
-    axios.post('/places/new', { newPlace })
-      .then( res => {
-        // const name = res.data[0].first_name;
-        // this.setState({ name });
-        // console.log(name);
-        console.log(res.data)
-      })
+    
+    Geocode.fromAddress(address).then(
+      response => {
+        const { lat, lng } = response.results[0].geometry.location;
+        console.log(lat, lng);
+
+        const newPlace = {
+          postalCode: this.state.postalCode,
+          streetNumber: this.state.streetNumber,
+          streetName: this.state.streetName,
+          unitNumber: this.state.unitNumber,
+          neighbourhood: this.state.neighbourhood,
+          buildingType: this.state.buildingType,
+          price: this.state.price,
+          description: this.state.description,
+          bathrooms: this.state.bathrooms,
+          laundry: this.state.laundry,
+          furnished: this.state.furnished,
+          ac: this.state.furnished,
+          parking: this.state.parking,
+          lat: lat,
+          lng: lng
+        };
+
+        console.log(newPlace);
+
+        axios.post('/places/new', { newPlace })
+        .then( res => {
+          // const name = res.data[0].first_name;
+          // this.setState({ name });
+          // console.log(name);
+          console.log(res.data)
+        })
+      },
+      error => {
+        console.error(error);
+      }
+    );
   }
     
 

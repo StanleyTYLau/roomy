@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.scss';
 import Register from './Register.jsx';
+import Geocode from "react-geocode";
 import Register_place from './Register_place.jsx';
 import Place_id from './Place_id.jsx';
 import axios from 'axios';
