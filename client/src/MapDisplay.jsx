@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
-import { Collapse, Button, CardBody, Card } from 'reactstrap';
+import { Collapse, Button, CardBody, Card, CustomInput } from 'reactstrap';
+import { Col, Row, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import Geocode from "react-geocode";
 import key from "./google.jsx";
+import Place_id from './Place_id.jsx';
 
 // Geocode.setApiKey(process.env.API_KEY);
 
@@ -189,25 +191,83 @@ constructor(props) {
         <div className="right">
           <div className="topsearch">
             <div className="wrapper">
-              <Button className="button_char" onClick={this.toggle} style={{ marginBottom: '1rem' }}>SEARCH</Button>
+              <Button className="button_char" onClick={this.toggle}>SEARCH</Button>
+              <p className="logout">Your Email</p>
+              <a className="logout" href="">Logout</a>
               <img src="/images/logo_white.png" alt="Logo"></img>
             </div>
             <Collapse isOpen={this.state.collapse}>
-              <Card>
+              <Card style={{ marginTop: '1rem' }}>
                 <CardBody>
-                  <p>Neighborhood</p>
-                  {/*<p>Type of building</p>
-                  <p>Number of rooms</p>
-                  <p>Number of bathrooms</p>
-                  <p>Monthly price (per room)</p>
-                  <p>Parking</p>
-                  <p>Short (4 months) or long term<p>
-                  <p>Air conditioning</p>
-                  <p>Utilities</p>
-                  <p>Furnished</p>
-                  <p>Pets allowed</p>
-                  <p>Facilities (gym, locker, pool, ...)</p>
-                  <p>Services (security, cleaning, ...)</p>*/}
+                  <Form>
+                  <p className="price">Please, choose your search criteria:</p>
+                    <FormGroup row>
+                      <Label for="exampleSelect" sm={3}>Neighbourhood</Label>
+                      <Col sm={9}>
+                        <Input type="select" name="select" id="exampleSelect" >
+                          <option>Etobicoke</option>
+                          <option>North York</option>
+                          <option>York-Crosstown</option>
+                          <option>Uptown</option>
+                          <option>Midtown</option>
+                          <option>Downtown</option>
+                          <option>West End</option>
+                          <option>East York</option>
+                          <option>East End</option>
+                          <option>Scarborough</option>
+                        </Input>
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Label for="exampleSelect" sm={3}>Type of building</Label>
+                      <Col sm={9}>
+                        <Input type="select" name="select" id="exampleSelect" >
+                          <option>Condo</option>
+                          <option>Apartment</option>
+                          <option>House</option>
+                        </Input>
+                      </Col>
+                    </FormGroup>
+                    <Row form>
+                      <Col md={6}>
+                        <FormGroup>
+                          <Label for="From">Monthly Price (per room) From:</Label>
+                          <Input type="text" name="from" id="from" placeholder="" />
+                        </FormGroup>
+                      </Col>
+                      <Col md={6}>
+                        <FormGroup>
+                          <Label for="To">To:</Label>
+                          <Input type="text" name="to" id="to" placeholder="" />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <FormGroup row>
+                      <Label for="parkingCheckbox" sm={3}>Parking</Label>
+                      <Col sm={9}>
+                        <CustomInput type="switch" id="parkingSwitch" name="parkingSwitch" label="Turn on if you need a parking place" onClick = {this._handleSmoker} />
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Label for="laundryCheckbox" sm={3}>Laundry</Label>
+                      <Col sm={9}>
+                        <CustomInput type="switch" id="laundrySwitch" name="laundrySwitch" label="Turn on if you need a washer/dryer" onClick = {this._handleSmoker} />
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Label for="AC_Checkbox" sm={3}>Air conditioning</Label>
+                      <Col sm={9}>
+                        <CustomInput type="switch" id="AC_Switch" name="AC_Switch" label="Turn on if you need AC" onClick = {this._handleSmoker} />
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Label for="furnishedCheckbox" sm={3}>Furnished</Label>
+                      <Col sm={9}>
+                        <CustomInput type="switch" id="furnishedSwitch" name="furnishedSwitch" label="Turn on if you need a furnished place" onClick = {this._handleSmoker} />
+                      </Col>
+                    </FormGroup>
+                    <Button type="submit" className="button_char" >GO FOR IT</Button>
+                  </Form>
                 </CardBody>
               </Card>
             </Collapse>
@@ -221,15 +281,15 @@ constructor(props) {
                 onMouseEnter={this.toggleHover}
                 onMouseLeave={this.toggleLeave}>
                     <div className="map_places">
+                    <div className="place_number">{place.id}</div>
                       <div>
                         <img src="/images/room_exm.png" alt="room" className="img_place"></img>
                       </div>
                       <div>
                         <div className="price">${place.price}/m</div>
                         <div>{place.street_number} {place.street_name}, {place.city}, {place.province}, {place.postal_code}</div>
-                        <Button type="" className="button_char">DETAILS</Button>
+                        <Place_id place_id={place.id}></Place_id>
                       </div>
-                      <div className="place_number">{place.id}</div>
                     </div>
                   </div>
                 </div>
