@@ -3,6 +3,11 @@ import axios from 'axios';
 import { UncontrolledCollapse, Button, CardBody } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { CustomInput, Col, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { BrowserRouter as Router,
+  Route,
+  Redirect
+} from "react-router-dom";
+
 // import ScrollableAnchor, { configureAnchors } from 'react-scrollable-anchor';
 
 // function Display(props) {
@@ -38,8 +43,9 @@ class Register extends React.Component {
       diet: 'None',
       personality: 'Introvert',
       smoker: false,
-      pets: false
+      pets: false,
 
+      toMain: false
 
     };
 
@@ -61,11 +67,15 @@ class Register extends React.Component {
     }
   }
 
-
-
-
   render() {
-    return (
+    if (this.state.toMain === true && this.state.type === 'roomy'){
+      return <Redirect to='/main' />
+    }
+    else if (this.state.toMain === true && this.state.type === 'owner'){
+      return <Redirect to='/places/new' />
+    }
+
+    return (  
       <div>
         <Button className="register" id="toggler">
           REGISTER
@@ -212,8 +222,10 @@ class Register extends React.Component {
           </Modal>
         </div>
       </div>
+      
     );
   }
+
   _handleFirstName = e => {
     let value = e.target.value;
     this.setState({ firstName: value });
@@ -302,10 +314,8 @@ class Register extends React.Component {
 
     axios.post('/users/register', { newUser })
       .then( res => {
-        // const name = res.data[0].first_name;
-        // this.setState({ name });
-        // console.log(name);
-        console.log(res.data)
+        this.setState({toMain: true});
+        console.log("HELLO:", res.data);
       })
   }
 

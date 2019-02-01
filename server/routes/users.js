@@ -75,8 +75,9 @@ module.exports = (knex) => {
             })
     .then( () => {
       console.log("Successfully inserted to Users");
+      res.send("User Inserted")
     });
-    });
+  });
 
 
 
