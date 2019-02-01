@@ -24,10 +24,11 @@ class Place_id extends React.Component {
 
   componentWillMount(){
     const placeId = this.props.place_id;
-    axios.get(`/places/${placeId}`)
+
+    axios.post(`/places/${placeId}`, {user_info: this.props.user_info})
       .then( res => {
         this.setState({placeData: res.data});
-        console.log(res.data)
+        //console.log(res.data)
       })
   };
 

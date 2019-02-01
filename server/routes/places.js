@@ -6,7 +6,6 @@ module.exports = (knex) => {
     knex.select('*')
       .from('places')
       .then( (results) => {
-        console.log(results);
         res.send(results);
       });
   });
@@ -61,7 +60,8 @@ module.exports = (knex) => {
 
   });
 
-  router.get('/:id', (req, res) =>{
+  //work-around to send user data. Using POST instead of GET
+  router.post('/:id', (req, res) =>{
     dummyId = 10;//grab data from req.body current user
     //DUmmy users
     const profile1 = {
@@ -89,8 +89,9 @@ module.exports = (knex) => {
       personality: 'introvert'
     }
 
-    let user1 = {};
-    let user2 = {};
+    let owner = {};
+    let current_user = req.body.user_info;
+    console.log("CurrentUser:", current_user)
     let place = {};
     //get the place w/ params.id and get the corresponding place owner profile
     //SELECT * FROM places JOIN users ON users.id=places.user_id;
@@ -100,22 +101,13 @@ module.exports = (knex) => {
       .then( (results) => {
         place = results[0];
         getUserInfo(results[0].user_id)
-        .then((owner) => {
-          user1 = owner;
-
-          //get current user profile
-          getUserInfo(dummyId)
-          .then((currentUser) => {
-            user2 = currentUser
-            //compare mathcing %
-            console.log("Matching %:", compareUsers(profile1, profile2));
-            place['matchPercent'] = compareUsers(profile1, profile2);
-            res.send(place);
-
-            // [{"id":8,"first_name":"Alex","last_name":"Peterson","email":"alex@email.com","password":"password1","gender":"male","smoker":false,"pets":false,"cleanliness":"High","type":"roomy"}]
-            // [{"id":10,"first_name":"Math","last_name":"Murdock","email":"math@email.com","password":"password3","gender":"male","smoker":true,"pets":true,"cleanliness":"Low","type":"roomy"}]
-          })
-          
+        .then((owner_info) => {
+          owner = owner_info;
+          //compare mathcing %
+          //console.log("Matching %:", compareUsers(profile1, profile2));
+          place['matchPercent'] = compareUsers(current_user, owner);
+          res.send(place);
+ 
         });
 
 
@@ -200,7 +192,7 @@ module.exports = (knex) => {
         case "low":
           return 0;
           break;
-        case "medium":
+        case "moderate":
           return 1;
           break;
         case "high":
@@ -231,8 +223,8 @@ module.exports = (knex) => {
     scores.forEach((score) => {
       finalScore += score;
     })
-    console.log("Matching scores:", scores);
-    console.log("max scores:", maxScore);
+    //console.log("Matching scores:", scores);
+    //console.log("max scores:", maxScore);
 
     return (finalScore / maxScore);
   }
