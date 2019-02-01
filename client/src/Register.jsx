@@ -8,6 +8,7 @@ import { BrowserRouter as Router,
   Redirect
 } from "react-router-dom";
 
+import Cookies from 'universal-cookie';
 // import ScrollableAnchor, { configureAnchors } from 'react-scrollable-anchor';
 
 // function Display(props) {
@@ -44,7 +45,6 @@ class Register extends React.Component {
       personality: 'Introvert',
       smoker: false,
       pets: false,
-
       toMain: false
 
     };
@@ -314,10 +314,20 @@ class Register extends React.Component {
 
     axios.post('/users/register', { newUser })
       .then( res => {
-        this.setState({toMain: true});
-        console.log("HELLO:", res.data);
-      })
+
+        if (res.data){
+          const cookies = new Cookies();
+          cookies.set('user', res.data)
+          this.setState({toMain: true});
+          //set a cookie
+        console.log(res.data)
+      }
+  })
+
+
+
   }
+
 
 
 

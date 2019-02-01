@@ -33,11 +33,11 @@ class Register extends React.Component {
       streetNumber: '',
       streetName: '',
       unitNumber: '',
-      neighbourhood: '',
-      buildingType: '',
+      neighbourhood: 'Downtown',
+      buildingType: 'Apartment building',
       price: '',
       description: '',
-      bathrooms: '',
+      bathrooms: '1',
       laundry: 'false',
       furnished: 'false',
       ac: 'false',
@@ -67,7 +67,7 @@ class Register extends React.Component {
                   <FormGroup row>
                     <Label for="PostalCode" sm={3}>Postal Code</Label>
                     <Col sm={9}>
-                      <Input type="text" name="PostalCode" id="formPostalCode" placeholder="PostalCode" onChange={this._handlePostalCode} />
+                      <Input type="text" name="PostalCode" id="formPostalCode" placeholder="Postal Code" onChange={this._handlePostalCode} />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
@@ -135,7 +135,7 @@ class Register extends React.Component {
                 <FormGroup row>
                     <Label for="price" sm={3}>Price</Label>
                     <Col sm={9}>
-                      <Input type="text" name="price" id="formPrice" placeholder="Please indicate the price" onChange={this._handlePrice} required />
+                      <Input type="text" name="price" id="formPrice" placeholder="Please indicate the price" onChange={this._handlePrice} />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
@@ -148,7 +148,7 @@ class Register extends React.Component {
                   <FormGroup row>
                     <Label for="bathrooms" sm={3}>Bathrooms</Label>
                     <Col sm={9}>
-                      <Input type="number" min="0" name="bathrooms" id="formBathrooms" placeholder="Number of bathrooms" onChange={this._handleBathrooms} required />
+                      <Input type="number" min="0" name="bathrooms" id="formBathrooms" placeholder="Number of bathrooms" onChange={this._handleBathrooms} />
                     </Col>
                   </FormGroup>
 
@@ -195,16 +195,12 @@ class Register extends React.Component {
 
               <ModalFooter>
                 <Button type="submit" className="button_char">SUBMIT</Button>{' '}
-                <Button className="cancel" onClick={this.toggle}>CANCEL</Button>
+                <Button className="cancel" onClick={this._toggle}>CANCEL</Button>
               </ModalFooter>
             </Form>
           </Modal>
         </div>
       </div>
-
-
-
-
 
     );
   }
@@ -215,6 +211,11 @@ class Register extends React.Component {
       modal2: true
     });
   }
+
+  _togle = e => {
+    this.setState({ modal1: true, modal2: false })
+  }
+
   _handlePostalCode = e => {
     let value = e.target.value;
     this.setState({ postalCode: value });
