@@ -9,8 +9,10 @@ import axios from 'axios';
 // Geocode.setApiKey(process.env.API_KEY);
 
 
-const LatitudeLongitude = ({ hover, hover_id, text, onMouseEnter, onMouseLeave }) =>
-<Button data-id={text}
+const LatitudeLongitude = ({ hover, hover_id, text, onClick, onMouseEnter, onMouseLeave }) =>
+<Button
+onClick={onClick}
+data-id={text}
 onMouseEnter={onMouseEnter}
 onMouseLeave={onMouseLeave}
 color="success"
@@ -59,16 +61,18 @@ class SimpleMap extends Component {
   //   this.setState({places: newPlaces, isUpdatingPlaces: false})
   // }
 
-constructor(props) {
+  constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.state = {
       collapse: false,
       hover: false,
       hover_id: -1,
-
       places: []
      };
+
+    this.scrollableRef = React.createRef()
+    this.sectionRefs = {}
   }
 
   toggle() {
@@ -92,12 +96,32 @@ constructor(props) {
   };
 
   componentWillMount(){
-
     //Get the data on every place and insert to state.place
     axios.get(`/places`)
       .then( res => {
-        this.setState({places: res.data});
+        const places = res.data
+        this.setState({places: places});
+
+        places.forEach(place => {
+          this.sectionRefs[place.id] = React.createRef()
+        })
       })
+  }
+
+
+  scrollToPlace = (id) => {
+    let offsetTop = 0
+    if (this.sectionRefs[id] && this.sectionRefs[id].current) {
+      offsetTop = this.sectionRefs[id].current.offsetTop
+
+      if (this.scrollableRef && this.scrollableRef.current) {
+        this.scrollableRef.current.scrollTo({
+          left: 0,
+          top: offsetTop - 100,
+          behavior: 'smooth'
+        })
+      }
+    }
   }
 
   render() {
@@ -116,14 +140,15 @@ constructor(props) {
             {placesList.map(latlong => {
               return (
                 <LatitudeLongitude
-                hover={this.state.hover}
-                hover_id={this.state.hover_id}
-                onMouseEnter={this.toggleHover}
-                onMouseLeave={this.toggleLeave}
-                key={latlong.id}
-                lat={latlong.lat}
-                lng={latlong.lng}
-                text={latlong.id}
+                  hover={this.state.hover}
+                  hover_id={this.state.hover_id}
+                  onMouseEnter={this.toggleHover}
+                  onMouseLeave={this.toggleLeave}
+                  key={latlong.id}
+                  lat={latlong.lat}
+                  lng={latlong.lng}
+                  text={latlong.id}
+                  onClick={() => this.scrollToPlace(latlong.id)}
                 />
                 )
             })}
@@ -213,9 +238,10 @@ constructor(props) {
               </Card>
             </Collapse>
           </div>
-          <div className="scrollable">
+          <div className="scrollable" ref={this.scrollableRef}>
           {placesList.map(place => {
               return (
+                <section id={place.id} ref={this.sectionRefs[place.id]}>
                 <div
                 key={"place"+place.id} className={Number(this.state.hover_id) === place.id && this.state.hover ? "hover_place" : "" }>
                   <div className="places" data-id={place.id}
@@ -234,6 +260,7 @@ constructor(props) {
                     </div>
                   </div>
                 </div>
+                </section>
                 )
             })}
           </div>

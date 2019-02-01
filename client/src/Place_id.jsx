@@ -3,7 +3,7 @@ import axios from 'axios';
 import { UncontrolledCollapse, Button, CardBody } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { CustomInput, Col, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-
+import { Table } from 'reactstrap';
 // import ScrollableAnchor, { configureAnchors } from 'react-scrollable-anchor';
 
 class Place_id extends React.Component {
@@ -42,15 +42,44 @@ class Place_id extends React.Component {
             <ModalHeader className="big_title" toggle={this.toggle}>Owner Matching: {this.state.placeData.matchPercent * 100}%</ModalHeader>
               <Form onSubmit = {this._handleSubmit}>
                 <ModalBody>
-                  <p className="price">Place info:</p>
-                  <div>Price: ${this.state.placeData.price}</div>
-
-                  <div>Address: {this.state.placeData.street_number} {this.state.placeData.street_name}, {this.state.placeData.city}, {this.state.placeData.postal_code}</div>
-
-                  <div>Building Type: {this.state.placeData.type}</div>
-
-                  <div># of Baths: {this.state.placeData.number_of_bathrooms}</div>
-                  <p className="price">Owner info:</p>
+                  <p className="small_price">Place info:</p>
+                  <Table borderless>
+                    <tbody>
+                      <tr>
+                        <th scope="row">Price:</th>
+                        <td>${this.state.placeData.price}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Description:</th>
+                        <td>{this.state.placeData.description}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Neighbourhood:</th>
+                        <td>{this.state.placeData.neighbourhood}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Address:</th>
+                        <td>{this.state.placeData.street_number} {this.state.placeData.street_name}, {this.state.placeData.city}, {this.state.placeData.postal_code}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Building Type:</th>
+                        <td>{this.state.placeData.type}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Parking:</th>
+                        <td>{this.state.placeData.parking}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row"># of Baths:</th>
+                        <td>{this.state.placeData.parking}</td>
+                      </tr>
+                      <div># of Baths: {this.state.placeData.number_of_bathrooms}</div>
+                      <p>Air condition:</p>
+                      <p>Furnished:</p>
+                      <p>Laundry</p>
+                    </tbody>
+                  </Table>
+                  <p className="small_price">Owner info:</p>
                 </ModalBody>
               <ModalFooter>
                 <Button type="submit" className="button_char" onClick={this.toggle}>Ask to be Roomys</Button>{' '}
