@@ -39,8 +39,8 @@ class Register extends React.Component {
       gender: 'Male',
       cleanliness: 'Low',
       workSched: 'Days',
-      goOutFreq: 'Sometimes',
-      guestsFreq: 'Sometimes',
+      goOutFreq: 'Low',
+      guestsFreq: 'Low',
       diet: 'None',
       personality: 'Introvert',
       smoker: false,
@@ -163,10 +163,10 @@ class Register extends React.Component {
                   <FormGroup row>
                     <Label for="goOutSelect" sm={3}>How often do you go out?</Label>
                     <Col sm={9}>
-                      <Input type="select"  name="goOutSelect" id="goOutSelect" onChange={this._handleGoOutFreq} value="Male" >
-                        <option>Sometimes</option>
-                        <option>Often</option>
+                      <Input type="select"  name="goOutSelect" id="goOutSelect" onChange={this._handleGoOutFreq} >
+                        <option>Rarely</option>
                         <option>Regularly</option>
+                        <option>Often</option>
                       </Input>
                     </Col>
                   </FormGroup>
@@ -174,9 +174,9 @@ class Register extends React.Component {
                     <Label for="guestsSelect" sm={3}>How often do you have guests to come over?</Label>
                     <Col sm={9}>
                       <Input type="select"  name="guestsSelect" id="guestsSelect" onChange={this._handleGuestsFreq} >
-                        <option>Sometimes</option>
-                        <option>Often</option>
+                        <option>Rarely</option>
                         <option>Regularly</option>
+                        <option>Often</option>
                       </Input>
                     </Col>
                   </FormGroup>
@@ -227,6 +227,23 @@ class Register extends React.Component {
     );
   }
 
+
+
+    convertValues = (str) => {
+      if (str == 'Rarely') {
+        str = 'low';
+        return str;
+      } else if (str == 'Regularly') {
+        str = 'moderate';
+        return str;
+      } else if (str == 'Often') {
+        str = 'high';
+        return str;
+      }
+    }
+
+
+
   _handleFirstName = e => {
     let value = e.target.value;
     this.setState({ firstName: value });
@@ -264,11 +281,13 @@ class Register extends React.Component {
 
   _handleGoOutFreq = e => {
     let value = e.target.value;
+    value = this.convertValues(value);
     this.setState({ goOutFreq: value });
   }
 
   _handleGuestsFreq = e => {
     let value = e.target.value;
+    value = this.convertValues(value);
     this.setState({ guestsFreq: value });
   }
 
