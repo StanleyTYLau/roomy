@@ -6,6 +6,7 @@ import Geocode from "react-geocode";
 import Register_place from './Register_place.jsx';
 import Place_id from './Place_id.jsx';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 // import { Container, Row, Col } from 'reactstrap';
 // import { Button } from 'reactstrap';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
@@ -56,14 +57,18 @@ class Login extends Component{
 
 class App extends Component {
 
+    
   state = {
     members: [],
     email: '',
     password: '',
     name: '',
-    loggedIn: false
+    loggedIn: false,
+    first_name: ''
 
   }
+
+  
 
   render() {
     return (
@@ -123,11 +128,17 @@ class App extends Component {
 
     axios.post('/users/login', { login })
       .then( res => {
-        if (res.data === "OK"){
+        if (res.data){
+          const cookies = new Cookies();
+          cookies.set('user', res.data)
           this.setState({loggedIn: true});
           //set a cookie
+
+
         }
         console.log(res.data);
+
+        
       })
   }
 

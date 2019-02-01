@@ -26,7 +26,7 @@ module.exports = (knex) => {
         if (results.length != 0) {
           let result = results[0];
           if (checkPassword(result, password)) {
-            res.sendStatus(200);
+            res.status(200).send(results[0]);
           } else {
             res.sendStatus(403);
           }
@@ -35,6 +35,7 @@ module.exports = (knex) => {
         }
       })
     });
+
 
     router.post('/register', (req, res) => {
       
@@ -73,8 +74,8 @@ module.exports = (knex) => {
              diet: newUser.diet,
              personality: newUser.personality
             })
-    .then( () => {
-      console.log("Successfully inserted to Users");
+    .then( (results) => {
+      res.send(results);
     });
     });
 

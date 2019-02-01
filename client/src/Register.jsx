@@ -3,6 +3,7 @@ import axios from 'axios';
 import { UncontrolledCollapse, Button, CardBody } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { CustomInput, Col, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import Cookies from 'universal-cookie';
 // import ScrollableAnchor, { configureAnchors } from 'react-scrollable-anchor';
 
 // function Display(props) {
@@ -302,12 +303,21 @@ class Register extends React.Component {
 
     axios.post('/users/register', { newUser })
       .then( res => {
-        // const name = res.data[0].first_name;
-        // this.setState({ name });
-        // console.log(name);
+        if (res.data){
+          const cookies = new Cookies();
+          cookies.set('user', res.data)
+          this.setState({loggedIn: true});
+          //set a cookie
         console.log(res.data)
-      })
+      }
+  })
+
+
+ 
+
+
   }
+
 
 
 
