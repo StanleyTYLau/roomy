@@ -88,7 +88,7 @@ module.exports = (knex) => {
       diet: 'none',
       personality: 'introvert'
     }
-
+    console.log("params id", req.params.id)
     let user1 = {};
     let user2 = {};
     let place = {};
