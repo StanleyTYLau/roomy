@@ -3,6 +3,7 @@ import axios from 'axios';
 import { UncontrolledCollapse, Button, CardBody } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { CustomInput, Col, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+
 // import ScrollableAnchor, { configureAnchors } from 'react-scrollable-anchor';
 
 class Place_id extends React.Component {
@@ -22,7 +23,7 @@ class Place_id extends React.Component {
   }
 
   componentWillMount(){
-    const placeId = this.props.match.params.id;
+    const placeId = this.props.place_id;
     axios.get(`/places/${placeId}`)
       .then( res => {
         this.setState({placeData: res.data});
@@ -33,25 +34,23 @@ class Place_id extends React.Component {
   render() {
     return (
       <div>
-        <Button className="register" id="toggler" onClick={this.toggle}>
-          Some Place!
-        </Button>
-  
+
+        <Button id="toggler" onClick={this.toggle} className="button_char">DETAILS</Button>
+
         <div className="middle_all">
           <Modal isOpen={this.state.modal} toggle={this.toggle} className="pop_windows">
-            <ModalHeader toggle={this.toggle}>Place Title!</ModalHeader>
+            <ModalHeader className="big_title" toggle={this.toggle}>Owner Matching: {this.state.placeData.matchPercent * 100}%</ModalHeader>
               <Form onSubmit = {this._handleSubmit}>
                 <ModalBody>
-                  <div>Owner Matching %: {this.state.placeData.matchPercent * 100}%</div>
-
+                  <p className="price">Place info:</p>
                   <div>Price: ${this.state.placeData.price}</div>
-                  
+
                   <div>Address: {this.state.placeData.street_number} {this.state.placeData.street_name}, {this.state.placeData.city}, {this.state.placeData.postal_code}</div>
 
                   <div>Building Type: {this.state.placeData.type}</div>
 
                   <div># of Baths: {this.state.placeData.number_of_bathrooms}</div>
-
+                  <p className="price">Owner info:</p>
                 </ModalBody>
               <ModalFooter>
                 <Button type="submit" className="button_char" onClick={this.toggle}>Ask to be Roomys</Button>{' '}
@@ -63,7 +62,7 @@ class Place_id extends React.Component {
       </div>
     );
   }
-  
+
 }
 
 export default Place_id;

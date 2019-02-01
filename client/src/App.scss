@@ -309,12 +309,40 @@ body {
    .wrapper {
     display: flex;
     justify-content: space-between;
+    align-items: center;
    }
 
    .place_number {
     font-weight: 900;
-    color: $form-background-color;
+    color: white;
+    background-color: $form-background-color;
     font-size: 1.5em;
+    padding: 0.5em;
+    height: 120px;
+   }
+
+   .logout {
+    color: white;
+    font-weight: 900;
+    font-size: 1.3em;
+   }
+
+   a.logout:hover {
+    color: $purple-color;
+    text-decoration: none;
+   }
+
+   p.logout, button.logout {
+    margin-bottom: 0;
+   }
+
+   button.logout {
+    margin-bottom: 0;
+   }
+
+   .big_title {
+      font-size: 2em;
+      color: white;
    }
 
 }
