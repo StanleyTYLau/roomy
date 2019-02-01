@@ -74,14 +74,8 @@ module.exports = (knex) => {
              diet: newUser.diet,
              personality: newUser.personality
             })
-<<<<<<< HEAD
-    .then( () => {
-      console.log("Successfully inserted to Users");
-      res.send("User Inserted")
-=======
     .then( (results) => {
       res.send(results);
->>>>>>> alex/cookie
     });
   });
 
