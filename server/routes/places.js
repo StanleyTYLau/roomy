@@ -79,8 +79,8 @@ module.exports = (knex) => {
         .then((result) => {
           owner = result[0];
           //console.log("PLACE ID: ", req.params.id)
-          // console.log("Owner data:", owner);
-          // console.log("CURR data:", current_user);
+          //console.log("Owner data:", owner);
+          //console.log("CURR data:", current_user);
           place['matchPercent'] = compareUsers(current_user, owner);
           //console.log("MATCH:", place['matchPercent'])
           res.send({place, owner});
@@ -148,16 +148,21 @@ module.exports = (knex) => {
 
     //take array of hobbies from 2 users and calc % matching
     function _scoreHobbies(user1, user2){
-      const total = user1.length;
-      let matches = 0;
+      if (user1 && user2) {
+        const total = user1.length;
+        let matches = 0;
 
-      user1.forEach( hobby1 => {
-        if (user2.indexOf(hobby1) >= 0){
-          matches++;
-        }
-      })
-
-      return (matches / total);
+        user1.forEach( hobby1 => {
+          if (user2.indexOf(hobby1) >= 0){
+            matches++;
+          }
+        })
+        return (matches / total);
+      }
+      else {
+        return 0;
+      }
+      
     }
 
     function _convertToNum(rank) {
