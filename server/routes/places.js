@@ -80,7 +80,7 @@ module.exports = (knex) => {
   });
 
   //work-around to send user data. Using POST instead of GET
-  router.post('/:id', (req, res) =>{
+  router.get('/:id', (req, res) =>{
    
     let owner = {};
     let current_user = req.body.user_info;

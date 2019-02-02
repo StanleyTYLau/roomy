@@ -102,7 +102,7 @@ class App extends Component {
             />}
           />
           <Route
-            path='/places/new'
+            exact path='/places/new'
             component = {Register_place}
           />
           <Route path='/places/:id' component={Place_id} />
