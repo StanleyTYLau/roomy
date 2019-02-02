@@ -10,6 +10,25 @@ module.exports = (knex) => {
       });
   });
 
+  //Route for a user to request a roommate at a place => add user to requestor table
+  router.put('/:id', (req, res) => {
+    
+    const current_user = req.body.user_info;
+    const reqeustorData = {
+      placeid: req.params.id,
+      userid: current_user.id,
+      accepted: false
+    };
+
+    console.log("Im gunna insert!", reqeustorData);
+
+    knex('requestors')
+      .insert(reqeustorData)
+      .returning('*')
+      .then( (results) => {
+        res.send(results[0]);
+      });
+  });
 
   router.post('/new', (req, res) => {
     console.log(req.body);
