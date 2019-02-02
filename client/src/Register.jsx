@@ -75,7 +75,7 @@ class Register extends React.Component {
       return <Redirect to='/places/new' />
     }
 
-    return (  
+    return (
       <div>
         <Button className="register" id="toggler">
           REGISTER
@@ -222,7 +222,7 @@ class Register extends React.Component {
           </Modal>
         </div>
       </div>
-      
+
     );
   }
 
