@@ -121,7 +121,7 @@ class Place_id extends React.Component {
             <ModalHeader className="big_title" toggle={this.toggle}>{this.state.placeData.street_number} {this.state.placeData.street_name}, {this.state.placeData.city}, {this.state.placeData.postal_code}</ModalHeader>
               <Form onSubmit = {this._handleSubmit}>
                 <ModalBody>
-                  <p> className="small_price">Place info:</p>
+                  <p className="small_price">Place info:</p>
                   <Carousel
                   className="carousel"
                     activeIndex={activeIndex}

@@ -256,7 +256,7 @@ class SimpleMap extends Component {
           <div className="scrollable" ref={this.scrollableRef}>
           {placesList.map(place => {
               return (
-                <section id={place.id} ref={this.sectionRefs[place.id]}>
+                <section id={place.id} key={place.id} ref={this.sectionRefs[place.id]}>
                 <div
                 key={"place"+place.id} className={Number(this.state.hover_id) === place.id && this.state.hover ? "hover_place" : "" }>
                   <div className="places" data-id={place.id}
