@@ -317,7 +317,7 @@ class Register extends React.Component {
           // const name = res.data[0].first_name;
           // this.setState({ name });
           // console.log(name);
-          console.log(res.data)
+          
         })
       },
       error => {

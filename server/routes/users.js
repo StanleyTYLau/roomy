@@ -56,7 +56,7 @@ module.exports = (knex) => {
       personality: req.body.newUser.personality
     }
 
-    //console.log(newUser);    
+    console.log(newUser);    
     
    knex('users')
     .insert({first_name: newUser.firstName,
