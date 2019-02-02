@@ -67,6 +67,11 @@ class Place_id extends React.Component {
     );
   }
 
+  _handleRequest = e => {
+    const placeId = this.props.place_id;
+    axios.put(`places/${placeId}`);
+  }
+
 }
 
 export default Place_id;

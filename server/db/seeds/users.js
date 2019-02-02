@@ -7,6 +7,10 @@ exports.seed = async function(knex, Promise) {
     return knex('places').del()
   }
 
+  function deleteRequestors() {
+    return knex('requestors').del()
+  }
+
   function insertUsers() {
     return knex('users').insert([
       {first_name: 'Alex', last_name: 'Peterson', email: 'alex@email.com', password: 'test', gender: 'male', smoker: false, pets: false, cleanliness: 'High', type: 'roomy', work_sched: 'Days', go_out_freq: 'high', guest_freq: 'high', hobbies: ['A', 'B'], diet: 'Vegan', personality: 'Introvert'},
@@ -59,13 +63,27 @@ exports.seed = async function(knex, Promise) {
       {user_id: users[0].id , postal_code: 'M4M 3C6', street_number: 143, street_name: 'Leslie St', unit_number: 133, city: 'Toronto', price: 1000.00, type_of_building: 'condo', description: 'Short Term Negotiable - Luxuriously furnished, spacious', number_of_bathrooms: 1, laundry: true, furnished: true, air_condition: true, parking: true, picture_url: '', lat: 43.664691, lng: -79.330583 },
       {user_id: users[0].id , postal_code: 'M4C 5N3', street_number: 75, street_name: 'Eastdale Ave', unit_number: 200, city: 'Toronto', price: 900.00, type_of_building: 'condo', description: 'Great location!', number_of_bathrooms: 1, laundry: true, furnished: false, air_condition: true, parking: true, picture_url: '', lat: 43.695167, lng: -79.300346 },
       {user_id: users[0].id , postal_code: 'M4C 2E6', street_number: 767, street_name: 'Sammon Ave', unit_number: 742, city: 'Toronto', price: 800.00, type_of_building: 'House', description: 'Spacious 1 bedroom apartments', number_of_bathrooms: 2, laundry: true, furnished: false, air_condition: false, parking: false, picture_url: '', lat: 43.690105, lng: -79.318832 }
-    ]);
+    ]).returning('*');
+  }
+
+  function insertRequestors (users, places) {
+    return knex('requestors').insert([
+      {userid: users[1].id, placeid: places[0].id, accepted: false},
+      {userid: users[2].id, placeid: places[0].id, accepted: false},
+      {userid: users[3].id, placeid: places[0].id, accepted: false},
+      {userid: users[4].id, placeid: places[0].id, accepted: false},
+      {userid: users[1].id, placeid: places[1].id, accepted: false},
+      {userid: users[2].id, placeid: places[1].id, accepted: false},
+      {userid: users[3].id, placeid: places[1].id, accepted: false}
+    ])
   }
 
   //Delete existing data
-  await deletePlaces()
+  await deleteRequestors()
     .then(deleteUsers)
+    .then(deletePlaces)
 
   const users = await insertUsers();
   const places = await insertPlaces(users);
+  const requestors = await insertRequestors(users, places);
 }
