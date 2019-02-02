@@ -351,4 +351,27 @@ body {
       color: white;
    }
 
+   .carousel img {
+      width: 550px;
+      height: 330px;
+   }
+
+   .place_owner img {
+      width: 200px;
+      height: 200px;
+      margin-right: 20px;
+   }
+
+   .place_owner {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+   }
+
+   .matching {
+    font-size: 2em;
+    font-weight: 900;
+    color: $form-background-color;
+   }
+
 }
