@@ -5,6 +5,7 @@ import { Col, Row, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import key from "./google.jsx";
 import Place_id from './Place_id.jsx';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 // Geocode.setApiKey(process.env.API_KEY);
 
@@ -68,6 +69,9 @@ class SimpleMap extends Component {
       collapse: false,
       hover: false,
       hover_id: -1,
+
+      user_info: {},
+
       places: []
      };
 
@@ -109,6 +113,7 @@ class SimpleMap extends Component {
   }
 
 
+
   scrollToPlace = (id) => {
     let offsetTop = 0
     if (this.sectionRefs[id] && this.sectionRefs[id].current) {
@@ -122,6 +127,16 @@ class SimpleMap extends Component {
         })
       }
     }
+  }
+
+  async componentDidMount(){
+    //grab cookie user data and set user_info data
+    const cookies = new Cookies();
+    let id = await cookies.get('user');
+    await this.setState({user_info: id});
+    //console.log("COOKIE @ Map:", cookies.get('user').id);
+    //console.log("User ID:", this.state.user_info);
+
   }
 
   render() {
@@ -255,7 +270,7 @@ class SimpleMap extends Component {
                       <div>
                         <div className="price">${place.price}/m</div>
                         <div>{place.street_number} {place.street_name}, {place.city}, {place.province}, {place.postal_code}</div>
-                        <Place_id place_id={place.id}></Place_id>
+                        <Place_id place_id={place.id} user_info={this.state.user_info}></Place_id>
                       </div>
                     </div>
                   </div>

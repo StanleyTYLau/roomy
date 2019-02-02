@@ -7,6 +7,10 @@ exports.seed = async function(knex, Promise) {
     return knex('places').del()
   }
 
+  function deleteRequestors() {
+    return knex('requestors').del()
+  }
+
   function insertUsers() {
     return knex('users').insert([
       {first_name: 'Alex', last_name: 'Peterson', email: 'alex@email.com', password: 'test', gender: 'male', smoker: false, pets: false, cleanliness: 'high', type: 'roomy', work_sched: 'days', go_out_freq: 'high', guest_freq: 'high', hobbies: ['A', 'B'], diet: 'vegan', personality: 'introvert'},
@@ -77,7 +81,7 @@ exports.seed = async function(knex, Promise) {
       {user_id: users[17].id , postal_code: 'M2R 3N8', street_number: 300, street_name: 'Antibes Dr', unit_number: 54, city: 'Toronto', price: 950.00, type_of_building: 'appartment', description: 'Please call for availability!', number_of_bathrooms: 2, neighbourhood: 'north york', laundry: true, furnished: false, air_condition: true, parking: true, picture_url: '', lat: 43.78204, lng: -79.44944 },
       {user_id: users[18].id , postal_code: 'M4H 1J6', street_number: 49, street_name: 'Thorncliffe Park Dr', unit_number: 22, city: 'Toronto', price: 900.00, type_of_building: 'condo', description: 'Please call for availability!', number_of_bathrooms: 1, neighbourhood: 'east york', laundry: true, furnished: false, air_condition: false, parking: true, picture_url: '', lat: 43.7036, lng: -79.34731 },
       {user_id: users[19].id , postal_code: 'M9C 0B1', street_number: 6, street_name: 'Eva Rd', unit_number: 401, city: 'Toronto', price: 800.00, type_of_building: 'appartment', description: 'Please call for availability!', number_of_bathrooms: 2, neighbourhood: 'etobicoke', laundry: true, furnished: true, air_condition: true, parking: false, picture_url: '', lat: 43.6395, lng: -79.56411 },
-      {user_id: users[15].id , postal_code: 'M4H 1E3', street_number: 4, street_name: 'Grandstand Pl ', unit_number: 601, city: 'Toronto', price: 800.00, type_of_building: 'house', description: 'Please call for availability!', number_of_bathrooms: 2, neighbourhood: 'east york', laundry: true, furnished: true air_condition: false, parking: false, picture_url: '', lat: 43.70349, lng: -79.34619 },
+      {user_id: users[15].id , postal_code: 'M4H 1E3', street_number: 4, street_name: 'Grandstand Pl ', unit_number: 601, city: 'Toronto', price: 800.00, type_of_building: 'house', description: 'Please call for availability!', number_of_bathrooms: 2, neighbourhood: 'east york', laundry: true, furnished: true, air_condition: false, parking: false, picture_url: '', lat: 43.70349, lng: -79.34619 },
       {user_id: users[16].id , postal_code: 'M9V 2C4', street_number: 17, street_name: 'Seguin Crt', unit_number: 127, city: 'Toronto', price: 110.00, type_of_building: 'condo', description: 'Please call for availability!', number_of_bathrooms: 1, neighbourhood: 'etobicoke', laundry: true, furnished: false, air_condition: true, parking: true, picture_url: '', lat: 43.74409, lng: -79.59261 },
       {user_id: users[17].id , postal_code: 'M6N 3B1', street_number: 528, street_name: 'Old Weston Rd', unit_number: 2, city: 'Toronto', price: 850.00, type_of_building: 'house', description: 'Please call for availability!', number_of_bathrooms: 2, neighbourhood: 'midtown', laundry: true, furnished: true, air_condition: false, parking: false, picture_url: '', lat: 43.67374, lng: -79.46308 },
       {user_id: users[18].id , postal_code: 'M6S 2W5', street_number: 3, street_name: 'Grenadier Hts', unit_number: 62, city: 'Toronto', price: 700.00, type_of_building: 'house', description: 'Please call for availability!', number_of_bathrooms: 2, neighbourhood: 'west end', laundry: true, furnished: true, air_condition: false, parking: false, picture_url: '', lat: 43.64152, lng: -79.46953 },
@@ -88,14 +92,27 @@ exports.seed = async function(knex, Promise) {
       {user_id: users[18].id , postal_code: 'M9W 7B7', street_number: 117, street_name: 'Upper Humber Dr', unit_number: 233, city: 'Toronto', price: 1200.00, type_of_building: 'condo', description: 'Please call for availability!', number_of_bathrooms: 1, neighbourhood: 'etobicoke', laundry: true, furnished: false, air_condition: true, parking: true, picture_url: '', lat: 43.72933, lng: -79.625 },
       {user_id: users[19].id , postal_code: 'M9V 2H9', street_number: 17, street_name: 'Tinton Cres', unit_number: 53, city: 'Toronto', price: 700.00, type_of_building: 'house', description: 'Please call for availability!', number_of_bathrooms: 2, neighbourhood: 'etobicoke', laundry: false, furnished: true, air_condition: false, parking: false, picture_url: '', lat: 43.74555, lng: -79.60121 }
 
+    ]).returning('*');
+  }
 
-    ]);
+  function insertRequestors (users, places) {
+    return knex('requestors').insert([
+      {userid: users[1].id, placeid: places[0].id, accepted: false},
+      {userid: users[2].id, placeid: places[0].id, accepted: false},
+      {userid: users[3].id, placeid: places[0].id, accepted: false},
+      {userid: users[4].id, placeid: places[0].id, accepted: false},
+      {userid: users[1].id, placeid: places[1].id, accepted: false},
+      {userid: users[2].id, placeid: places[1].id, accepted: false},
+      {userid: users[3].id, placeid: places[1].id, accepted: false}
+    ])
   }
 
   //Delete existing data
-  await deletePlaces()
+  await deleteRequestors()
     .then(deleteUsers)
+    .then(deletePlaces)
 
   const users = await insertUsers();
   const places = await insertPlaces(users);
+  const requestors = await insertRequestors(users, places);
 }

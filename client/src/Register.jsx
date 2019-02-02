@@ -45,13 +45,13 @@ class Register extends React.Component {
       personality: 'Introvert',
       smoker: false,
       pets: false,
-      toMain: false
-
+      toMain: false,
+   
     };
-
+    
     this.toggle = this.toggle.bind(this);
   }
-
+  
   toggle(e) {
     this.setState({
       modal: !this.state.modal
@@ -66,7 +66,7 @@ class Register extends React.Component {
     });
     }
   }
-
+  
   render() {
     if (this.state.toMain === true && this.state.type === 'roomy'){
       return <Redirect to='/main' />
@@ -75,7 +75,7 @@ class Register extends React.Component {
       return <Redirect to='/places/new' />
     }
 
-    return (
+    return (  
       <div>
         <Button className="register" id="toggler">
           REGISTER
@@ -332,16 +332,16 @@ class Register extends React.Component {
     console.log(newUser);
 
     axios.post('/users/register', { newUser })
-      .then( res => {
+      .then( res => { 
 
         if (res.data){
           const cookies = new Cookies();
-          cookies.set('user', res.data)
+          cookies.set('user', res.data);
           this.setState({toMain: true});
-          //set a cookie
-        console.log(res.data)
+          
+          console.log(res.data)
       }
-  })
+    })
 
 
 

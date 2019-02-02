@@ -37,8 +37,11 @@ class Place_id extends React.Component {
     super();
     this.state = {
       modal: false,
+
       activeIndex: 0,
-      placeData: {}
+      placeData: {},
+      ownerData: {}
+
     };
 
     this.next = this.next.bind(this);
@@ -83,10 +86,11 @@ class Place_id extends React.Component {
 
   componentWillMount(){
     const placeId = this.props.place_id;
-    axios.get(`/places/${placeId}`)
+
+    axios.post(`/places/${placeId}`, {user_info: this.props.user_info})
       .then( res => {
-        this.setState({placeData: res.data});
-        console.log(res.data)
+        this.setState({placeData: res.data.place, ownerData: res.data.owner});
+        //console.log(res.data)
       })
   };
 
@@ -117,7 +121,7 @@ class Place_id extends React.Component {
             <ModalHeader className="big_title" toggle={this.toggle}>{this.state.placeData.street_number} {this.state.placeData.street_name}, {this.state.placeData.city}, {this.state.placeData.postal_code}</ModalHeader>
               <Form onSubmit = {this._handleSubmit}>
                 <ModalBody>
-                  <p className="small_price">Place info:</p>
+                  <p> className="small_price">Place info:</p>
                   <Carousel
                   className="carousel"
                     activeIndex={activeIndex}
@@ -226,9 +230,10 @@ class Place_id extends React.Component {
                       </tr>
                     </tbody>
                   </Table>
+
                 </ModalBody>
               <ModalFooter>
-                <Button type="submit" className="button_char" onClick={this.toggle}>Ask to be Roomys</Button>{' '}
+                <Button type="submit" className="button_char" onClick={this._handleRequest}>Ask to be Roomys</Button>{' '}
                 <Button className="cancel" onClick={this.toggle}>CANCEL</Button>
               </ModalFooter>
             </Form>
@@ -236,6 +241,14 @@ class Place_id extends React.Component {
         </div>
       </div>
     );
+  }
+
+  _handleRequest = e => {
+    const placeId = this.props.place_id;
+    axios.put(`places/${placeId}`, {user_info: this.props.user_info})
+      .then( () => {
+        this.toogle();
+      });
   }
 
 }

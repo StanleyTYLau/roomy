@@ -56,9 +56,9 @@ module.exports = (knex) => {
       personality: req.body.newUser.personality
     }
 
-    console.log(newUser);    
+    //console.log(newUser);    
     
-    knex('users')
+   knex('users')
     .insert({first_name: newUser.firstName,
              last_name: newUser.lastName,
              email: newUser.email,
@@ -74,8 +74,10 @@ module.exports = (knex) => {
              diet: newUser.diet,
              personality: newUser.personality
             })
+    .returning('*')
     .then( (results) => {
-      res.send(results);
+      //console.log("RESULTS!", results);
+      res.send(results[0]);
     });
   });
 

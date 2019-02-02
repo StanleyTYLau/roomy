@@ -6,11 +6,29 @@ module.exports = (knex) => {
     knex.select('*')
       .from('places')
       .then( (results) => {
-        console.log(results);
         res.send(results);
       });
   });
 
+  //Route for a user to request a roommate at a place => add user to requestor table
+  router.put('/:id', (req, res) => {
+    
+    const current_user = req.body.user_info;
+    const reqeustorData = {
+      placeid: req.params.id,
+      userid: current_user.id,
+      accepted: false
+    };
+
+    console.log("Im gunna insert!", reqeustorData);
+
+    knex('requestors')
+      .insert(reqeustorData)
+      .returning('*')
+      .then( (results) => {
+        res.send(results[0]);
+      });
+  });
 
   router.post('/new', (req, res) => {
     console.log(req.body);
@@ -61,36 +79,11 @@ module.exports = (knex) => {
 
   });
 
-  router.get('/:id', (req, res) =>{
-    dummyId = 10;//grab data from req.body current user
-    //DUmmy users
-    const profile1 = {
-      gender: 'male',
-      smoker: false,
-      pets: true,
-      work_sched: 'day',
-      cleanliness: 'medium',
-      go_out_freq: 'high',
-      guests_freq: 'low',
-      hobbies: ['Reading', 'Video Games'],
-      diet: 'none',
-      personality: 'introvert'
-    }
-    const profile2 = {
-      gender: 'male',
-      smoker: false,
-      pets: true,
-      work_sched: 'day',
-      cleanliness: 'medium',
-      go_out_freq: 'high',
-      guests_freq: 'low',
-      hobbies: ['Reading', 'Video Games'],
-      diet: 'none',
-      personality: 'introvert'
-    }
-
-    let user1 = {};
-    let user2 = {};
+  //work-around to send user data. Using POST instead of GET
+  router.post('/:id', (req, res) =>{
+   
+    let owner = {};
+    let current_user = req.body.user_info;
     let place = {};
     //get the place w/ params.id and get the corresponding place owner profile
     //SELECT * FROM places JOIN users ON users.id=places.user_id;
@@ -98,37 +91,28 @@ module.exports = (knex) => {
       .from('places')
       .where('id', req.params.id)
       .then( (results) => {
-        place = results[0];
-        getUserInfo(results[0].user_id)
-        .then((owner) => {
-          user1 = owner;
-
-          //get current user profile
-          getUserInfo(dummyId)
-          .then((currentUser) => {
-            user2 = currentUser
-            //compare mathcing %
-            console.log("Matching %:", compareUsers(profile1, profile2));
-            place['matchPercent'] = compareUsers(profile1, profile2);
-            res.send(place);
-
-            // [{"id":8,"first_name":"Alex","last_name":"Peterson","email":"alex@email.com","password":"password1","gender":"male","smoker":false,"pets":false,"cleanliness":"High","type":"roomy"}]
-            // [{"id":10,"first_name":"Math","last_name":"Murdock","email":"math@email.com","password":"password3","gender":"male","smoker":true,"pets":true,"cleanliness":"Low","type":"roomy"}]
-          })
-          
-        });
-
-
-        
+        place = results[0]; 
+        knex.select('*')
+        .where('id', results[0].user_id)
+        .from('users')
+        .then((result) => {
+          owner = result[0];
+          //console.log("PLACE ID: ", req.params.id)
+          //console.log("Owner data:", owner);
+          //console.log("CURR data:", current_user);
+          place['matchPercent'] = compareUsers(current_user, owner);
+          //console.log("MATCH:", place['matchPercent'])
+          res.send({place, owner});
+        })
+              
       })
-    
     
   });
 
-  async function getUserInfo(id) {
-    const info = await knex('users').select('*').where('id', id).returning('*');
-    return info;
-  }
+  // async function getUserInfo(id) {
+  //   const info = await knex('users').select('*').where('id', id).returning('*');
+  //   return info;
+  // }
 
   //compares users profiles and gives a % matching
   function compareUsers(user1, user2) {
@@ -183,16 +167,21 @@ module.exports = (knex) => {
 
     //take array of hobbies from 2 users and calc % matching
     function _scoreHobbies(user1, user2){
-      const total = user1.length;
-      let matches = 0;
+      if (user1 && user2) {
+        const total = user1.length;
+        let matches = 0;
 
-      user1.forEach( hobby1 => {
-        if (user2.indexOf(hobby1) >= 0){
-          matches++;
-        }
-      })
-
-      return (matches / total);
+        user1.forEach( hobby1 => {
+          if (user2.indexOf(hobby1) >= 0){
+            matches++;
+          }
+        })
+        return (matches / total);
+      }
+      else {
+        return 0;
+      }
+      
     }
 
     function _convertToNum(rank) {
@@ -200,7 +189,7 @@ module.exports = (knex) => {
         case "low":
           return 0;
           break;
-        case "medium":
+        case "moderate":
           return 1;
           break;
         case "high":
@@ -223,7 +212,7 @@ module.exports = (knex) => {
     _score1To1(user1, user2, 'personality');
     _score3(user1, user2, 'cleanliness', weight.cleanliness);
     _score3(user1, user2, 'go_out_freq', weight.go_out_freq);
-    _score3(user1, user2, 'guests_freq', weight.guests_freq);
+    _score3(user1, user2, 'guest_freq', weight.guests_freq);
   
     scores.push(_scoreHobbies(user1.hobbies, user2.hobbies) * weight.hobbies);
 
@@ -231,8 +220,8 @@ module.exports = (knex) => {
     scores.forEach((score) => {
       finalScore += score;
     })
-    console.log("Matching scores:", scores);
-    console.log("max scores:", maxScore);
+    //console.log("Matching scores:", scores);
+    //console.log("max scores:", maxScore);
 
     return (finalScore / maxScore);
   }

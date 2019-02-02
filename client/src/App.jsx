@@ -131,14 +131,11 @@ class App extends Component {
         if (res.data){
           const cookies = new Cookies();
           cookies.set('user', res.data)
+          console.log("COOKIE:", cookies.get('user'));
           this.setState({loggedIn: true});
-          //set a cookie
-
-
+          
         }
-        console.log(res.data);
-
-        
+         
       })
   }
 
