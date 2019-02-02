@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.scss';
 import Register from './Register.jsx';
 import MapDisplay from './MapDisplay.jsx';
+import Owner_id from './Owner_id.jsx';
 import Geocode from "react-geocode";
 import Register_place from './Register_place.jsx';
 import Place_id from './Place_id.jsx';
@@ -57,7 +58,7 @@ class Login extends Component{
 
 class App extends Component {
 
-    
+
   state = {
     members: [],
     email: '',
@@ -68,7 +69,7 @@ class App extends Component {
 
   }
 
-  
+
 
   render() {
     return (
@@ -105,6 +106,7 @@ class App extends Component {
             component = {Register_place}
           />
           <Route path='/places/:id' component={Place_id} />
+          <Route path='/owners/:id' component={Owner_id} />
         </div>
       </Router>
 
@@ -133,9 +135,9 @@ class App extends Component {
           cookies.set('user', res.data)
           console.log("COOKIE:", cookies.get('user'));
           this.setState({loggedIn: true});
-          
+
         }
-         
+
       })
   }
 

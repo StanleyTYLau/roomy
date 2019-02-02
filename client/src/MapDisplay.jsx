@@ -308,7 +308,7 @@ class SimpleMap extends Component {
     if (value === "All types") {
       this.setState({ buildingType: '' })
     } else {
-      this.setState ({ buildingType: value });  
+      this.setState ({ buildingType: value });
     }
   }
 
