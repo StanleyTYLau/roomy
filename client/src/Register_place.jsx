@@ -297,7 +297,7 @@ class Register extends React.Component {
           streetNumber: this.state.streetNumber,
           streetName: this.state.streetName,
           unitNumber: this.state.unitNumber,
-          neighbourhood: this.state.neighbourhood,
+          neighbourhood: this.state.neighbourhood.toLowerCase(),
           buildingType: this.state.buildingType.toLowerCase(),
           price: this.state.price,
           description: this.state.description,
