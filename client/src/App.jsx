@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import './App.scss';
 import Register from './Register.jsx';
 import MapDisplay from './MapDisplay.jsx';
-import Geocode from "react-geocode";
+import Owner_id from './Owner_id.jsx';
 import Register_place from './Register_place.jsx';
 import Place_id from './Place_id.jsx';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import Geocode from "react-geocode";
 // import { Container, Row, Col } from 'reactstrap';
 // import { Button } from 'reactstrap';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
@@ -105,6 +106,7 @@ class App extends Component {
             component = {Register_place}
           />
           <Route path='/places/:id' component={Place_id} />
+          <Route path='/owners/:id' component={Owner_id} />
         </div>
       </Router>
 
