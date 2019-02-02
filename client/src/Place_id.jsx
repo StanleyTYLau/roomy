@@ -57,7 +57,7 @@ class Place_id extends React.Component {
                   <div>Some Data: {this.state.ownerData.last_name}</div>
                 </ModalBody>
               <ModalFooter>
-                <Button type="submit" className="button_char" onClick={this.toggle}>Ask to be Roomys</Button>{' '}
+                <Button type="submit" className="button_char" onClick={this._handleRequest}>Ask to be Roomys</Button>{' '}
                 <Button className="cancel" onClick={this.toggle}>CANCEL</Button>
               </ModalFooter>
             </Form>
@@ -69,7 +69,10 @@ class Place_id extends React.Component {
 
   _handleRequest = e => {
     const placeId = this.props.place_id;
-    axios.put(`places/${placeId}`);
+    axios.put(`places/${placeId}`, {user_info: this.props.user_info})
+      .then( () => {
+        this.toogle();
+      });
   }
 
 }
