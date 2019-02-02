@@ -11,7 +11,8 @@ class Place_id extends React.Component {
     super();
     this.state = {
       modal: false,
-      placeData: {}
+      placeData: {},
+      ownerData: {}
     };
 
   }
@@ -27,7 +28,7 @@ class Place_id extends React.Component {
 
     axios.post(`/places/${placeId}`, {user_info: this.props.user_info})
       .then( res => {
-        this.setState({placeData: res.data});
+        this.setState({placeData: res.data.place, ownerData: res.data.owner});
         //console.log(res.data)
       })
   };
@@ -52,6 +53,8 @@ class Place_id extends React.Component {
 
                   <div># of Baths: {this.state.placeData.number_of_bathrooms}</div>
                   <p className="price">Owner info:</p>
+                  <div>Some Data: {this.state.ownerData.first_name}</div>
+                  <div>Some Data: {this.state.ownerData.last_name}</div>
                 </ModalBody>
               <ModalFooter>
                 <Button type="submit" className="button_char" onClick={this.toggle}>Ask to be Roomys</Button>{' '}

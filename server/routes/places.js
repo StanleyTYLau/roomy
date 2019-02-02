@@ -83,7 +83,7 @@ module.exports = (knex) => {
           // console.log("CURR data:", current_user);
           place['matchPercent'] = compareUsers(current_user, owner);
           //console.log("MATCH:", place['matchPercent'])
-          res.send(place);
+          res.send({place, owner});
         })
               
       })
