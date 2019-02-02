@@ -227,6 +227,99 @@ module.exports = (knex) => {
   }
 
 
+  router.post('/search', (req, res) => {
+    // console.log(req.body);
+
+    let searchQuery = {
+      neighbourhood: req.body.query.neighbourhood,
+      type_of_building: req.body.query.buildingType.toLowerCase(),
+      parking: req.body.query.parking,
+      laundry: req.body.query.laundry,
+      air_condition: req.body.query.ac,
+      furnished: req.body.query.furnished
+    }
+
+    let priceRange = {
+      monthlyPriceFrom: req.body.query.monthlyPriceFrom,
+      monthlyPriceTo: req.body.query.monthlyPriceTo,
+    }
+
+
+    let dbSearch = {};
+    for (queryParam in searchQuery) {
+      // console.log(searchQuery[queryParam]);
+      if (searchQuery[queryParam] !== '') {
+        dbSearch[queryParam] = searchQuery[queryParam];
+      }
+      
+    }
+    
+    console.log(dbSearch);
+
+    if (priceRange.monthlyPriceFrom !== '' && priceRange.monthlyPriceTo !== '') {
+      
+      knex
+      .from('places')
+      .where(
+        dbSearch
+      )
+      .andWhere(function() {
+        this.where('price', '>', priceRange.monthlyPriceFrom)
+      })
+      .andWhere(function() {
+        this.where('price', '<', priceRange.monthlyPriceTo)
+      })
+      .select('*')
+      .then( (results) => {
+        console.log(results);
+        res.send(results);
+      })
+    } else if (priceRange.monthlyPriceFrom !== '' && priceRange.monthlyPriceTo === '') {
+      knex
+      .from('places')
+      .where(
+        dbSearch
+      )
+      .andWhere(function() {
+        this.where('price', '>', priceRange.monthlyPriceFrom)
+      })
+      .select('*')
+      .then( (results) => {
+        console.log(results);
+        res.send(results);
+      })
+    } else if (priceRange.monthlyPriceFrom === '' && priceRange.monthlyPriceTo !== '') {
+      knex
+      .from('places')
+      .where(
+        dbSearch
+      )
+      .andWhere(function() {
+        this.where('price', '<', priceRange.monthlyPriceTo)
+      })
+      .select('*')
+      .then( (results) => {
+        console.log(results);
+        res.send(results);
+      })
+    } else {
+      knex
+      .from('places')
+      .where(
+        dbSearch
+      )
+      .select('*')
+      .then( (results) => {
+        console.log(results);
+        res.send(results);
+      })
+    }
+
+  })
+
+
+    
+
 
   
 

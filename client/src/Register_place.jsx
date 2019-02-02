@@ -109,9 +109,9 @@ class Register extends React.Component {
                     <Label for="typeSelect" sm={3}>Type of Building</Label>
                     <Col sm={9}>
                       <Input type="select" name="typeSelect" id="typeSelect" onChange={this._hanldeType} >
-                        <option>Appartment Building</option>
+                        <option>Apartment</option>
                         <option>Condo</option>
-                        <option>Private House</option>
+                        <option>House</option>
                       </Input>
                     </Col>
                   </FormGroup>
@@ -297,8 +297,8 @@ class Register extends React.Component {
           streetNumber: this.state.streetNumber,
           streetName: this.state.streetName,
           unitNumber: this.state.unitNumber,
-          neighbourhood: this.state.neighbourhood,
-          buildingType: this.state.buildingType,
+          neighbourhood: this.state.neighbourhood.toLowerCase(),
+          buildingType: this.state.buildingType.toLowerCase(),
           price: this.state.price,
           description: this.state.description,
           bathrooms: this.state.bathrooms,
