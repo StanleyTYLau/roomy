@@ -181,7 +181,7 @@ class SimpleMap extends Component {
           <div className="topsearch">
             <div className="wrapper">
               <Button className="button_char" onClick={this.toggle}>SEARCH</Button>
-              <p className="logout">Your Email</p>
+              <p className="logout">{this.state.user_info.email}</p>
               <a className="logout" href="">Logout</a>
               <img src="/images/logo_white.png" alt="Logo"></img>
             </div>
