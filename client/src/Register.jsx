@@ -196,7 +196,7 @@ class Register extends React.Component {
                     <Col sm={9}>
                       <Input type="select"  name="personalitySelect" id="personalitySelect" onChange={this._handlePersonality} >
                         <option>Introvert</option>
-                        <option>Extravert</option>
+                        <option>Extrovert</option>
                       </Input>
                     </Col>
                   </FormGroup>
@@ -316,16 +316,16 @@ class Register extends React.Component {
       lastName: this.state.lastName,
       email: this.state.email,
       password: this.state.password,
-      gender: this.state.gender,
-      cleanliness: this.state.cleanliness,
+      gender: this.state.gender.toLowerCase(),
+      cleanliness: this.state.cleanliness.toLowerCase(),
       smoker: this.state.smoker,
       pets: this.state.pets,
-      type: this.state.type,
-      workSched: this.state.workSched,
-      goOutFreq: this.state.goOutFreq,
-      guestsFreq: this.state.guestsFreq,
-      diet: this.state.diet,
-      personality: this.state.personality
+      type: this.state.type.toLowerCase(),
+      workSched: this.state.workSched.toLowerCase(),
+      goOutFreq: this.state.goOutFreq.toLowerCase(),
+      guestsFreq: this.state.guestsFreq.toLowerCase(),
+      diet: this.state.diet.toLowerCase(),
+      personality: this.state.personality.toLowerCase()
 
     };
 
