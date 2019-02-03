@@ -1,3 +1,5 @@
+
+const matching = require('./matching/matchingCalc.js');
 const express = require('express');
 const router = express.Router();
 
@@ -7,6 +9,7 @@ module.exports = (knex) => {
     router.get('/:id', (req, res) => {
         let placeInfo = {};
         let requestorList = [];
+        let ownerData = {};
 
         knex('places').select('*')
         .where({ user_id: req.params.id })
@@ -20,9 +23,30 @@ module.exports = (knex) => {
             .select('*')
             .where({placeid: placeInfo.id})
             .then((requestors) => {
-                requestorList = requestors;
-                console.log("requestors:", requestorList)
-                res.send({placeInfo, requestorList});
+                requestorList = requestors;     
+
+                knex('users')
+                .select('*')
+                .where({id: req.params.id})
+                .then((owner) => {
+                    ownerData = owner[0];
+                    
+                    //Iterate thru requestors, calc match%, append to requestorList
+                    requestorList.forEach((requestor, index) => {
+                        knex('users')
+                        .select('*')
+                        .where({id: requestor.userid})
+                        .then((res) => {
+                            //console.log("owner data:", ownerData);
+                            //console.log("requestor data:", res[0]);
+                            let match = matching.compareUsers(ownerData,res[0]);
+                            console.log("Match Percent:", match);
+                            requestorList[index]["matchPercent"] = match;
+                        })
+                    })
+                    console.log("requestors!!!:", requestorList)
+                    res.send({placeInfo, requestorList});
+                })
             })
             
         })
