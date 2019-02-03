@@ -71,9 +71,8 @@ module.exports = (knex) => {
              lat: newPlace.lat,
              lng: newPlace.lng
     })
-    .then ( (results) => {
+    .then ( () => {
       console.log("Succesfully inserted data to places");
-      res.send(results[0]);
     });
 
 
@@ -98,11 +97,13 @@ module.exports = (knex) => {
         .from('users')
         .then((result) => {
           owner = result[0];
-          //console.log("PLACE ID: ", req.params.id)
-          //console.log("Owner data:", owner);
-          //console.log("CURR data:", current_user);
+          console.log("Result", result);
+          console.log(place);
+          console.log("PLACE ID: ", req.params.id);
+          console.log("Owner data:", owner);
+          console.log("CURR data:", current_user);
           place['matchPercent'] = compareUsers(current_user, owner);
-          //console.log("MATCH:", place['matchPercent'])
+          console.log("MATCH:", place['matchPercent'])
           res.send({place, owner});
         })
               
@@ -205,7 +206,7 @@ module.exports = (knex) => {
       //compare each attribute
       //provide % match for the attribute
       //get weighted score for the attribute
-    // _score1To1(user1, user2, 'gender');
+    _score1To1(user1, user2, 'gender');
     _score1To1(user1, user2, 'smoker');
     _score1To1(user1, user2, 'pets');
     _score1To1(user1, user2, 'work_sched');
@@ -326,6 +327,3 @@ module.exports = (knex) => {
 
   return router;
 }
-
-
-

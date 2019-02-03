@@ -7,6 +7,7 @@ import Place_id from './Place_id.jsx';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 
+
 // Geocode.setApiKey(process.env.API_KEY);
 
 
@@ -181,8 +182,8 @@ class SimpleMap extends Component {
           <div className="topsearch">
             <div className="wrapper">
               <Button className="button_char" onClick={this.toggle}>SEARCH</Button>
-              <p className="logout">Your Email</p>
-              <a className="logout" href="" onClick={this._handleLogout}>Logout</a>
+              <p className="logout">{this.state.user_info.email}</p>
+              <a className="logout" href="/" onClick={this._handleLogout}>Logout</a>
               <img src="/images/logo_white.png" alt="Logo"></img>
             </div>
             <Collapse isOpen={this.state.collapse}>
@@ -366,8 +367,10 @@ class SimpleMap extends Component {
   }
 
   _handleLogout = e => {
+    
     const cookies = new Cookies();
     cookies.remove('user');
+   
           
 
   }
