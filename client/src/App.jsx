@@ -110,7 +110,7 @@ class App extends Component {
             path='/places/new'
             component = {Register_place}
           />
-          <Route path='/places/:id' component={Place_id} />
+          <Route path='/places/place_id/:id' component={Place_id} />
           <Route path='/owners/:id' component={Owner_id} />
         
         </Switch>

@@ -87,7 +87,7 @@ class Place_id extends React.Component {
   componentWillMount(){
     const placeId = this.props.place_id;
 
-    axios.post(`/places/${placeId}`, {user_info: this.props.user_info})
+    axios.post(`/places/place_id/${placeId}`, {user_info: this.props.user_info})
       .then( res => {
         this.setState({placeData: res.data.place, ownerData: res.data.owner});
         console.log(res.data)

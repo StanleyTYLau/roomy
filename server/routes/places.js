@@ -80,7 +80,7 @@ module.exports = (knex) => {
   });
 
   //work-around to send user data. Using POST instead of GET
-  router.post('/:id', (req, res) =>{
+  router.post('/place_id/:id', (req, res) =>{
    
     let owner = {};
     let current_user = req.body.user_info;
@@ -97,13 +97,11 @@ module.exports = (knex) => {
         .from('users')
         .then((result) => {
           owner = result[0];
-          console.log("Result", result);
-          console.log(place);
-          console.log("PLACE ID: ", req.params.id);
-          console.log("Owner data:", owner);
-          console.log("CURR data:", current_user);
+          //console.log("PLACE ID: ", req.params.id)
+          //console.log("Owner data:", owner);
+          //console.log("CURR data:", current_user);
           place['matchPercent'] = compareUsers(current_user, owner);
-          console.log("MATCH:", place['matchPercent'])
+          //console.log("MATCH:", place['matchPercent'])
           res.send({place, owner});
         })
               
@@ -234,7 +232,7 @@ module.exports = (knex) => {
 
     let searchQuery = {
       neighbourhood: req.body.query.neighbourhood,
-      type_of_building: req.body.query.buildingType.toLowerCase(),
+      type_of_building: req.body.query.buildingType,
       parking: req.body.query.parking,
       laundry: req.body.query.laundry,
       air_condition: req.body.query.ac,
@@ -327,3 +325,4 @@ module.exports = (knex) => {
 
   return router;
 }
+

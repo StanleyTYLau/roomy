@@ -6,6 +6,13 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { CustomInput, Col, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 // import ScrollableAnchor, { configureAnchors } from 'react-scrollable-anchor';
 
+import { BrowserRouter as Router,
+  Route,
+  Redirect
+} from "react-router-dom";
+
+import Cookies from 'universal-cookie';
+
 import key from "./google.jsx";
 Geocode.setApiKey(key);
 // function Display(props) {
@@ -41,7 +48,8 @@ class Register extends React.Component {
       laundry: 'false',
       furnished: 'false',
       ac: 'false',
-      parking: 'false'
+      parking: 'false',
+      finished: false
 
       
 
@@ -56,6 +64,11 @@ class Register extends React.Component {
 
 
   render() {
+
+    if (this.state.finished === true){
+      return <Redirect to='/owners/430' />
+    }
+
     return (
       <div>
         <div className="registe_place">
@@ -315,8 +328,12 @@ class Register extends React.Component {
         axios.post('/places/new', { newPlace })
         .then( res => {
           // const name = res.data[0].first_name;
-          // this.setState({ name });
-          // console.log(name);
+          // this.setState({ finished: true });
+        
+          if (res.data === "OK") {
+            this.setState({ finished: true })
+          }
+
           
         })
       },

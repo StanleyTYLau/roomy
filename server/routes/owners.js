@@ -3,7 +3,7 @@ const router = express.Router();
 
 
 module.exports = (knex) => {
-    router.get('/58', (req, res) => {
+    router.get('/430', (req, res) => {
         knex('places').select('*')
         .where({ user_id: 58 })
         .then( (results) => {

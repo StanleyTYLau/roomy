@@ -213,7 +213,7 @@ class SimpleMap extends Component {
                       <Label for="exampleSelect" sm={3}>Type of building</Label>
                       <Col sm={9}>
                         <Input type="select" name="select" id="exampleSelect"  onChange={this._handleType} >
-                          <option>Al types</option>
+                          <option>All types</option>
                           <option>Condo</option>
                           <option>Apartment</option>
                           <option>House</option>
@@ -343,8 +343,8 @@ class SimpleMap extends Component {
     e.preventDefault();
 
     const query = {
-      neighbourhood: this.state.neighbourhood,
-      buildingType: this.state.buildingType,
+      neighbourhood: this.state.neighbourhood.toLowerCase(),
+      buildingType: this.state.buildingType.toLowerCase(),
       monthlyPriceFrom: this.state.monthlyPriceFrom,
       monthlyPriceTo: this.state.monthlyPriceTo,
       parking: this.state.parking,
@@ -352,13 +352,13 @@ class SimpleMap extends Component {
       ac: this.state.ac,
       furnished: this.state.furnished
     }
-
+    console.log(query);
 
     axios.post('/places/search', { query })
       .then( res => {
 
         if (res.data){
-            this.setState({places: res.data});
+            this.setState({ places: res.data });
         // console.log(res.data)
       }
       this.setState({ collapse: !this.state.collapse });

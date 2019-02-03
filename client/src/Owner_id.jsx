@@ -14,7 +14,7 @@ class Owner_id extends React.Component {
 
   componentWillMount(){
     //Get the data on every place and insert to state.place
-    axios.get(`/owners/58`)
+    axios.get(`/owners/430`)
       .then( res => {
         let data = res.data
         console.log(res.data);
