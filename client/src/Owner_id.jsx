@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 import { Table } from 'reactstrap';
 
 
@@ -7,18 +8,28 @@ class Owner_id extends React.Component {
   constructor() {
     super();
     this.state = {
-      placeData: {}
+      placeData: {},
+      requestorList: [],
+      userInfo: {}
+
     };
 
   }
 
-  componentWillMount(){
+  async componentWillMount(){
+    const cookies = new Cookies();
+    let userInfo = await cookies.get('user');
+    await this.setState({userInfo: userInfo});
+
     //Get the data on every place and insert to state.place
-    axios.get(`/owners/58`)
+    axios.get(`/owners/${userInfo.id}`)
       .then( res => {
         let data = res.data
         console.log(res.data);
-        this.setState({ placeData: data})
+        this.setState({ 
+          placeData: data.placeInfo,
+          requestorList: data.requestorList
+        })
 
       })
   }
