@@ -71,8 +71,9 @@ module.exports = (knex) => {
              lat: newPlace.lat,
              lng: newPlace.lng
     })
-    .then ( () => {
+    .then ( (results) => {
       console.log("Succesfully inserted data to places");
+      res.send(results[0]);
     });
 
 
@@ -204,7 +205,7 @@ module.exports = (knex) => {
       //compare each attribute
       //provide % match for the attribute
       //get weighted score for the attribute
-    _score1To1(user1, user2, 'gender');
+    // _score1To1(user1, user2, 'gender');
     _score1To1(user1, user2, 'smoker');
     _score1To1(user1, user2, 'pets');
     _score1To1(user1, user2, 'work_sched');
