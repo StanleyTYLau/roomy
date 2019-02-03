@@ -7,8 +7,8 @@ module.exports = (knex) => {
         knex('places').select('*')
         .where({ user_id: 58 })
         .then( (results) => {
-            console.log(results);
-            res.send(results);
+            console.log(results[0]);
+            res.send(results[0]);
         })
     })
 

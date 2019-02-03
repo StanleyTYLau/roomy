@@ -153,7 +153,7 @@ class Place_id extends React.Component {
                       </tr>
                       <tr>
                         <th scope="row">Building Type:</th>
-                        <td>{this.state.placeData.type}</td>
+                        <td>{this.state.placeData.type_of_building}</td>
                       </tr>
                       <tr>
                         <th scope="row">Parking:</th>
