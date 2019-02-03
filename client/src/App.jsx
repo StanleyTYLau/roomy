@@ -14,6 +14,7 @@ import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { BrowserRouter as Router,
   Route,
   Link,
+  Switch,
   Redirect
 } from "react-router-dom";
 
@@ -73,8 +74,10 @@ class App extends Component {
 
   render() {
     return (
+      
       <Router>
-        <div>
+        <Switch>
+        
           <Route
             exact path='/'
             render={(props) => (
@@ -107,8 +110,10 @@ class App extends Component {
           />
           <Route path='/places/:id' component={Place_id} />
           <Route path='/owners/:id' component={Owner_id} />
-        </div>
+        
+        </Switch>
       </Router>
+      
 
     );
   }

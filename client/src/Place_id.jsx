@@ -90,7 +90,7 @@ class Place_id extends React.Component {
     axios.post(`/places/${placeId}`, {user_info: this.props.user_info})
       .then( res => {
         this.setState({placeData: res.data.place, ownerData: res.data.owner});
-        //console.log(res.data)
+        console.log(res.data)
       })
   };
 
@@ -153,7 +153,7 @@ class Place_id extends React.Component {
                       </tr>
                       <tr>
                         <th scope="row">Building Type:</th>
-                        <td>{this.state.placeData.type}</td>
+                        <td>{this.state.placeData.type_of_building}</td>
                       </tr>
                       <tr>
                         <th scope="row">Parking:</th>
