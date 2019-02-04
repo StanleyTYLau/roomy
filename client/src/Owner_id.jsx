@@ -1,24 +1,36 @@
 import React from 'react';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 import { Table } from 'reactstrap';
+import Requestor from './Requestor.jsx';
 
 
 class Owner_id extends React.Component {
   constructor() {
     super();
     this.state = {
-      placeData: {}
+      placeData: {},
+      requestorList: [],
+      userInfo: {}
+
     };
 
   }
 
-  componentWillMount(){
+  async componentWillMount(){
+    const cookies = new Cookies();
+    let userInfo = await cookies.get('user');
+    await this.setState({userInfo: userInfo});
+
     //Get the data on every place and insert to state.place
-    axios.get(`/owners/430`)
+    axios.get(`/owners/${userInfo.id}`)
       .then( res => {
         let data = res.data
         console.log(res.data);
-        this.setState({ placeData: data})
+        this.setState({ 
+          placeData: data.placeInfo,
+          requestorList: data.requestorList
+        })
 
       })
   }
@@ -83,6 +95,22 @@ class Owner_id extends React.Component {
           </tbody>
         </Table>
 
+        REQUESTORS:
+        {this.state.requestorList.map((requestor, index) => {
+          return(
+            <Requestor 
+              index={index}
+              requestorId={requestor.userid} 
+              first_name={requestor.first_name} 
+              last_name={requestor.last_name} 
+              accepted={requestor.accepted} 
+              matchPercent={requestor.matchPercent} 
+              handleAccept={this._handleAccept}
+              handleDecline={this._handleDecline}
+            />
+          );
+        })}
+
 
 
 
@@ -94,6 +122,36 @@ class Owner_id extends React.Component {
       );
 
   }
+
+  _handleAccept = (index, reqId) => {
+    let reqList = this.state.requestorList;
+    reqList[index].accepted = true;
+    
+
+    console.log("trying to goto:", this.state.userInfo.id);
+    console.log("index:", index);
+
+    axios.put(`/owners/${this.state.userInfo.id}`, {ownerAnswer: true, placeData: this.state.placeData, requestorId: reqId})
+      .then( () => {
+        console.log(`owner accepted requestor ${reqId}`);
+        this.setState({requestorList: reqList});
+      });
+  }
+  _handleDecline = (index, reqId) => {
+    let reqList = this.state.requestorList;
+    reqList[index].accepted = false;
+    
+
+    console.log("trying to goto:", this.state.userInfo.id);
+    console.log("index:", index);
+
+    axios.put(`/owners/${this.state.userInfo.id}`, {ownerAnswer: false, placeData: this.state.placeData, requestorId: reqId})
+      .then( () => {
+        console.log(`owner declined requestor ${reqId}`);
+        this.setState({requestorList: reqList});
+      });
+  }
+
 }
 
 

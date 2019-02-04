@@ -186,47 +186,49 @@ class Place_id extends React.Component {
                     <tbody>
                       <tr>
                         <th scope="row">Name:</th>
-                        <td>{this.state.placeData.price}</td>
+                        <td>{this.state.ownerData.first_name}</td>
                       </tr>
                       <tr>
                         <th scope="row">Gender:</th>
-                        <td>{this.state.placeData.price}</td>
+                        <td>{this.state.ownerData.gender}</td>
                       </tr>
                       <tr>
                         <th scope="row">Smoker:</th>
-                        <td>{this.state.placeData.price}</td>
+                        <td>
+                          {this.state.ownerData.smoker ? 'Yes' : 'No'}
+                        </td>
                       </tr>
                       <tr>
                         <th scope="row">Pets:</th>
-                        <td>{this.state.placeData.price}</td>
+                        <td>{this.state.ownerData.pets ? 'Yes' : 'No'}</td>
                       </tr>
                       <tr>
                         <th scope="row">Cleanliness:</th>
-                        <td>{this.state.placeData.price}</td>
+                        <td>{this.state.ownerData.cleanliness}</td>
                       </tr>
                       <tr>
                         <th scope="row">Work Schedule:</th>
-                        <td>{this.state.placeData.price}</td>
+                        <td>{this.state.ownerData.work_sched}</td>
                       </tr>
                       <tr>
                         <th scope="row">Go out frequently:</th>
-                        <td>{this.state.placeData.price}</td>
+                        <td>{this.state.ownerData.go_out_freq}</td>
                       </tr>
                       <tr>
                         <th scope="row">Guests frequently:</th>
-                        <td>{this.state.placeData.price}</td>
+                        <td>{this.state.ownerData.guest_freq}</td>
                       </tr>
                       <tr>
                         <th scope="row">Hobbies:</th>
-                        <td>{this.state.placeData.price}</td>
+                        <td>{this.state.ownerData.hobbies}</td>
                       </tr>
                       <tr>
                         <th scope="row">Diet:</th>
-                        <td>{this.state.placeData.price}</td>
+                        <td>{this.state.ownerData.diet}</td>
                       </tr>
                       <tr>
                         <th scope="row">Personality:</th>
-                        <td>{this.state.placeData.price}</td>
+                        <td>{this.state.ownerData.personality}</td>
                       </tr>
                     </tbody>
                   </Table>
