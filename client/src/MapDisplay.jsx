@@ -275,7 +275,7 @@ class SimpleMap extends Component {
                     <div className="map_places">
                     <div className="place_number">{place.id}</div>
                       <div>
-                        <img src="/images/room_exm.png" alt="room" className="img_place"></img>
+                        <img src={place.picture_url} alt="room" className="img_place"></img>
                       </div>
                       <div>
                         <div className="price">${place.price}/m</div>
@@ -308,7 +308,7 @@ class SimpleMap extends Component {
     if (value === "All types") {
       this.setState({ buildingType: '' })
     } else {
-      this.setState ({ buildingType: value });  
+      this.setState ({ buildingType: value });
     }
   }
 
