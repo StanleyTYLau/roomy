@@ -28,6 +28,7 @@ class Login extends Component{
   }
 
   render(){
+
     return(
       <div className="middle_all">
         <div className="middle_logo">
@@ -66,13 +67,16 @@ class App extends Component {
     password: '',
     name: '',
     loggedIn: false,
-    first_name: ''
+    first_name: '',
+    user_type: ''
 
   }
 
 
 
   render() {
+   
+
     return (
       
       <Router>
@@ -90,8 +94,14 @@ class App extends Component {
               />
 
               
-              {this.state.loggedIn ? (
+              {this.state.loggedIn && this.state.user_type === 'roomy' ? (
                 <Redirect to="/main"/>
+              ) : (
+                <span></span>
+              )}
+
+              {this.state.loggedIn && this.state.user_type === 'owner' ? (
+                <Redirect to="/owners/430"/>
               ) : (
                 <span></span>
               )}
@@ -142,7 +152,7 @@ class App extends Component {
           cookies.set('user', res.data)
           console.log("COOKIE:", cookies.get('user'));
           this.setState({loggedIn: true});
-
+          this.setState({ user_type: res.data.type})
         }
 
       })
