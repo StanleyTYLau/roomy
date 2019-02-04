@@ -455,4 +455,21 @@ body {
     color: white;
    }
 
+   .gotit {
+    margin: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   }
+
+   .success {
+    color: $form-background-color;
+    font-size: 1.3em;
+    font-weight: 900;
+   }
+
+   .displaynone {
+    display: none;
+   }
+
 }
