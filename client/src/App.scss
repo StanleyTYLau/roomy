@@ -3,21 +3,14 @@ $purple-color: #9068be;
 $light-grey-color: #e1e8f0;
 $red-color: #e62739;
 
+
+ html {
+    height: 100%;
+  }
+
 body {
     font-family: 'Muli', sans-serif;
-    background-color: $light-grey-color;
-
-    button:focus {
-      outline:0 !important;
-    }
-
-    :active {
-       outline:none !important;
-    }
-
-    button:focus {
-      box-shadow:none;
-    }
+    /*background-color: $light-grey-color;*/
 
     .registerBut {
       width: 40%;
@@ -94,12 +87,20 @@ body {
     .button_char:focus {
       outline: none;
       border: none;
+      box-shadow: none;
      }
 
      .button_char:active {
         outline: none;
         border: none;
+        box-shadow: none;
        }
+
+      .custom-control-input:checked~.custom-control-label::before {
+      outline: none;
+      border: none;
+      box-shadow: none;
+     }
 
     .slogan {
       font-family: 'Dancing Script', cursive;
@@ -148,6 +149,18 @@ body {
       background-color: $red-color;
       color: white;
     }
+
+    .register_help:focus {
+      outline: none;
+      border: none;
+      box-shadow: none;
+     }
+
+     .register_help:active {
+        outline: none;
+        border: none;
+        box-shadow: none;
+       }
 
     .cancel {
       background-color: #6c757d;
@@ -257,6 +270,7 @@ body {
    .places {
     width: 100%;
     padding: 20px;
+    transition: all 0.5s ease;
    }
 
    .places:hover {
@@ -331,6 +345,7 @@ body {
     color: white;
     font-weight: 900;
     font-size: 1.3em;
+    transition: all 0.5s ease;
    }
 
    a.logout:hover {
@@ -376,6 +391,68 @@ body {
 
    .pointer {
     cursor: pointer;
+   }
+
+   .owner_img img {
+      width: 300px;
+      height: 200px;
+      margin: 0 10px 10px 0;
+   }
+
+   .owner_img {
+    display: flex;
+    flex-direction: column;
+   }
+
+   .owner_all {
+      display: flex;
+      justify-content: space-between;
+      transition: all 0.5s ease;
+   }
+
+   .requests {
+      width: 50%;
+   }
+
+   .requests_all {
+    display: flex;
+    justify-content: flex-start;
+    padding: 20px;
+    transition: all 0.5s ease;
+   }
+
+   .requests_all img {
+      width: 100px;
+      height: 100px;
+      margin-right: 20px;
+   }
+
+   .requests_all:hover {
+      background-color: $light-grey-color;
+   }
+
+   .small_text {
+     font-size: 1em;
+     margin-bottom: 10px;
+     margin-right: 10px;
+   }
+
+   .small_text button {
+      margin-right: 10px;
+   }
+
+   .color_b {
+    background-color: $form-background-color;
+   }
+
+   .weight700 {
+    font-weight: 700;
+    font-size: 1.5em;
+   }
+
+   .request_info {
+    background-color: $purple-color;
+    color: white;
    }
 
 }
