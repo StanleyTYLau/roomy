@@ -14,20 +14,34 @@ module.exports = (knex) => {
   router.put('/:id', (req, res) => {
     
     const current_user = req.body.user_info;
-    const reqeustorData = {
+    const requestorData = {
       placeid: req.params.id,
       userid: current_user.id,
       accepted: false
     };
 
-    console.log("Im gunna insert!", reqeustorData);
-
     knex('requestors')
-      .insert(reqeustorData)
-      .returning('*')
-      .then( (results) => {
-        res.send(results[0]);
-      });
+    .select('*')
+    .where({
+      userid: requestorData.userid,
+      placeid: requestorData.placeid
+    })
+    .then((result) => {
+      if (result.length === 0) {
+        console.log("Requestor not in list, adding now:", requestorData);
+        knex('requestors')
+        .insert(requestorData)
+        .returning('*')
+        .then( (results) => {
+          res.send(results[0]);
+        });
+      }
+      else{
+        console.log('Req already in list', result);
+        res.send("Requestor already in list");
+      }
+    });
+    
   });
 
   router.post('/new', (req, res) => {
