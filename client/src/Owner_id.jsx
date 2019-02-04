@@ -96,14 +96,16 @@ class Owner_id extends React.Component {
         </Table>
 
         REQUESTORS:
-        {this.state.requestorList.map((requestor) => {
+        {this.state.requestorList.map((requestor, index) => {
           return(
             <Requestor 
+              index={index}
               requestorId={requestor.userid} 
               first_name={requestor.first_name} 
               last_name={requestor.last_name} 
               accepted={requestor.accepted} 
               matchPercent={requestor.matchPercent} 
+              handleAccept={this._handleAccept}
             />
           );
         })}
@@ -119,6 +121,22 @@ class Owner_id extends React.Component {
       );
 
   }
+
+  _handleAccept = (index, reqId) => {
+    let reqList = this.state.requestorList;
+    reqList[index].accepted = true;
+    
+
+    console.log("trying to goto:", this.state.userInfo.id);
+    console.log("index:", index);
+
+    axios.put(`/owners/${this.state.userInfo.id}`, {ownerAnswer: true, placeData: this.state.placeData, requestorId: reqId})
+      .then( () => {
+        console.log('owner accepted requestor');
+        this.setState({requestorList: reqList});
+      });
+  }
+
 }
 
 

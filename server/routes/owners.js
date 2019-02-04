@@ -64,7 +64,10 @@ module.exports = (knex) => {
     router.put('/:id', (req, res) => {
         
         knex('requestors')
-        .where(placeid, req.body.placeId)
+        .where({
+            placeid: req.body.placeData.id,
+            userid: req.body.requestorId
+        })
         .update({
             accepted: req.body.ownerAnswer
         })
