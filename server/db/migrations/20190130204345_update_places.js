@@ -15,13 +15,13 @@ exports.up = function(knex, Promise) {
           table.string('picture_url');
         })
       })
-  
+
     ])
   };
-  
+
   exports.down = function(knex, Promise) {
     return Promise.all([
-      knex.schema.table('clients', function(table){
+      knex.schema.table('places', function(table){
         table.dropColumn('neighbourhood');
         table.dropColumn('type_of_building');
         table.dropColumn('description');
@@ -36,6 +36,6 @@ exports.up = function(knex, Promise) {
           table.enum('type')
         })
       })
-  
+
     ])
   };

@@ -276,7 +276,7 @@ class SimpleMap extends Component {
                     <div className="map_places">
                     <div className="place_number">{place.id}</div>
                       <div>
-                        <img src="/images/room_exm.png" alt="room" className="img_place"></img>
+                        <img src={place.picture_url} alt="room" className="img_place"></img>
                       </div>
                       <div>
                         <div className="price">${place.price}/m</div>
