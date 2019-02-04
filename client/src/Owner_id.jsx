@@ -98,7 +98,13 @@ class Owner_id extends React.Component {
         REQUESTORS:
         {this.state.requestorList.map((requestor) => {
           return(
-            <Requestor requestorId={requestor.userid} accepted={requestor.accepted}/>
+            <Requestor 
+              requestorId={requestor.userid} 
+              first_name={requestor.first_name} 
+              last_name={requestor.last_name} 
+              accepted={requestor.accepted} 
+              matchPercent={requestor.matchPercent} 
+            />
           );
         })}
 

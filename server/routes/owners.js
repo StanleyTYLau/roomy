@@ -43,11 +43,13 @@ module.exports = (knex) => {
                             //console.log("Match Percent:", match);
                             
                             requestorList[index]["matchPercent"] = match;
+                            requestorList[index]["first_name"] = res[0].first_name;
+                            requestorList[index]["last_name"] = res[0].last_name;
                             //console.log("list index: ", requestorList[index]);
                         })
                     }))
                     .then(() => {
-                        //console.log("requestors!!!:", requestorList)
+                        console.log("requestors!!!:", requestorList)
                         res.send({placeInfo, requestorList});
                     })
                     

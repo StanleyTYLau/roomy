@@ -14,7 +14,10 @@ class Requestor extends React.Component {
     return(
       <div>
         {this.props.requestorId}
+        {this.props.first_name}
+        {this.props.last_name}
         {this.props.accepted}
+        {this.props.matchPercent * 100}
       </div>
     );
   }
