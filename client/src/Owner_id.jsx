@@ -13,7 +13,6 @@ class Owner_id extends React.Component {
       requestorList: [],
       userInfo: {},
 
-      collapse: ["a", "b", "c", "d", "e", "f", "g", "h", "j", "k"],
       placeData: {}
     };
   }
@@ -103,75 +102,27 @@ class Owner_id extends React.Component {
           </Table>
         </div>
         <div className="requests">
-          <div className="price">Requests <Badge className="color_b">2</Badge> :</div>
+          <div className="price">Requests <Badge className="color_b">{this.state.requestorList.length}</Badge> :</div>
           <div>
-            <div className="requests_all">
-              <img src="/images/request1.png" alt="Logo"></img>
-              <div>
-                <p className="weight700">Angie, Matching: 100%</p>
-                <div>
-                  <Button type="submit" className="button_char small_text color_b" onClick={this._handleRequest}>EXCEPT</Button>
-                  <Button className="cancel small_text">DECLINE</Button>
-                  <Button className="button_char small_text" id={this.state.collapse[0]+String(this.state.placeData.id)}>DETAILS</Button>
-                   <UncontrolledCollapse toggler={this.state.collapse[0]+String(this.state.placeData.id)}>
-                    <Card>
-                      <CardBody className="request_info">
-                        <Table borderless>
-                          <tbody>
-                            <tr>
-                              <th scope="row">Gender:</th>
-                              <td>{this.state.placeData.id}</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Smoker:</th>
-                              <td>{this.state.placeData.price}</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Pets:</th>
-                              <td>{this.state.placeData.price}</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Cleanliness:</th>
-                              <td>{this.state.placeData.price}</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Work Schedule:</th>
-                              <td>{this.state.placeData.price}</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Go out frequently:</th>
-                              <td>{this.state.placeData.price}</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Guests frequently:</th>
-                              <td>{this.state.placeData.price}</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Hobbies:</th>
-                              <td>{this.state.placeData.price}</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Diet:</th>
-                              <td>{this.state.placeData.price}</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Personality:</th>
-                              <td>{this.state.placeData.price}</td>
-                            </tr>
-                          </tbody>
-                        </Table>
-                      </CardBody>
-                    </Card>
-                  </UncontrolledCollapse>
-                </div>
-              </div>
-            </div>
+            {this.state.requestorList.map((requestor, index) => {
+              return(
+                <Requestor
+                  index={index}
+                  requestorId={requestor.userid}
+                  requestor={requestor}
+                  accepted={requestor.accepted}
+                  matchPercent={requestor.matchPercent}
+                  handleAccept={this._handleAccept}
+                  handleDecline={this._handleDecline}
+                />
+              );
+            })}
 
           </div>
           </div>
         </div>
 
-        REQUESTORS:
+        {/* REQUESTORS:
         {this.state.requestorList.map((requestor, index) => {
           return(
             <Requestor
@@ -185,7 +136,7 @@ class Owner_id extends React.Component {
               handleDecline={this._handleDecline}
             />
           );
-        })}
+        })} */}
 
 
 

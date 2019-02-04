@@ -45,6 +45,17 @@ module.exports = (knex) => {
                             requestorList[index]["matchPercent"] = match;
                             requestorList[index]["first_name"] = res[0].first_name;
                             requestorList[index]["last_name"] = res[0].last_name;
+                            requestorList[index]["gender"] = res[0].gender;
+                            requestorList[index]["smoker"] = res[0].smoker;
+                            requestorList[index]["pets"] = res[0].pets;
+                            requestorList[index]["cleanliness"] = res[0].cleanliness;
+                            requestorList[index]["work_sched"] = res[0].work_sched;
+                            requestorList[index]["go_out_freq"] = res[0].go_out_freq;
+                            requestorList[index]["guest_freq"] = res[0].guest_freq;
+                            requestorList[index]["hobbies"] = res[0].hobbies;
+                            requestorList[index]["diet"] = res[0].diet;
+                            requestorList[index]["personality"] = res[0].personality;
+
                             //console.log("list index: ", requestorList[index]);
                         })
                     }))
