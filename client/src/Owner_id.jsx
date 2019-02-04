@@ -12,8 +12,8 @@ class Owner_id extends React.Component {
     this.state = {
       requestorList: [],
       userInfo: {},
-
       placeData: {}
+
     };
   }
 
@@ -152,30 +152,32 @@ class Owner_id extends React.Component {
 
   _handleAccept = (index, reqId) => {
     let reqList = this.state.requestorList;
-    reqList[index].accepted = true;
+    reqList[index].accepted = 'true';
 
 
     console.log("trying to goto:", this.state.userInfo.id);
     console.log("index:", index);
 
     axios.put(`/owners/${this.state.userInfo.id}`, {ownerAnswer: true, placeData: this.state.placeData, requestorId: reqId})
-      .then( () => {
-        console.log(`owner accepted requestor ${reqId}`);
+      .then( (res) => {
+        console.log(`${res.data} Accepted ${reqId}`);
         this.setState({requestorList: reqList});
+        this.forceUpdate();
       });
   }
   _handleDecline = (index, reqId) => {
     let reqList = this.state.requestorList;
-    reqList[index].accepted = false;
+    reqList[index].accepted = 'false';
 
 
     console.log("trying to goto:", this.state.userInfo.id);
     console.log("index:", index);
 
     axios.put(`/owners/${this.state.userInfo.id}`, {ownerAnswer: false, placeData: this.state.placeData, requestorId: reqId})
-      .then( () => {
-        console.log(`owner declined requestor ${reqId}`);
+      .then( (res) => {
+        console.log(`${res.data} Declined ${reqId}`);
         this.setState({requestorList: reqList});
+        this.forceUpdate();
       });
   }
 
