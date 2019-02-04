@@ -30,27 +30,33 @@ module.exports = (knex) => {
                 .where({id: req.params.id})
                 .then((owner) => {
                     ownerData = owner[0];
-                    
+
                     //Iterate thru requestors, calc match%, append to requestorList
-                    requestorList.forEach((requestor, index) => {
-                        knex('users')
+                    Promise.all(requestorList.map((requestor, index) => {
+                        return knex('users')
                         .select('*')
                         .where({id: requestor.userid})
                         .then((res) => {
                             //console.log("owner data:", ownerData);
                             //console.log("requestor data:", res[0]);
                             let match = matching.compareUsers(ownerData,res[0]);
-                            console.log("Match Percent:", match);
+                            //console.log("Match Percent:", match);
+                            
                             requestorList[index]["matchPercent"] = match;
+                            //console.log("list index: ", requestorList[index]);
                         })
+                    }))
+                    .then(() => {
+                        //console.log("requestors!!!:", requestorList)
+                        res.send({placeInfo, requestorList});
                     })
-                    console.log("requestors!!!:", requestorList)
-                    res.send({placeInfo, requestorList});
+                    
                 })
+                
             })
-            
+                        
         })
-    
+           
     })
 
     return router;

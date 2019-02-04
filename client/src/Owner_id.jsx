@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { Table } from 'reactstrap';
+import Requestor from './Requestor.jsx';
 
 
 class Owner_id extends React.Component {
@@ -93,6 +94,13 @@ class Owner_id extends React.Component {
             </tr>
           </tbody>
         </Table>
+
+        REQUESTORS:
+        {this.state.requestorList.map((requestor) => {
+          return(
+            <Requestor requestorId={requestor.userid} accepted={requestor.accepted}/>
+          );
+        })}
 
 
 
