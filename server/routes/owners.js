@@ -61,5 +61,17 @@ module.exports = (knex) => {
            
     })
 
+    router.put('/:id', (req, res) => {
+        
+        knex('requestors')
+        .where(placeid, req.body.placeId)
+        .update({
+            accepted: req.body.ownerAnswer
+        })
+        .then(() => {
+            res.send('Owner Responded to Requestor')
+        })
+    })
+
     return router;
 }
