@@ -61,6 +61,7 @@ module.exports = (knex) => {
                     }))
                     .then(() => {
                         //console.log("requestors!!!:", requestorList)
+                        requestorList = requestorList.sort((a, b) => b.matchPercent - a.matchPercent);
                         res.send({placeInfo, requestorList});
                     })
                     

@@ -12,8 +12,8 @@ class Owner_id extends React.Component {
     this.state = {
       requestorList: [],
       userInfo: {},
-
       placeData: {}
+
     };
   }
 
@@ -159,8 +159,8 @@ class Owner_id extends React.Component {
     console.log("index:", index);
 
     axios.put(`/owners/${this.state.userInfo.id}`, {ownerAnswer: true, placeData: this.state.placeData, requestorId: reqId})
-      .then( () => {
-        console.log(`owner accepted requestor ${reqId}`);
+      .then( (res) => {
+        console.log(`${res.data} Accepted ${reqId}`);
         this.setState({requestorList: reqList});
       });
   }
@@ -173,9 +173,10 @@ class Owner_id extends React.Component {
     console.log("index:", index);
 
     axios.put(`/owners/${this.state.userInfo.id}`, {ownerAnswer: false, placeData: this.state.placeData, requestorId: reqId})
-      .then( () => {
-        console.log(`owner declined requestor ${reqId}`);
+      .then( (res) => {
+        console.log(`${res.data} Declined ${reqId}`);
         this.setState({requestorList: reqList});
+        
       });
   }
 
