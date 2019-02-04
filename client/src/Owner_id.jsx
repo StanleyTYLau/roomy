@@ -106,6 +106,7 @@ class Owner_id extends React.Component {
               accepted={requestor.accepted} 
               matchPercent={requestor.matchPercent} 
               handleAccept={this._handleAccept}
+              handleDecline={this._handleDecline}
             />
           );
         })}
@@ -132,7 +133,21 @@ class Owner_id extends React.Component {
 
     axios.put(`/owners/${this.state.userInfo.id}`, {ownerAnswer: true, placeData: this.state.placeData, requestorId: reqId})
       .then( () => {
-        console.log('owner accepted requestor');
+        console.log(`owner accepted requestor ${reqId}`);
+        this.setState({requestorList: reqList});
+      });
+  }
+  _handleDecline = (index, reqId) => {
+    let reqList = this.state.requestorList;
+    reqList[index].accepted = false;
+    
+
+    console.log("trying to goto:", this.state.userInfo.id);
+    console.log("index:", index);
+
+    axios.put(`/owners/${this.state.userInfo.id}`, {ownerAnswer: false, placeData: this.state.placeData, requestorId: reqId})
+      .then( () => {
+        console.log(`owner declined requestor ${reqId}`);
         this.setState({requestorList: reqList});
       });
   }

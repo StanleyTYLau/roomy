@@ -22,7 +22,7 @@ class Requestor extends React.Component {
           </tbody>  
         </Table>
         <Button type="submit" className="button_char" onClick={() => this.props.handleAccept(this.props.index, this.props.requestorId)}>Accept</Button>
-        <Button className="cancel" >Decline</Button>
+        <Button className="cancel" onClick={() => this.props.handleDecline(this.props.index, this.props.requestorId)}>Decline</Button>
         
         {/* Need this to change how the button looks if already clicked */}
         {this.props.accepted}
