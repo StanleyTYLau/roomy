@@ -18,7 +18,7 @@ class Requestor extends React.Component {
               <div>
                 <p className="weight700">{this.props.requestor.first_name}, Matching: {this.props.matchPercent * 100}%</p>
                 <div>
-                  <Button type="submit" className="button_char small_text color_b" onClick={() => this.props.handleAccept(this.props.index, this.props.requestorId)}>ACCEPT</Button>
+                  <Button type="submit" className="button_char small_text color_b" onClick={() => this.props.handleAccept(this.props.index, this.props.requestorId, this.props.requestor)}>ACCEPT</Button>
                   <Button className="cancel small_text" onClick={() => this.props.handleDecline(this.props.index, this.props.requestorId)}>DECLINE</Button>
                   <Button className="button_char small_text" id={String(this.props.requestor.last_name + this.props.requestor.first_name)}>DETAILS</Button>
                    <UncontrolledCollapse toggler={String(this.props.requestor.last_name + this.props.requestor.first_name)}>

@@ -45,7 +45,7 @@ class Owner_id extends React.Component {
       <div className="topsearch">
         <div className="wrapper">
           <img src="/images/logo_white.png" alt="Logo"></img>
-          <p className="logout">You're signed in with Your Email</p>
+          <p className="logout">You're signed in with {this.state.userInfo.email}</p>
           <a className="logout" href="/" onClick={this._handleLogout}>Logout</a>
         </div>
       </div>
@@ -150,7 +150,7 @@ class Owner_id extends React.Component {
 
   }
 
-  _handleAccept = (index, reqId) => {
+  _handleAccept = (index, reqId, reqData) => {
     let reqList = this.state.requestorList;
     reqList[index].accepted = true;
 
@@ -158,7 +158,7 @@ class Owner_id extends React.Component {
     console.log("trying to goto:", this.state.userInfo.id);
     console.log("index:", index);
 
-    axios.put(`/owners/${this.state.userInfo.id}`, {ownerAnswer: true, placeData: this.state.placeData, requestorId: reqId})
+    axios.put(`/owners/${this.state.userInfo.id}`, {ownerAnswer: true, placeData: this.state.placeData, requestorId: reqId, requestor: reqData, ownerData: this.state.userInfo})
       .then( () => {
         console.log(`owner accepted requestor ${reqId}`);
         this.setState({requestorList: reqList});
