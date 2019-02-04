@@ -49,7 +49,7 @@ module.exports = (knex) => {
                         })
                     }))
                     .then(() => {
-                        console.log("requestors!!!:", requestorList)
+                        //console.log("requestors!!!:", requestorList)
                         res.send({placeInfo, requestorList});
                     })
                     
