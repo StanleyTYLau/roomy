@@ -46,7 +46,7 @@ class Owner_id extends React.Component {
         <div className="wrapper">
           <img src="/images/logo_white.png" alt="Logo"></img>
           <p className="logout">Your Email</p>
-          <a className="logout" href="">Logout</a>
+          <a className="logout" href="/" onClick={this._handleLogout}>Logout</a>
         </div>
         </div>
         {console.log(placesList)}
@@ -150,6 +150,12 @@ class Owner_id extends React.Component {
         console.log(`owner declined requestor ${reqId}`);
         this.setState({requestorList: reqList});
       });
+  }
+
+  _handleLogout = e => {
+    const cookies = new Cookies();
+    cookies.remove('user');
+
   }
 
 }

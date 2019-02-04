@@ -249,6 +249,7 @@ class Place_id extends React.Component {
     const placeId = this.props.place_id;
     axios.put(`places/${placeId}`, {user_info: this.props.user_info})
       .then( () => {
+        alert('Your request was succesfully submitted');
         this.toogle();
       });
   }
