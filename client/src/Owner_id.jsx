@@ -152,7 +152,7 @@ class Owner_id extends React.Component {
 
   _handleAccept = (index, reqId) => {
     let reqList = this.state.requestorList;
-    reqList[index].accepted = true;
+    reqList[index].accepted = 'true';
 
 
     console.log("trying to goto:", this.state.userInfo.id);
@@ -162,11 +162,12 @@ class Owner_id extends React.Component {
       .then( (res) => {
         console.log(`${res.data} Accepted ${reqId}`);
         this.setState({requestorList: reqList});
+        this.forceUpdate();
       });
   }
   _handleDecline = (index, reqId) => {
     let reqList = this.state.requestorList;
-    reqList[index].accepted = false;
+    reqList[index].accepted = 'false';
 
 
     console.log("trying to goto:", this.state.userInfo.id);
@@ -176,7 +177,7 @@ class Owner_id extends React.Component {
       .then( (res) => {
         console.log(`${res.data} Declined ${reqId}`);
         this.setState({requestorList: reqList});
-        
+        this.forceUpdate();
       });
   }
 

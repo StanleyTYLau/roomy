@@ -27,8 +27,8 @@ class Requestor extends React.Component {
                 {this.props.accepted === 'true' ? 'You Accepted!' : 'You Declined!'}
               
                 <div>
-                  <Button type="submit" className="button_char small_text color_b" onClick={() => {this.props.handleAccept(this.props.index, this.props.requestorId); this._refresh();}} >ACCEPT</Button>
-                  <Button className="cancel small_text" onClick={() => {this.props.handleDecline(this.props.index, this.props.requestorId); this._refresh();}}>DECLINE</Button>
+                  <Button type="submit" className="button_char small_text color_b" onClick={() => this.props.handleAccept(this.props.index, this.props.requestorId)} >ACCEPT</Button>
+                  <Button className="cancel small_text" onClick={() => this.props.handleDecline(this.props.index, this.props.requestorId)}>DECLINE</Button>
                   <Button className="button_char small_text" id={String(this.props.requestor.last_name + this.props.requestor.first_name)}>DETAILS</Button>
                    <UncontrolledCollapse toggler={String(this.props.requestor.last_name + this.props.requestor.first_name)}>
                     <Card>
@@ -89,10 +89,7 @@ class Requestor extends React.Component {
     );
   }
 
-  _refresh = (e) => {
-    this.setState({refresh: !this.state.refresh})
-
-  }
+ 
 }
 
 export default Requestor;
