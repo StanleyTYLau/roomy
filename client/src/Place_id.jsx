@@ -3,7 +3,7 @@ import axios from 'axios';
 import { UncontrolledCollapse, Button, CardBody } from 'reactstrap';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { CustomInput, Col, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import { Table } from 'reactstrap';
+import { Table, Fade } from 'reactstrap';
 import {
   Carousel,
   CarouselItem,
@@ -35,9 +35,10 @@ const items = [
 class Place_id extends React.Component {
   constructor() {
     super();
+
     this.state = {
       modal: false,
-
+      fadeIn: false,
       activeIndex: 0,
       placeData: {},
       ownerData: {}
@@ -49,6 +50,7 @@ class Place_id extends React.Component {
     this.goToIndex = this.goToIndex.bind(this);
     this.onExiting = this.onExiting.bind(this);
     this.onExited = this.onExited.bind(this);
+    this.toggleFade = this.toggleFade.bind(this);
 
   }
 
@@ -93,6 +95,17 @@ class Place_id extends React.Component {
         console.log(res.data)
       })
   };
+
+  toggleFade() {
+        this.setState({
+            fadeIn: !this.state.fadeIn
+        });
+
+        const placeId = this.props.place_id;
+    axios.put(`places/${placeId}`, {user_info: this.props.user_info});
+
+    }
+
 
   render() {
 
@@ -232,11 +245,16 @@ class Place_id extends React.Component {
                       </tr>
                     </tbody>
                   </Table>
-
+                  <div>
+                    <Fade in={this.state.fadeIn} className="gotit">
+                      <div className="success">Your request was successfully sent!</div>
+                      <Button type="submit" className="button_char color_b" onClick={this._handleRequest}>GOT IT!</Button>
+                    </Fade>
+                  </div>
                 </ModalBody>
               <ModalFooter>
-                <Button type="submit" className="button_char" onClick={this._handleRequest}>Ask to be Roomys</Button>{' '}
-                <Button className="cancel" onClick={this.toggle}>CANCEL</Button>
+                <Button className="button_char" onClick={this.toggleFade} style={{display: this.state.fadeIn ? 'none': 'block'}}>Ask to be Roomys</Button>{' '}
+                <Button style={{display: this.state.fadeIn ? 'none': 'block'}} className="cancel" onClick={this.toggle}>CANCEL</Button>
               </ModalFooter>
             </Form>
           </Modal>
@@ -245,13 +263,10 @@ class Place_id extends React.Component {
     );
   }
 
+
+
   _handleRequest = e => {
-    const placeId = this.props.place_id;
-    axios.put(`places/${placeId}`, {user_info: this.props.user_info})
-      .then( () => {
-        alert('Your request was succesfully submitted');
-        this.toogle();
-      });
+    this.toogle();
   }
 
 }
