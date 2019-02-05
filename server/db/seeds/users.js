@@ -99,20 +99,21 @@ exports.seed = async function(knex, Promise) {
 
   function insertRequestors (users, places) {
     return knex('requestors').insert([
-      {userid: users[1].id, placeid: places[0].id, accepted: false},
-      {userid: users[2].id, placeid: places[0].id, accepted: false},
-      {userid: users[3].id, placeid: places[0].id, accepted: false},
-      {userid: users[4].id, placeid: places[0].id, accepted: false},
-      {userid: users[1].id, placeid: places[1].id, accepted: false},
-      {userid: users[2].id, placeid: places[1].id, accepted: false},
-      {userid: users[3].id, placeid: places[1].id, accepted: false}
+      {userid: users[1].id, placeid: places[0].id },
+      {userid: users[2].id, placeid: places[0].id },
+      {userid: users[3].id, placeid: places[0].id },
+      {userid: users[4].id, placeid: places[0].id },
+      {userid: users[1].id, placeid: places[1].id },
+      {userid: users[2].id, placeid: places[1].id },
+      {userid: users[3].id, placeid: places[1].id }
     ])
   }
 
   //Delete existing data
   await deleteRequestors()
+    .then(deletePlaces) 
     .then(deleteUsers)
-    .then(deletePlaces)
+    
 
   const users = await insertUsers();
   const places = await insertPlaces(users);

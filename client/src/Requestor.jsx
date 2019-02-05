@@ -24,7 +24,7 @@ class Requestor extends React.Component {
               <img src={this.props.requestor.picture_url} alt="Logo"></img>
               <div>
                 <p className="weight700">{this.props.requestor.first_name}, Matching: {this.props.matchPercent * 100}%</p>
-                {this.props.accepted === 'true' ? 'You Accepted!' : 'You Declined!'}
+                {this.props.accepted === true ? 'You Accepted!' : 'You Declined!'}
               
                 <div>
                   <Button type="submit" className="button_char small_text color_b" onClick={() => this.props.handleAccept(this.props.index, this.props.requestorId, this.props.requestor)}>ACCEPT</Button>
