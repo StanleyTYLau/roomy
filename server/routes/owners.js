@@ -17,6 +17,7 @@ module.exports = (knex) => {
 
         knex('places').select('*')
         .where({ user_id: req.params.id })
+        .orderBy('id')
         .then( (results) => {
             console.log("place data:", results[0]);
             placeInfo = results[0];
@@ -59,6 +60,7 @@ module.exports = (knex) => {
                             requestorList[index]["hobbies"] = res[0].hobbies;
                             requestorList[index]["diet"] = res[0].diet;
                             requestorList[index]["personality"] = res[0].personality;
+                            requestorList[index]["picture_url"] = res[0].picture_url;
 
                             //console.log("list index: ", requestorList[index]);
                         })
@@ -77,18 +79,9 @@ module.exports = (knex) => {
            
     })
 
+    //Route for owner to accept or decline a requestor
     router.put('/:id', (req, res) => {
-        var owner = {
-            name: req.body.ownerData.first_name,
-            email: req.body.ownerData.email
-        }
-        var recipient = req.body.requestor.first_name;
-        var place = {
-            postal_code: req.body.placeData.postal_code,
-            street_number: req.body.placeData.street_number,
-            stree_name: req.body.placeData.street_name,
-            neighbourhood: req.body.placeData.neighbourhood
-        }
+        
 
         knex('requestors')
         .where({
@@ -99,26 +92,38 @@ module.exports = (knex) => {
             accepted: req.body.ownerAnswer
         })
         .then(() => {
-            var data = {
-                from: 'okatiukha@gmail.com',
-                to: 'al.katuha@gmail.com',
-                subject: 'Roomy application',
-                text: `Hi ${recipient}! Your roomy applicaion for ${place.postal_code} ${place.street_number} ${place.street_name} in ${place.neighbourhood} has been approved by ${owner.name}! Please contact the owner via email ${owner.email}`
-              };
-              mailgun.messages().send(data, function (err, body) {
-                if (err) {
-                    
-                    console.log("got an error: ", err);
+            if (req.body.ownerAnswer){
+                var owner = {
+                    name: req.body.ownerData.first_name,
+                    email: req.body.ownerData.email
                 }
-        
-                else {
-                    
-                    console.log(body);
-              }});
+                var recipient = req.body.requestor.first_name;
+                var place = {
+                    postal_code: req.body.placeData.postal_code,
+                    street_number: req.body.placeData.street_number,
+                    stree_name: req.body.placeData.street_name,
+                    neighbourhood: req.body.placeData.neighbourhood
+                }
+                var data = {
+                    from: 'okatiukha@gmail.com',
+                    to: 'al.katuha@gmail.com',
+                    subject: 'Roomy application',
+                    text: `Hi ${recipient}! Your roomy applicaion for ${place.postal_code} ${place.street_number} ${place.street_name} in ${place.neighbourhood} has been approved by ${owner.name}! Please contact the owner via email ${owner.email}`
+                };
+                // mailgun.messages().send(data, function (err, body) {
+                //     if (err) {
+                        
+                //         console.log("got an error: ", err);
+                //     }
+            
+                //     else {
+                        
+                //         console.log(body);
+                //     }
+                // });
+            }
             
             res.send('Owner Responded to Requestor');
-
-            
 
         })
     })

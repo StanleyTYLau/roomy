@@ -5,6 +5,7 @@ module.exports = (knex) => {
   router.get('/', (req, res) => {
     knex.select('*')
       .from('places')
+      .orderBy('id')
       .then( (results) => {
         res.send(results);
       });
@@ -16,8 +17,7 @@ module.exports = (knex) => {
     const current_user = req.body.user_info;
     const requestorData = {
       placeid: req.params.id,
-      userid: current_user.id,
-      accepted: false
+      userid: current_user.id
     };
 
     knex('requestors')
@@ -138,7 +138,7 @@ module.exports = (knex) => {
       cleanliness: 10,
       go_out_freq: 5,
       guests_freq: 5,
-      hobbies: 20,
+      hobbies: 0,
       diet: 5,
       personality: 10
     }
@@ -148,10 +148,10 @@ module.exports = (knex) => {
     }
     let scores = [];
     let finalScore = 0;
-
+    console.log("Comparing:", user1, user2);
     //Calculate weighted score for attributes that should match 1:1
     function _score1To1(user1, user2, attrName){
-      if(user1[attrName] === user2[attrName]){
+      if(String(user1[attrName]).toLowerCase() === String(user2[attrName]).toLowerCase()){
         scores.push(1 * weight[attrName]);
       }
       else {
@@ -237,7 +237,7 @@ module.exports = (knex) => {
     //console.log("Matching scores:", scores);
     //console.log("max scores:", maxScore);
 
-    return (finalScore / maxScore);
+    return Math.round((finalScore / maxScore) * 100) / 100;
   }
 
 
@@ -284,6 +284,7 @@ module.exports = (knex) => {
         this.where('price', '<', priceRange.monthlyPriceTo)
       })
       .select('*')
+      .orderBy('id')
       .then( (results) => {
         console.log(results);
         res.send(results);
@@ -298,6 +299,7 @@ module.exports = (knex) => {
         this.where('price', '>', priceRange.monthlyPriceFrom)
       })
       .select('*')
+      .orderBy('id')
       .then( (results) => {
         console.log(results);
         res.send(results);
@@ -312,6 +314,7 @@ module.exports = (knex) => {
         this.where('price', '<', priceRange.monthlyPriceTo)
       })
       .select('*')
+      .orderBy('id')
       .then( (results) => {
         console.log(results);
         res.send(results);
@@ -323,6 +326,7 @@ module.exports = (knex) => {
         dbSearch
       )
       .select('*')
+      .orderBy('id')
       .then( (results) => {
         console.log(results);
         res.send(results);

@@ -68,7 +68,8 @@ class App extends Component {
     name: '',
     loggedIn: false,
     first_name: '',
-    user_type: ''
+    user_type: '',
+    userId: ''
 
   }
 
@@ -101,7 +102,7 @@ class App extends Component {
               )}
 
               {this.state.loggedIn && this.state.user_type === 'owner' ? (
-                <Redirect to="/owners/430"/>
+                <Redirect to={`/owners/${this.state.userId}`} />
               ) : (
                 <span></span>
               )}
@@ -152,7 +153,7 @@ class App extends Component {
           cookies.set('user', res.data)
           console.log("COOKIE:", cookies.get('user'));
           this.setState({loggedIn: true});
-          this.setState({ user_type: res.data.type})
+          this.setState({ user_type: res.data.type, userId: res.data.id})
         }
 
       })
