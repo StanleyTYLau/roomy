@@ -21,7 +21,7 @@ class Requestor extends React.Component {
   render() {
     return(
       <div className="requests_all">
-              <img src="/images/request1.png" alt="Logo"></img>
+              <img src={this.props.requestor.picture_url} alt="Logo"></img>
               <div>
                 <p className="weight700">{this.props.requestor.first_name}, Matching: {this.props.matchPercent * 100}%</p>
                 {this.props.accepted === 'true' ? 'You Accepted!' : 'You Declined!'}

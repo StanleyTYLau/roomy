@@ -59,6 +59,7 @@ module.exports = (knex) => {
                             requestorList[index]["hobbies"] = res[0].hobbies;
                             requestorList[index]["diet"] = res[0].diet;
                             requestorList[index]["personality"] = res[0].personality;
+                            requestorList[index]["picture_url"] = res[0].picture_url;
 
                             //console.log("list index: ", requestorList[index]);
                         })
