@@ -19,12 +19,20 @@ class Requestor extends React.Component {
   }
 
   render() {
+    let ownerAnswer = '';
+    if (this.props.accepted === true){
+      let ownerAnswer = "You Accepted";
+    }
+    else if (this.props.accepted === false){
+      let ownerAnswer = "You Declined";
+    }
+
     return(
       <div className="requests_all">
               <img src={this.props.requestor.picture_url} alt="Logo"></img>
               <div>
                 <p className="weight700">{this.props.requestor.first_name}, Matching: {this.props.matchPercent * 100}%</p>
-                {this.props.accepted === true ? 'You Accepted!' : 'You Declined!'}
+                {ownerAnswer}
               
                 <div>
                   <Button type="submit" className="button_char small_text color_b" onClick={() => this.props.handleAccept(this.props.index, this.props.requestorId, this.props.requestor)}>ACCEPT</Button>
