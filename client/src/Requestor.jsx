@@ -24,7 +24,7 @@ class Requestor extends React.Component {
     const ownerAnswer = (ans) => {
       if (ans === true){
         return (
-          <Button className="small_text color_b" disabled>ACCEPTED</Button>
+          <Button className="small_text color_g" disabled>ACCEPTED</Button>
         );
       }
       else if (ans === false){
