@@ -72,7 +72,8 @@ module.exports = (knex) => {
              go_out_freq: newUser.goOutFreq,
              guest_freq: newUser.guestsFreq,
              diet: newUser.diet,
-             personality: newUser.personality
+             personality: newUser.personality,
+             picture_url: '/images/profile-placeholder.jpeg'
             })
     .returning('*')
     .then( (results) => {

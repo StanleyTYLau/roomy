@@ -5,6 +5,7 @@ module.exports = (knex) => {
   router.get('/', (req, res) => {
     knex.select('*')
       .from('places')
+      .orderBy('id')
       .then( (results) => {
         res.send(results);
       });
@@ -16,8 +17,7 @@ module.exports = (knex) => {
     const current_user = req.body.user_info;
     const requestorData = {
       placeid: req.params.id,
-      userid: current_user.id,
-      accepted: false
+      userid: current_user.id
     };
 
     knex('requestors')
@@ -284,6 +284,7 @@ module.exports = (knex) => {
         this.where('price', '<', priceRange.monthlyPriceTo)
       })
       .select('*')
+      .orderBy('id')
       .then( (results) => {
         console.log(results);
         res.send(results);
@@ -298,6 +299,7 @@ module.exports = (knex) => {
         this.where('price', '>', priceRange.monthlyPriceFrom)
       })
       .select('*')
+      .orderBy('id')
       .then( (results) => {
         console.log(results);
         res.send(results);
@@ -312,6 +314,7 @@ module.exports = (knex) => {
         this.where('price', '<', priceRange.monthlyPriceTo)
       })
       .select('*')
+      .orderBy('id')
       .then( (results) => {
         console.log(results);
         res.send(results);
@@ -323,6 +326,7 @@ module.exports = (knex) => {
         dbSearch
       )
       .select('*')
+      .orderBy('id')
       .then( (results) => {
         console.log(results);
         res.send(results);
