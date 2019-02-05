@@ -28,7 +28,7 @@ module.exports = (knex) => {
             .select('*')
             .where({placeid: placeInfo.id})
             .then((requestors) => {
-                requestorList = requestors;     
+                requestorList = requestors;
 
                 knex('users')
                 .select('*')
@@ -46,7 +46,7 @@ module.exports = (knex) => {
                             //console.log("requestor data:", res[0]);
                             let match = matching.compareUsers(ownerData,res[0]);
                             //console.log("Match Percent:", match);
-                            
+
                             requestorList[index]["matchPercent"] = match;
                             requestorList[index]["first_name"] = res[0].first_name;
                             requestorList[index]["last_name"] = res[0].last_name;
@@ -70,18 +70,18 @@ module.exports = (knex) => {
                         requestorList = requestorList.sort((a, b) => b.matchPercent - a.matchPercent);
                         res.send({placeInfo, requestorList});
                     })
-                    
+
                 })
-                
+
             })
-                        
+
         })
-           
+
     })
 
     //Route for owner to accept or decline a requestor
     router.put('/:id', (req, res) => {
-        
+
 
         knex('requestors')
         .where({
@@ -101,7 +101,7 @@ module.exports = (knex) => {
                 var place = {
                     postal_code: req.body.placeData.postal_code,
                     street_number: req.body.placeData.street_number,
-                    stree_name: req.body.placeData.street_name,
+                    street_name: req.body.placeData.street_name,
                     neighbourhood: req.body.placeData.neighbourhood
                 }
                 var data = {
@@ -112,17 +112,17 @@ module.exports = (knex) => {
                 };
                 mailgun.messages().send(data, function (err, body) {
                     if (err) {
-                        
+
                         console.log("got an error: ", err);
                     }
-            
+
                     else {
-                        
+
                         console.log(body);
                     }
                 });
             }
-            
+
             res.send('Owner Responded to Requestor');
 
         })

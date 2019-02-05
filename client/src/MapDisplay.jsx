@@ -280,7 +280,7 @@ class SimpleMap extends Component {
                       </div>
                       <div>
                         <div className="price">${place.price}/m</div>
-                        <div>{place.street_number} {place.street_name}, {place.city}, {place.province}, {place.postal_code}</div>
+                        <div>{place.street_number} {place.street_name}, {place.city}, {place.postal_code}</div>
                         <Place_id place_id={place.id} user_info={this.state.user_info}></Place_id>
                       </div>
                     </div>
@@ -367,11 +367,11 @@ class SimpleMap extends Component {
   }
 
   _handleLogout = e => {
-    
+
     const cookies = new Cookies();
     cookies.remove('user');
-   
-          
+
+
 
   }
 
