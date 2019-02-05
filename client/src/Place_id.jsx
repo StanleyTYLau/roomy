@@ -192,7 +192,7 @@ class Place_id extends React.Component {
                   </Table>
                   <p className="small_price">Owner info:</p>
                   <div className="place_owner">
-                    <img src="/images/owner.png" alt="Logo"></img>
+                    <img src={this.state.ownerData.picture_url} alt="Logo"></img>
                     <div className="matching">Owner Matching: {this.state.placeData.matchPercent * 100}%</div>
                   </div>
                   <Table borderless>

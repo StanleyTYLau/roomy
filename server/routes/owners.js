@@ -77,6 +77,7 @@ module.exports = (knex) => {
            
     })
 
+    //Route for owner to accept or decline a requestor
     router.put('/:id', (req, res) => {
         var owner = {
             name: req.body.ownerData.first_name,
@@ -104,8 +105,8 @@ module.exports = (knex) => {
                 to: 'al.katuha@gmail.com',
                 subject: 'Roomy application',
                 text: `Hi ${recipient}! Your roomy applicaion for ${place.postal_code} ${place.street_number} ${place.street_name} in ${place.neighbourhood} has been approved by ${owner.name}! Please contact the owner via email ${owner.email}`
-              };
-              mailgun.messages().send(data, function (err, body) {
+            };
+            mailgun.messages().send(data, function (err, body) {
                 if (err) {
                     
                     console.log("got an error: ", err);
@@ -114,7 +115,8 @@ module.exports = (knex) => {
                 else {
                     
                     console.log(body);
-              }});
+                }
+            });
             
             res.send('Owner Responded to Requestor');
 
