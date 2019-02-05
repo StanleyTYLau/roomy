@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, Table, Badge } from 'reactstrap';
-import { UncontrolledCollapse, CardBody, Card } from 'reactstrap';
+import { Button, Table, Row } from 'reactstrap';
+import { UncontrolledCollapse, CardBody, Card, Alert } from 'reactstrap';
+import Container from 'reactstrap/lib/Container';
 
 class Requestor extends React.Component {
   constructor() {
@@ -22,13 +23,23 @@ class Requestor extends React.Component {
    
     const ownerAnswer = (ans) => {
       if (ans === true){
-        return "You Accepted!"
+        return (
+          <Button color="success" className="small_text color_b" disabled>ACCEPTED</Button>
+        );
       }
       else if (ans === false){
-        return "You Declined!"
+        return (
+          <Button color="danger" className="small_text color_b" disabled>DECLINED</Button>
+        );
       }
       else {
-        return ""
+        return(
+          <div> 
+            <Button type="submit" className="button_char small_text color_b" onClick={() => this.props.handleAccept(this.props.index, this.props.requestorId, this.props.requestor)}>ACCEPT</Button>
+            <Button className="cancel small_text" onClick={() => this.props.handleDecline(this.props.index, this.props.requestorId)}>DECLINE</Button>
+
+          </div>
+        );
       }
     }
 
@@ -37,12 +48,15 @@ class Requestor extends React.Component {
               <img src={this.props.requestor.picture_url} alt="Logo"></img>
               <div>
                 <p className="weight700">{this.props.requestor.first_name}, Matching: {this.props.matchPercent * 100}%</p>
-                {ownerAnswer(this.props.accepted)}
               
                 <div>
-                  <Button type="submit" className="button_char small_text color_b" onClick={() => this.props.handleAccept(this.props.index, this.props.requestorId, this.props.requestor)}>ACCEPT</Button>
-                  <Button className="cancel small_text" onClick={() => this.props.handleDecline(this.props.index, this.props.requestorId)}>DECLINE</Button>
-                  <Button className="button_char small_text" id={String(this.props.requestor.last_name + this.props.requestor.first_name)}>DETAILS</Button>
+                  <Container> 
+                    <Row>
+                      {ownerAnswer(this.props.accepted)}
+                      <Button className="button_char small_text" id={String(this.props.requestor.last_name + this.props.requestor.first_name)}>DETAILS</Button>
+                    </Row>
+
+                  </Container>
                    <UncontrolledCollapse toggler={String(this.props.requestor.last_name + this.props.requestor.first_name)}>
                     <Card>
                       <CardBody className="request_info">
