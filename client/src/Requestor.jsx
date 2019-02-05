@@ -24,12 +24,12 @@ class Requestor extends React.Component {
     const ownerAnswer = (ans) => {
       if (ans === true){
         return (
-          <Button color="success" className="small_text color_b" disabled>ACCEPTED</Button>
+          <Button className="small_text color_g" disabled>ACCEPTED</Button>
         );
       }
       else if (ans === false){
         return (
-          <Button color="danger" className="small_text color_b" disabled>DECLINED</Button>
+          <Button className="small_text color_r" disabled>DECLINED</Button>
         );
       }
       else {

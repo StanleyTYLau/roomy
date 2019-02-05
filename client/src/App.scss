@@ -444,6 +444,18 @@ body {
    .color_b {
     background-color: $form-background-color;
    }
+   .color_g:disabled {
+      background-color: $form-background-color;
+      color: white;
+      font-weight: 900;
+      opacity: 0.7;
+   }
+   .color_r:disabled {
+    background-color: $red-color;
+    color: white;
+    font-weight: 900;
+    opacity: 0.7;
+   }
 
    .color_g:disabled {
       background-color: $form-background-color;

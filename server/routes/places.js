@@ -138,7 +138,7 @@ module.exports = (knex) => {
       cleanliness: 10,
       go_out_freq: 5,
       guests_freq: 5,
-      hobbies: 20,
+      hobbies: 0,
       diet: 5,
       personality: 10
     }
@@ -148,10 +148,10 @@ module.exports = (knex) => {
     }
     let scores = [];
     let finalScore = 0;
-
+    console.log("Comparing:", user1, user2);
     //Calculate weighted score for attributes that should match 1:1
     function _score1To1(user1, user2, attrName){
-      if(user1[attrName] === user2[attrName]){
+      if(String(user1[attrName]).toLowerCase() === String(user2[attrName]).toLowerCase()){
         scores.push(1 * weight[attrName]);
       }
       else {
@@ -237,7 +237,7 @@ module.exports = (knex) => {
     //console.log("Matching scores:", scores);
     //console.log("max scores:", maxScore);
 
-    return (finalScore / maxScore);
+    return Math.round((finalScore / maxScore) * 100) / 100;
   }
 
 
