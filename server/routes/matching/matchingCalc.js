@@ -108,6 +108,6 @@ module.exports = {
     //console.log("Matching scores:", scores);
     //console.log("max scores:", maxScore);
 
-    return Math.round((finalScore / maxScore) * 100) / 100;
+    return Math.round((finalScore / maxScore) * 100);
   }
 };

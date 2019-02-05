@@ -343,8 +343,8 @@ class SimpleMap extends Component {
     e.preventDefault();
 
     const query = {
-      neighbourhood: this.state.neighbourhood.toLowerCase(),
-      buildingType: this.state.buildingType.toLowerCase(),
+      neighbourhood: this.state.neighbourhood,
+      buildingType: this.state.buildingType,
       monthlyPriceFrom: this.state.monthlyPriceFrom,
       monthlyPriceTo: this.state.monthlyPriceTo,
       parking: this.state.parking,
