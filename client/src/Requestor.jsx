@@ -47,7 +47,7 @@ class Requestor extends React.Component {
       <div className="requests_all">
               <img src={this.props.requestor.picture_url} alt="Logo"></img>
               <div>
-                <p className="weight700">{this.props.requestor.first_name}, Matching: {this.props.matchPercent * 100}%</p>
+                <p className="weight700">{this.props.requestor.first_name}, Matching: {this.props.matchPercent}%</p>
               
                 <div>
                   <Container> 
