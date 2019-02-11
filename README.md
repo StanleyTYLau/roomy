@@ -2,6 +2,7 @@
 
 Roomy is a web application created to connect people who are looking for a room to live and for a room to rent out. The core piece of the application is people. Roomy is built in the way that people could see their matching score with potential roommates and make a decision based on that score. The matching score is based on habits, cleanliness, working/partying schedules, food preferences and personality. 
 
+Created by: [Alex Katiukha](https://github.com/Oleksandr09), [Lucy](https://github.com/LuckyLusik), [Raphael](https://github.com/Rapha321), [Stanley Lau](https://github.com/StanleyTYLau)
 
 ## Features
 
