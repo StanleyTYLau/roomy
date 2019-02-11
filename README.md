@@ -37,5 +37,5 @@ Roomy is a web application created to connect people who are looking for a room 
 
 ## Screenshots
 
-!["Roomy Demo"](https://github.com/StanleyTYLau/chatty_app/blob/master/docs/Chatty02.gif)
-!["Roomy Demo"](https://github.com/StanleyTYLau/chatty_app/blob/master/docs/Chatty02.gif)
+!["Roomy Demo"](https://github.com/StanleyTYLau/roomy/blob/master/docs/Roomy1.gif)
+!["Roomy Demo"](https://github.com/StanleyTYLau/roomy/blob/master/docs/Roomy2.gif)
